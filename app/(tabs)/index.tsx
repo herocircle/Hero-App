@@ -1,70 +1,134 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import { Box, Button, Center, HStack, Image, Input, InputField, Pressable, Text, View, VStack } from '@gluestack-ui/themed'
+import React from 'react'
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-
-export default function HomeScreen() {
+const Login = () => {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
+    <Box bg="$white" minHeight={"100%"} minWidth={'100%'} >
+      <VStack
+        w='100%'
+        mb="$8"
+      >
         <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
+          source={require('@/assets/images/HERO_Payment-Funnel 3.png')}
+          style={{ width: '100%', height: 300, backgroundColor: "#F2F2F2", objectFit:"contain" }}
+          objectFit='contain'
+          alt=""
         />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
-  );
+      </VStack>
+
+      <VStack
+        width={"80%"}
+        alignSelf='center'
+        alignItems='center' gap={16}>
+        <Text
+          alignSelf='center'
+          textAlign='center'
+          fontWeight={700}
+          fontSize={20}
+          color='$black'
+        >
+          Log in your HERO Account
+        </Text>
+
+        <Button
+          display="flex"
+          width={"100%"}
+          flexDirection="row"
+          alignItems={"center"}
+          bg="#F2F2F2"
+          h={45}
+          rounded="$xl"
+          justifyContent={"center"}
+        >
+          <Image size={'2xs'} source={require('@/assets/images/GoogleIcon.png')} mr="$1" alt="googleIcon" />
+          <Text color="#191919B2" fontSize={16} fontFamily={"Visby-Semibold"}>Login with google </Text>
+        </Button>
+
+        <HStack alignItems='center' gap={6} alignSelf='center' >
+          <Box flex={1} h={1} bg='$black' />
+          <Text>OR</Text>
+          <Box flex={1} h={1} bg='$black' />
+        </HStack>
+        <VStack w='100%' gap={15} mb='$2'>
+
+          <VStack gap={5}>
+            <Text
+              fontWeight={700}
+              fontSize={18}
+            >Email</Text>
+            <Input
+              variant="outline"
+              h={45}
+              w='100%'
+              rounded="$xl"
+              borderColor='#A4A3A8'
+            >
+              <InputField placeholder="Enter Text here" />
+            </Input>
+          </VStack>
+          <VStack gap={5}>
+            <Text
+              fontWeight={700}
+              fontSize={18}
+            >Password</Text>
+            <Input
+              variant="outline"
+              h={45}
+              w='100%'
+              rounded="$xl"
+              borderColor='#A4A3A8'
+            >
+              <InputField placeholder="Enter Text here" />
+            </Input>
+          </VStack>
+        </VStack>
+
+        <Pressable mb='$2'>
+          <Text
+            fontWeight={700}
+            fontSize={14}
+            color="$black"
+          >
+            Forgot my password
+          </Text>
+        </Pressable>
+
+        <Button
+          width={"100%"}
+          alignSelf='center'
+          h={45}
+          rounded="$xl"
+          backgroundColor="#0202CC"
+        >
+          <Text
+            fontWeight={600}
+            color="white">
+            Log In
+          </Text>
+        </Button>
+
+        <HStack
+          mt="$2"
+          gap={4} alignItems='center'>
+
+          <Text
+            fontSize={14}
+            color="$black"
+          >
+            Dont't have an account yet?
+
+          </Text>
+          <Text
+            fontWeight={600}
+            fontSize={14}
+            color="#0202CC"
+          >
+            Subscribe Here
+          </Text>
+        </HStack>
+      </VStack>
+    </Box>
+  )
 }
 
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
+export default Login
