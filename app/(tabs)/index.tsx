@@ -1,4 +1,4 @@
-import { Box, Button, Center, HStack, Image, Input, InputField, Pressable, Text, View, VStack } from '@gluestack-ui/themed'
+import { Box, Button, HStack, Image, Input, InputField, Pressable, Text, View, VStack } from '@gluestack-ui/themed'
 import React from 'react'
 
 const Login = () => {
@@ -10,7 +10,7 @@ const Login = () => {
       >
         <Image
           source={require('@/assets/images/HERO_Payment-Funnel 3.png')}
-          style={{ width: '100%', height: 300, backgroundColor: "#F2F2F2", objectFit:"contain" }}
+          style={{ width: '100%', height: 300, backgroundColor: "#F2F2F2", objectFit: "contain" }}
           objectFit='contain'
           alt=""
         />
