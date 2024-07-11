@@ -9,17 +9,18 @@ import Carousel from "react-native-reanimated-carousel";
 import SBImageItem from "./SBImageItem";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { FC } from "react";
+import { useNavigation } from "expo-router";
 
 const { width: PAGE_WIDTH } = Dimensions.get("window");
 
 type props = {
     AllCircles: any,
-    navigation: any
+
 }
 
-function CirclesCarousel({ AllCircles, navigation }: props) {
+function CirclesCarousel({ AllCircles }: props) {
 
-
+    const navigation = useNavigation()
     const isAndroid = Platform.OS !== "ios"
 
 

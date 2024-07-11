@@ -1,7 +1,11 @@
 import { Box, Button, HStack, Image, Input, InputField, Pressable, Text, View, VStack } from '@gluestack-ui/themed'
+import { useNavigation } from 'expo-router'
 import React from 'react'
 
 const Login = () => {
+
+  const navigation = useNavigation()
+  
   return (
     <Box bg="$white" minHeight={"100%"} minWidth={'100%'} >
       <VStack
@@ -96,6 +100,7 @@ const Login = () => {
         <Button
           width={"100%"}
           alignSelf='center'
+          onPress={() => navigation.navigate('home' as string)}
           h={45}
           rounded="$xl"
           backgroundColor="#0202CC"

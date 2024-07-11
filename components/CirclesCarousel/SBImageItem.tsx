@@ -38,20 +38,10 @@ function SBImageItem({ item, navigation }: props) {
                     source={{ uri: item?.imageUrl || `https://picsum.photos/id/24/400/300` }} />
 
                 <Box w='100%' rounded={"$lg"} h='100%' bg="#1A2433" opacity={40} position={"absolute"} />
-
-                <VStack position={"absolute"} top={5} mb="$3" right={5} >
-                    <Text fontFamily={"Visby-Bold"} textTransform={"capitalize"} color="white" fontSize={14} >
-                        {formatDistanceToNow(new Date(item?.createdAt))} ago
-                    </Text>
-                </VStack>
                 <HStack p="$3" position={"absolute"} w='100%' justifyContent={"space-between"} bottom={0} alignItems={"flex-end"} >
                     <Text fontFamily={"Visby-Bold"} color="white" fontSize={20} maxWidth='75%' >
                         {item?.title}
                     </Text>
-                    <HStack gap={3} w='25%' justifyContent={"flex-end"} alignSelf={"flex-end"}  >
-                        {item?.likes?.length !== 0 && <Text fontFamily={"Visby-Bold"} fontSize={18} color="#fff">{item?.likes?.length} <AntDesign name="like1" size={20} /></Text>}
-                        {item?.comments?.length !== 0 && <Text fontFamily={"Visby-Bold"} fontSize={18} color="#fff" >{item?.comments?.length} <MaterialCommunityIcons name="comment" size={20} /></Text>}
-                    </HStack>
                 </HStack>
             </Box>
         </Pressable>

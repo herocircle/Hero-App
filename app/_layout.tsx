@@ -41,14 +41,20 @@ export default function RootLayout() {
         maxWidth: 650,
         alignSelf: "center",
       }} >
-        <Stack  >
+        <Stack
+          initialRouteName='home'
+        >
+          <Stack.Screen name="home"
+            options={{
+              headerShown: false,
+            }}
+          />
           <Stack.Screen name="(tabs)"
             options={{
               headerShown: false,
-
             }}
           />
-          <Stack.Screen name="+not-found" />
+
         </Stack>
       </Box>
     </GluestackUIProvider>
