@@ -56,7 +56,6 @@ const home = ({ navigation }: any) => {
       </VStack>
 
       <CirclesCarousel
-        navigation={navigation}
         AllCircles={[
           {
             title: "TEST",
