@@ -35,6 +35,7 @@ function CirclesCarousel({ AllCircles }: props) {
         <View
             style={{
                 alignItems: "center",
+                width: "100%"
             }}
         >
             {!isAndroid ?
@@ -152,7 +153,7 @@ export const PaginationItem: FC<{
                 borderRadius: 50,
                 overflow: "hidden",
                 borderWidth: 1,
-                borderColor: "#009EB5",
+                borderColor: "#0202CC",
                 marginHorizontal: 2
             }}
         >
@@ -160,7 +161,7 @@ export const PaginationItem: FC<{
                 style={[
                     {
                         borderRadius: 50,
-                        backgroundColor: "#009EB5",
+                        backgroundColor: "#0202CC",
                         flex: 1,
                     },
                     animStyle,
