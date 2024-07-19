@@ -16,153 +16,6 @@ const home = () => {
       >
 
 
-        <VStack gap={'$12'} bg="#E5EEFF" py="$6" px="$4" >
-          <Text fontWeight={"$bold"} fontSize={22} color="$black">
-            Join <Text color="#0202CC" fontWeight={"$bold"} fontSize={22} >1000+</Text> Global Supporters and get exclusive access to:
-          </Text>
-
-          <VStack gap={'$5'} mt={-20} mb="$2">
-
-            <HStack alignItems='center' gap={6}>
-              <AntDesign name="checkcircle" size={24} color="#0202CC" />
-              <Text color="$black">
-                Updates from <Text color="$black" fontWeight={"$bold"}>frontlines</Text> of advocacy and climate news in our bi-monthly newsletter.
-              </Text>
-            </HStack>
-
-            <HStack alignItems='center' gap={6}>
-              <AntDesign name="checkcircle" size={24} color="#0202CC" />
-              <Text color="$black">
-                Insightful <Text color="$black" fontWeight={"$bold"}>opinion articles</Text> from climate mobilizers and experts in your inbox.
-              </Text>
-            </HStack>
-
-            <HStack alignItems='center' gap={6}>
-              <AntDesign name="checkcircle" size={24} color="#0202CC" />
-              <Text color="$black">
-                Invitations to HERO <Text color="$black" fontWeight={"$bold"}>Events</Text> with mobilizers, experts, and innovators.
-              </Text>
-            </HStack>
-          </VStack>
-
-
-          <Text textAlign='center' fontWeight={"$extrabold"} color="$black" fontSize={22} >
-            Choose your HERO subscription
-          </Text>
-
-
-          <ButtonGroup bg="$white" borderRadius={"$2xl"} alignSelf='center' mt={-20}>
-            <Button
-              bg={isMonthly ? "#0202CC" : "$white"}
-              onPress={() => setIsMonthly(true)}
-              w={150}
-              borderRightWidth="$0"
-              borderRadius={"$2xl"}
-            >
-              <ButtonText color={!isMonthly ? "#0202CC" : "$white"}>
-                Pay Monthly
-              </ButtonText>
-            </Button>
-            <VStack>
-
-              <Button
-                position='relative'
-                bg={!isMonthly ? "#0202CC" : "$white"}
-                onPress={() => setIsMonthly(false)}
-                borderRadius={"$2xl"}
-                w={150}
-              >
-                <ButtonText color={isMonthly ? "#0202CC" : "$white"}>
-                  Pay Anunually
-                </ButtonText>
-              </Button>
-              <Text position='absolute' bottom={-20} alignSelf='center' fontSize={14} color="#0202CC" >
-                Save up to 30%
-              </Text>
-            </VStack>
-          </ButtonGroup>
-
-
-          <HStack>
-
-
-
-            <RadioGroup value={values} onChange={setValues}        >
-              <HStack space="sm" w='100%' alignItems='center' justifyContent='space-between' >
-                <VStack gap={5} alignSelf='center' alignItems='center' >
-                  <AntDesign name="checkcircle" size={45} color="#0202CC" />
-                  <Text fontWeight={"$semibold"} fontSize={20} color="$black" >
-                    $6
-                  </Text>
-                  <Radio value="Eng">
-                    <RadioIndicator mr="$2">
-                      <RadioIcon as={CircleIcon} />
-                    </RadioIndicator>
-                    <RadioLabel fontSize={18} color="$black">Starter</RadioLabel>
-                  </Radio>
-                </VStack>
-
-                <VStack gap={5} alignSelf='center' alignItems='center' >
-                  <AntDesign name="checkcircle" size={45} color="#0202CC" />
-                  <Text fontWeight={"$semibold"} fontSize={20} color="$black" >
-                    $20
-                  </Text>
-                  <Radio value="Eng">
-                    <RadioIndicator mr="$2">
-                      <RadioIcon as={CircleIcon} />
-                    </RadioIndicator>
-                    <RadioLabel fontSize={18} color="$black">Advocate</RadioLabel>
-                  </Radio>
-                </VStack>
-
-                <VStack gap={5} alignSelf='center' alignItems='center' >
-                  <AntDesign name="checkcircle" size={45} color="#0202CC" />
-                  <Text fontWeight={"$semibold"} fontSize={20} color="$black" >
-                    $50
-                  </Text>
-                  <Radio value="Eng">
-                    <RadioIndicator mr="$2">
-                      <RadioIcon as={CircleIcon} />
-                    </RadioIndicator>
-                    <RadioLabel fontSize={18} color="$black">Changer</RadioLabel>
-                  </Radio>
-                </VStack>
-              </HStack>
-            </RadioGroup>
-
-
-
-          </HStack>
-
-
-          <Input
-            bg="#D9D9D9"
-            h="$12"
-            rounded="$2xl"
-          >
-            <InputField
-              placeholderTextColor={"$black"}
-              placeholder="Enter a custom amount"
-            />
-          </Input>
-
-          <Button
-            width={"100%"}
-            alignSelf='center'
-            h={'$12'}
-            mt={-10}
-            rounded="$3xl"
-            backgroundColor="#0202CC"
-          >
-            <Text
-              fontWeight={600}
-              color="white">
-              Proceed to payment
-            </Text>
-          </Button>
-
-
-        </VStack>
 
 
 
@@ -313,6 +166,153 @@ const home = () => {
 
 
 
+        <VStack gap={'$12'} bg="#E5EEFF" py="$6" px="$4" >
+          <Text fontWeight={"$bold"} fontSize={22} color="$black">
+            Join <Text color="#0202CC" fontWeight={"$bold"} fontSize={22} >1000+</Text> Global Supporters and get exclusive access to:
+          </Text>
+
+          <VStack gap={'$5'} mt={-20} mb="$2">
+
+            <HStack alignItems='center' gap={6}>
+              <AntDesign name="checkcircle" size={24} color="#0202CC" />
+              <Text color="$black">
+                Updates from <Text color="$black" fontWeight={"$bold"}>frontlines</Text> of advocacy and climate news in our bi-monthly newsletter.
+              </Text>
+            </HStack>
+
+            <HStack alignItems='center' gap={6}>
+              <AntDesign name="checkcircle" size={24} color="#0202CC" />
+              <Text color="$black">
+                Insightful <Text color="$black" fontWeight={"$bold"}>opinion articles</Text> from climate mobilizers and experts in your inbox.
+              </Text>
+            </HStack>
+
+            <HStack alignItems='center' gap={6}>
+              <AntDesign name="checkcircle" size={24} color="#0202CC" />
+              <Text color="$black">
+                Invitations to HERO <Text color="$black" fontWeight={"$bold"}>Events</Text> with mobilizers, experts, and innovators.
+              </Text>
+            </HStack>
+          </VStack>
+
+
+          <Text textAlign='center' fontWeight={"$extrabold"} color="$black" fontSize={22} >
+            Choose your HERO subscription
+          </Text>
+
+
+          <ButtonGroup bg="$white" borderRadius={"$2xl"} alignSelf='center' mt={-20}>
+            <Button
+              bg={isMonthly ? "#0202CC" : "$white"}
+              onPress={() => setIsMonthly(true)}
+              w={150}
+              borderRightWidth="$0"
+              borderRadius={"$2xl"}
+            >
+              <ButtonText color={!isMonthly ? "#0202CC" : "$white"}>
+                Pay Monthly
+              </ButtonText>
+            </Button>
+            <VStack>
+
+              <Button
+                position='relative'
+                bg={!isMonthly ? "#0202CC" : "$white"}
+                onPress={() => setIsMonthly(false)}
+                borderRadius={"$2xl"}
+                w={150}
+              >
+                <ButtonText color={isMonthly ? "#0202CC" : "$white"}>
+                  Pay Anunually
+                </ButtonText>
+              </Button>
+              <Text position='absolute' bottom={-20} alignSelf='center' fontSize={14} color="#0202CC" >
+                Save up to 30%
+              </Text>
+            </VStack>
+          </ButtonGroup>
+
+
+          <HStack>
+
+
+
+            <RadioGroup value={values} onChange={setValues}        >
+              <HStack space="sm" w='100%' alignItems='center' justifyContent='space-between' >
+                <VStack gap={5} alignSelf='center' alignItems='center' >
+                  <AntDesign name="checkcircle" size={45} color="#0202CC" />
+                  <Text fontWeight={"$semibold"} fontSize={20} color="$black" >
+                    $6
+                  </Text>
+                  <Radio value="Eng">
+                    <RadioIndicator mr="$2">
+                      <RadioIcon as={CircleIcon} />
+                    </RadioIndicator>
+                    <RadioLabel fontSize={18} color="$black">Starter</RadioLabel>
+                  </Radio>
+                </VStack>
+
+                <VStack gap={5} alignSelf='center' alignItems='center' >
+                  <AntDesign name="checkcircle" size={45} color="#0202CC" />
+                  <Text fontWeight={"$semibold"} fontSize={20} color="$black" >
+                    $20
+                  </Text>
+                  <Radio value="Eng">
+                    <RadioIndicator mr="$2">
+                      <RadioIcon as={CircleIcon} />
+                    </RadioIndicator>
+                    <RadioLabel fontSize={18} color="$black">Advocate</RadioLabel>
+                  </Radio>
+                </VStack>
+
+                <VStack gap={5} alignSelf='center' alignItems='center' >
+                  <AntDesign name="checkcircle" size={45} color="#0202CC" />
+                  <Text fontWeight={"$semibold"} fontSize={20} color="$black" >
+                    $50
+                  </Text>
+                  <Radio value="Eng">
+                    <RadioIndicator mr="$2">
+                      <RadioIcon as={CircleIcon} />
+                    </RadioIndicator>
+                    <RadioLabel fontSize={18} color="$black">Changer</RadioLabel>
+                  </Radio>
+                </VStack>
+              </HStack>
+            </RadioGroup>
+
+
+
+          </HStack>
+
+
+          <Input
+            bg="#D9D9D9"
+            h="$12"
+            rounded="$2xl"
+          >
+            <InputField
+              placeholderTextColor={"$black"}
+              placeholder="Enter a custom amount"
+            />
+          </Input>
+
+          <Button
+            width={"100%"}
+            alignSelf='center'
+            h={'$12'}
+            mt={-10}
+            rounded="$3xl"
+            backgroundColor="#0202CC"
+          >
+            <Text
+              fontWeight={600}
+              color="white">
+              Proceed to payment
+            </Text>
+          </Button>
+
+
+        </VStack>
 
       </ScrollView >
     </View >
