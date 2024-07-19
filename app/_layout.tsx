@@ -34,7 +34,7 @@ export default function RootLayout() {
       <Box style={{
         paddingTop: isAndroid ? 10 : 70,
         paddingBottom: 0,
-        backgroundColor: "#F2F2F2",
+        backgroundColor: "#fff",
         width: "100%",
         position: "relative",
         height: "100%",
