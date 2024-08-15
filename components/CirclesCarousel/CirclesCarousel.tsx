@@ -9,7 +9,7 @@ import Carousel from "react-native-reanimated-carousel";
 import SBImageItem from "./SBImageItem";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { FC } from "react";
-import { useNavigation } from "expo-router";
+import { useNavigation } from "@react-navigation/native";
 
 const { width: PAGE_WIDTH } = Dimensions.get("window");
 

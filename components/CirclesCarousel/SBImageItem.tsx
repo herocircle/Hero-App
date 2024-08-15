@@ -1,8 +1,5 @@
-import { VStack, Text, Pressable, HStack, Box } from '@gluestack-ui/themed'
+import { Text, Pressable, HStack, Box } from '@gluestack-ui/themed'
 import React from "react";
-import AntDesign from '@expo/vector-icons/AntDesign'
-import MaterialCommunityIcons from "@expo/vector-icons//MaterialCommunityIcons"
-import { formatDistanceToNow } from 'date-fns'
 import { Platform } from "react-native"
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
