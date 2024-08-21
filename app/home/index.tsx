@@ -11,9 +11,9 @@ const Home = () => {
   const [values, setValues] = React.useState("6")
 
   return (
-    <View w='100%' bg="$white" pt="$4" >
+    <View w='100%' bg="$white"  >
       <ScrollView
-        contentContainerStyle={{ flexGrow: 1, }}
+        contentContainerStyle={{ flexGrow: 1, paddingTop:30}}
       >
 
 
