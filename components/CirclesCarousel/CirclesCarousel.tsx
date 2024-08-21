@@ -27,9 +27,8 @@ function CirclesCarousel({ AllCircles }: props) {
     const progressValue = useSharedValue<number>(0);
     const baseOptions = ({
         width: PAGE_WIDTH,
-        height: PAGE_WIDTH * 0.6,
+        height: PAGE_WIDTH * 0.75,
     } as const);
-
 
     return (
         <View
