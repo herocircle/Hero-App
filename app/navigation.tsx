@@ -9,8 +9,9 @@ import {
     BottomSheetModalProvider,
 } from '@gorhom/bottom-sheet';
 import { Platform, SafeAreaView } from 'react-native';
-import Login from './home';
+import Login from './Login';
 import home from './Login';
+import Register from './Register';
 
 const Stack = createNativeStackNavigator();
 SplashScreennn.preventAutoHideAsync();
@@ -20,6 +21,7 @@ function AuthStack() {
         <Stack.Navigator initialRouteName={"Login"} screenOptions={{ animation: "fade" }} >
             <Stack.Screen options={{ headerShown: false, animation: "fade" }} name="Login" component={Login} />
             <Stack.Screen options={{ headerShown: false, animation: "fade" }} name="Home" component={home} />
+            <Stack.Screen options={{ headerShown: false, animation: "fade" }} name="Register" component={Register} />
         </Stack.Navigator>
     );
 }

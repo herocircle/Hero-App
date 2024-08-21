@@ -5396,10 +5396,10 @@ expo-web-browser@~13.0.3:
   resolved "https://registry.yarnpkg.com/expo-web-browser/-/expo-web-browser-13.0.3.tgz#dceb05dbc187b498ca937b02adf385b0232a4e92"
   integrity sha512-HXb7y82ApVJtqk8tManyudtTrCtx8xcUnVzmJECeHCB0SsWSQ+penVLZxJkcyATWoJOsFMnfVSVdrTcpKKGszQ==
 
-expo@~51.0.28:
-  version "51.0.28"
-  resolved "https://registry.yarnpkg.com/expo/-/expo-51.0.28.tgz#d60cbe6803e29f0c09ba3681462f91e13bc849ef"
-  integrity sha512-R+0tSV0Zf5R+DxN4W3mLFlVvYVpiJ+dtYrMmBedIRw0A54we50QRM1jS0Gq2Bdzg2JtainSEApdQXUC6r9j/BA==
+expo@^51.0.29:
+  version "51.0.29"
+  resolved "https://registry.yarnpkg.com/expo/-/expo-51.0.29.tgz#333d27bc1976353b48b8ecd636c0b3f171fe0585"
+  integrity sha512-bW8JR3RAw5hQhEGbwDqO3UxtjEq8noCYfqQ9v3aUfdtCoWtAp4jwB+xtwfDZPvRh1b8ebSJ/WI2jK/RljZw3mA==
   dependencies:
     "@babel/runtime" "^7.20.0"
     "@expo/cli" "0.18.29"
