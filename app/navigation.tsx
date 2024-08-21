@@ -8,12 +8,14 @@ import * as SplashScreennn from 'expo-splash-screen';
 import {
     BottomSheetModalProvider,
 } from '@gorhom/bottom-sheet';
-import { Platform, SafeAreaView } from 'react-native';
+import { Image, Platform, SafeAreaView } from 'react-native';
 import Home from './Home';
 import Login from './Login';
 import { useFonts } from 'expo-font';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-
+import HeroBlueIcon from '../assets/images/HERO Icon blue.svg';
+import { HStack, Pressable } from '@gluestack-ui/themed';
+import { Ionicons } from '@expo/vector-icons';
 
 const Stack = createNativeStackNavigator();
 SplashScreennn.preventAutoHideAsync();
@@ -76,7 +78,20 @@ export default function Navigation() {
                     }} >
                         <Drawer.Navigator
                             screenOptions={{
-                                headerShown: false,
+                                headerLeft: () => (
+                                    <Image source={require('@/assets/images/newLogo.png')} style={{ width: 150, height: 50, objectFit: "contain" }} />
+                                ),
+                                headerRight: () => (
+                                    <Pressable
+                                        onPress={() => console.log('pressed')}
+                                    >
+                                        <Ionicons name='menu' size={30} color='black' style={{ marginRight: 15, }} />
+                                    </Pressable>
+                                ),
+                                title: "",
+                                headerStyle: {
+                                    height: 60
+                                }
                             }}
                             initialRouteName="Login">
                             <Drawer.Screen name="Login" component={Login} />
