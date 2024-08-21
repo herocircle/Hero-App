@@ -4,7 +4,9 @@ import { InputField } from '@gluestack-ui/themed'
 import { Box, Button, HStack, Text, View, VStack, Image, ButtonGroup, ButtonText, RadioGroup, Radio, RadioIcon, RadioIndicator, CircleIcon, RadioLabel, Input } from '@gluestack-ui/themed'
 import React from 'react'
 import { ScrollView } from 'react-native'
-import SubscribeBlock from '../SubscribeBlock'
+import SubscribeBlock from '../../components/SubscribeBlock'
+import SupportComponent from '@/components/Support_metter'
+import SubscriptionBreakdown from '@/components/SubscriptionBreakdown'
 
 const Home = () => {
   const [isMonthly, setIsMonthly] = React.useState(true)
@@ -163,6 +165,8 @@ const Home = () => {
 
 
        <SubscribeBlock/>
+       <SupportComponent/>
+       <SubscriptionBreakdown/>
       </ScrollView >
     </View >
   )
