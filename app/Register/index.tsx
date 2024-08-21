@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Button, HStack, Image, Input, InputField, Pressable, Text, VStack } from '@gluestack-ui/themed';
+import { Box, Button, HStack, Image, Input, InputField, Text, VStack } from '@gluestack-ui/themed';
 import { ScrollView } from 'react-native-gesture-handler';
 
 const Register = ({ navigation }: any) => {
@@ -20,9 +20,9 @@ const Register = ({ navigation }: any) => {
   };
 
   return (
-    <Box bg="$white" minHeight="100%" minWidth="100%">
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <VStack w="100%" mb="$8">
+    <Box bg="$white" flex={1} px={4} py={6}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled">
+        <VStack w="100%" mb={4} alignItems="center">
           <Image
             source={require('@/assets/images/HERO_Payment-Funnel 3.png')}
             style={{ width: '100%', height: 300, backgroundColor: '#F2F2F2' }}
@@ -31,7 +31,7 @@ const Register = ({ navigation }: any) => {
           />
         </VStack>
 
-        <VStack width="80%" alignSelf="center" alignItems="center" gap={16}>
+        <VStack width="100%" alignItems="center" gap={4} px={4}>
           <Text alignSelf="center" textAlign="center" fontWeight={700} fontSize={20} color="$black">
             Create your HERO Account
           </Text>
@@ -45,6 +45,7 @@ const Register = ({ navigation }: any) => {
             h={45}
             rounded="$xl"
             justifyContent="center"
+            mb={4}
           >
             <Image size="2xs" source={require('@/assets/images/GoogleIcon.png')} mr="$1" alt="Google Icon" />
             <Text color="#191919B2" fontSize={16} fontFamily="Visby-Semibold">
@@ -52,19 +53,19 @@ const Register = ({ navigation }: any) => {
             </Text>
           </Button>
 
-          <HStack alignItems="center" gap={6} alignSelf="center">
+          <HStack alignItems="center" gap={6} mb={4}>
             <Box flex={1} h={1} bg="$black" />
             <Text>OR</Text>
             <Box flex={1} h={1} bg="$black" />
           </HStack>
 
           {error ? (
-            <Text color="red" fontWeight={700} mb="$4">
+            <Text color="red" fontWeight={700} mb={4}>
               {error}
             </Text>
           ) : null}
 
-          <VStack w="100%" gap={15} mb="$2">
+<VStack w="100%" gap={15} mb="$2">
             <VStack gap={5}>
               <Text fontWeight={700} fontSize={18}>
                 First Name
@@ -140,13 +141,18 @@ const Register = ({ navigation }: any) => {
             </VStack>
           </VStack>
 
-          <Button width="100%" alignSelf="center" onPress={handleRegister} h={45} rounded="$xl" backgroundColor="#0202CC">
+          <Text textAlign="center" fontSize={12} color="#191919B2" mb={4}>
+            By signing up, you are creating a HERO account and agree to HERO’s{' '}
+            <Text color="#0202CC">Terms and Conditions</Text> and <Text color="#0202CC">Privacy Policy</Text>
+          </Text>
+
+          <Button width="100%" onPress={handleRegister} h={45} rounded="$xl" backgroundColor="#0202CC">
             <Text fontWeight={600} color="white">
-              Register
+              Join HERO
             </Text>
           </Button>
 
-          <HStack mt="$2" gap={4} alignItems="center">
+          <HStack mt={4} gap={4} alignItems="center">
             <Text fontSize={14} color="$black">
               Already have an account?
             </Text>
@@ -154,6 +160,25 @@ const Register = ({ navigation }: any) => {
               Log in here
             </Text>
           </HStack>
+
+          <HStack justifyContent="center" alignItems="center" mt={4}>
+          <VStack alignItems="center">
+          <HStack gap={0} alignItems="center">
+            <Box h={8} w={8} borderWidth={2} borderColor="#0202CC" rounded="$full" justifyContent="center" alignItems="center">
+              <Text color="#0202CC" fontWeight="bold" fontSize={12}>1</Text>
+            </Box>
+            <Box h={1} w={40} bg="#D9D9D9" />
+            <Box h={8} w={8} borderWidth={2} borderColor="#D9D9D9" rounded="$full" justifyContent="center" alignItems="center">
+              <Text color="#D9D9D9" fontWeight="bold" fontSize={12}>2</Text>
+            </Box>
+          </HStack>
+          <HStack mt={1} gap={32} alignItems="center">
+            <Text fontSize={12} color="#0202CC">Account Creation</Text>
+            <Text fontSize={12} color="#D9D9D9">Payment</Text>
+          </HStack>
+        </VStack>
+      </HStack>
+
         </VStack>
       </ScrollView>
     </Box>

@@ -10,18 +10,19 @@ const Home = () => {
   const [values, setValues] = React.useState("6")
 
   return (
-    <Box bg="$white" minHeight={"100%"} minWidth={'100%'} >
-      <VStack
-        w='100%'
-        mb="$8"
+    <View w='100%' bg="$white" >
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1, paddingBottom: 60 }}
       >
-        <Image
-          source={require('@/assets/images/HERO_Payment-Funnel 3.png')}
-          style={{ width: '100%', height: 300, backgroundColor: "#F2F2F2", objectFit: "contain" }}
-          objectFit='contain'
-          alt=""
-        />
-      </VStack>
+
+
+        <VStack w='100%' gap={20} px="$4">
+          <Image
+            source={require('@/assets/images/heroImage.png')}
+            style={{ width: '100%', height: 300, objectFit: "contain" }}
+            objectFit='contain'
+            alt=""
+          />
 
           <Text
             fontWeight={700}
@@ -305,27 +306,11 @@ const Home = () => {
             </Text>
           </Button>
 
-        <HStack
-          mt="$2"
-          gap={4} alignItems='center'>
 
-          <Text
-            fontSize={14}
-            color="$black"
-          >
-            Dont't have an account yet?
+        </VStack>
 
-          </Text>
-          <Text
-            fontWeight={600}
-            fontSize={14}
-            color="#0202CC"
-          >
-            Subscribe Here
-          </Text>
-        </HStack>
-      </VStack>
-    </Box>
+      </ScrollView >
+    </View >
   )
 }
 
