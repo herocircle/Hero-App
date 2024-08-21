@@ -9,8 +9,11 @@ import {
     BottomSheetModalProvider,
 } from '@gorhom/bottom-sheet';
 import { Platform, SafeAreaView } from 'react-native';
-import Login from './home';
-import home from './Login';
+import Home from './Home';
+import Login from './Login';
+import { useFonts } from 'expo-font';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+
 
 const Stack = createNativeStackNavigator();
 SplashScreennn.preventAutoHideAsync();
@@ -19,7 +22,7 @@ function AuthStack() {
     return (
         <Stack.Navigator initialRouteName={"Login"} screenOptions={{ animation: "fade" }} >
             <Stack.Screen options={{ headerShown: false, animation: "fade" }} name="Login" component={Login} />
-            <Stack.Screen options={{ headerShown: false, animation: "fade" }} name="Home" component={home} />
+            <Stack.Screen options={{ headerShown: false, animation: "fade" }} name="Home" component={Home} />
         </Stack.Navigator>
     );
 }
@@ -30,15 +33,19 @@ export default function Navigation() {
     const queryClient = useQueryClient()
     const netInfo = useNetInfo();
 
-
-
+    const [fontsLoaded] = useFonts({
+        'nova': require('../assets/fonts/ProximaNovaReg.otf'),
+        'nova400': require("../assets/fonts/ProximaNovaSemibold.otf"),
+        'nova600': require("../assets/fonts/ProximaNovaBold.otf"),
+        'nova800': require("../assets/fonts/ProximaNovaExtrabold.otf"),
+    });
 
     const onLayoutRootView = async () => {
-        await SplashScreennn.hideAsync();
+        if (fontsLoaded) {
+            await SplashScreennn.hideAsync();
+        }
     }
-
-    useEffect(() => { onLayoutRootView() }, [])
-
+    useEffect(() => { onLayoutRootView() }, [fontsLoaded])
 
     React.useEffect(() => {
         const subscription = Notifications.addNotificationReceivedListener(async () => {
@@ -50,6 +57,7 @@ export default function Navigation() {
     }, []);
     const isAndroid = Platform.OS === 'android';
 
+    const Drawer = createDrawerNavigator();
 
     return (
         <>
@@ -66,7 +74,14 @@ export default function Navigation() {
                         maxWidth: 650,
                         alignSelf: "center"
                     }} >
-                        <AuthStack />
+                        <Drawer.Navigator
+                            screenOptions={{
+                                headerShown: false,
+                            }}
+                            initialRouteName="Login">
+                            <Drawer.Screen name="Login" component={Login} />
+                            <Drawer.Screen name="Home" component={Home} />
+                        </Drawer.Navigator>
                     </SafeAreaView>
                 </BottomSheetModalProvider>
             </NavigationContainer>
