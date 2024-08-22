@@ -13,14 +13,15 @@ const Login = ({ navigation }: any) => {
   };
 
   const handleLogin = () => {
-    console.log({ email, password });
+    navigation.navigate('Home');
+    
     if (!email || !password) {
       setError('Please fill in both fields');
       return;
     }
     if (email === testCredentials.email && password === testCredentials.password) {
-      navigation.navigate('Home');
       console.log("ok");
+      navigation.navigate('Home');
       // TO DO : link the login API 
     } else {
       setError('Invalid email or password');
@@ -29,12 +30,11 @@ const Login = ({ navigation }: any) => {
 
   return (
     <Box bg="$white" flex={1}>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled">
-        <VStack w="100%" mb="$8" flex={1}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1, paddingBottom: 60 }} keyboardShouldPersistTaps="handled">
+        <VStack w="100%" bg="#F2F2F2" mb="$8" maxHeight={400} overflow='hidden' flex={1}>
           <Image
             source={require('@/assets/images/HERO_Payment-Funnel 3.png')}
-            style={{ width: '100%', height: 300, backgroundColor: '#F2F2F2' }}
-            objectFit="contain"
+            style={{ width: '100%', objectFit: "contain", height: 450, backgroundColor: '#F2F2F2' }}
             alt="Hero Image"
           />
         </VStack>
@@ -66,49 +66,44 @@ const Login = ({ navigation }: any) => {
             <Box flex={1} h={1} bg="$black" />
           </HStack>
 
-          {error ? (
-            <Text color="red" fontWeight={700} mb="$4">
-              {error}
-            </Text>
-          ) : null}
 
-<VStack w="100%" gap={15} mb="$2">
+          <VStack w="100%" gap={15} mb="$2">
             <VStack gap={5}>
               <Text fontWeight={700} fontSize={18}>
                 Email
               </Text>
-           <Input
-            variant="outline"
-            h={45}
-            w="100%"
-            rounded="$xl"
-            borderColor='#A4A3A8'
-          >
-            <InputField 
-              placeholder="Enter your email" 
-              value={email} 
-              onChangeText={(text) => setEmail(text)} 
-            />
-          </Input>
+              <Input
+                variant="outline"
+                h={45}
+                w="100%"
+                rounded="$xl"
+                borderColor='#A4A3A8'
+              >
+                <InputField
+                  placeholder="Enter your email"
+                  value={email}
+                  onChangeText={(text) => setEmail(text)}
+                />
+              </Input>
             </VStack>
             <VStack gap={5}>
               <Text fontWeight={700} fontSize={18}>
                 Password
               </Text>
               <Input
-              variant="outline"
-              h={45}
-              w="100%"
-              rounded="$xl"
-              borderColor='#A4A3A8'
-            >
-              <InputField 
-                placeholder="Enter your password" 
-                value={password} 
-                onChangeText={(text) => setPassword(text)} 
-                secureTextEntry 
-              />
-            </Input>
+                variant="outline"
+                h={45}
+                w="100%"
+                rounded="$xl"
+                borderColor='#A4A3A8'
+              >
+                <InputField
+                  placeholder="Enter your password"
+                  value={password}
+                  onChangeText={(text) => setPassword(text)}
+                  secureTextEntry
+                />
+              </Input>
             </VStack>
           </VStack>
 
@@ -117,6 +112,12 @@ const Login = ({ navigation }: any) => {
               Forgot my password
             </Text>
           </Pressable>
+
+          {error ? (
+            <Text color="red" fontWeight={700} >
+              {error}
+            </Text>
+          ) : null}
 
           <Button width="100%" alignSelf="center" onPress={handleLogin} h={45} rounded="$xl" backgroundColor="#0202CC">
             <Text fontWeight={600} color="white">

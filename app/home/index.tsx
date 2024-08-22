@@ -7,13 +7,14 @@ import { ScrollView } from 'react-native'
 import SubscribeBlock from '../../components/SubscribeBlock'
 import SupportComponent from '@/components/Support_metter'
 import SubscriptionBreakdown from '@/components/SubscriptionBreakdown'
+import Footer from '@/components/footer'
 
 const Home = () => {
   const [isMonthly, setIsMonthly] = React.useState(true)
   const [values, setValues] = React.useState("6")
 
   return (
-    <View w='100%' bg="$white" >
+    <View w='100%' pt="$4" bg="$white" >
       <ScrollView
         contentContainerStyle={{ flexGrow: 1, paddingBottom: 60 }}
       >
@@ -167,6 +168,7 @@ const Home = () => {
        <SubscribeBlock/>
        <SupportComponent/>
        <SubscriptionBreakdown/>
+       <Footer />
       </ScrollView >
     </View >
   )
