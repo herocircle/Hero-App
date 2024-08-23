@@ -8,6 +8,8 @@ import SubscribeBlock from '../../components/SubscribeBlock'
 import SupportComponent from '@/components/Support_metter'
 import SubscriptionBreakdown from '@/components/SubscriptionBreakdown'
 import Footer from '@/components/footer'
+import FAQ from '@/components/FAQ'
+import OurImpact from '@/components/Impact'
 
 const Home = () => {
   const [isMonthly, setIsMonthly] = React.useState(true)
@@ -165,10 +167,12 @@ const Home = () => {
 
 
 
-       <SubscribeBlock/>
-       <SupportComponent/>
-       <SubscriptionBreakdown/>
-       <Footer />
+        <SubscribeBlock />
+        <SupportComponent />
+        <SubscriptionBreakdown />
+        <OurImpact />
+        <FAQ />
+        <Footer />
       </ScrollView >
     </View >
   )
