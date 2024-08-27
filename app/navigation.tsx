@@ -14,6 +14,7 @@ import { Ionicons } from '@expo/vector-icons';
 import Register from './Register';
 import Login from './Login';
 import Home from './Home';
+import Feeds from './Feeds';
 
 const Stack = createNativeStackNavigator();
 SplashScreen.preventAutoHideAsync();
@@ -108,6 +109,13 @@ export default function Navigation() {
                             component={Home}
                             options={{
                                 drawerLabel: 'Home',
+                            }}
+                        />
+                        <Drawer.Screen
+                            name="Feeds"
+                            component={Feeds}
+                            options={{
+                                drawerLabel: 'Feeds',
                             }}
                         />
 
