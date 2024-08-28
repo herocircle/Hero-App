@@ -13,7 +13,7 @@ import { Button, HStack, Pressable, Text } from '@gluestack-ui/themed';
 import { Ionicons } from '@expo/vector-icons';
 import Register from './Register';
 import Login from './Login';
-import Home from './Home';
+import Home from './home';
 
 const Stack = createNativeStackNavigator();
 SplashScreen.preventAutoHideAsync();

@@ -10,6 +10,7 @@ import SubscriptionBreakdown from '@/components/SubscriptionBreakdown'
 import Footer from '@/components/footer'
 import FAQ from '@/components/FAQ'
 import OurImpact from '@/components/Impact'
+import HeroPartners from '@/components/HeroPartners'
 
 const Home = () => {
   const [isMonthly, setIsMonthly] = React.useState(true)
@@ -169,6 +170,7 @@ const Home = () => {
 
         <SubscribeBlock />
         <SupportComponent />
+        <HeroPartners/>
         <SubscriptionBreakdown />
         <OurImpact />
         <FAQ />
