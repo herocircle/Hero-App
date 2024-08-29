@@ -1,22 +1,77 @@
 import React, { useState } from 'react';
 import { Box, Button, HStack, Image, Input, InputField, Text, VStack } from '@gluestack-ui/themed';
 import { ScrollView } from 'react-native-gesture-handler';
+import axios from 'axios';
+import { useMutation } from '@tanstack/react-query';
+import { useNavigation } from '@react-navigation/native';
+import { NavigationProps } from '../types';
+import { AxiosError } from 'axios';
 
-const Register = ({ navigation }: any) => {
+const API_URL = 'https://staging-api.herocircle.app'; 
+
+const Register = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
+  const navigation = useNavigation<NavigationProps>();
+ 
+  const registerMutation = useMutation({
+    mutationFn: async (userData: any) => {
+      const response = await axios.post(`${API_URL}/auth/register`, userData);
+      return response.data;
+    },
+    onSuccess: () => {
+      navigation.navigate('Home');
+    },
+    onError: (error: unknown) => {
+      if (error instanceof AxiosError) {
+        console.error('Error during registration:', error);
+    
+        if (error.response) {
+          const { data } = error.response;
+    
+          if (data.message === 'Email already exists') {
+            setError('This email is already registered. Please use a different email or log in.');
+          } else if (data.errors && data.errors.issues) {
+            console.error('Validation issues:', data.errors.issues);
+            const errorMessages = data.errors.issues.map((issue: any) => issue.message).join(', ');
+            setError(`Validation failed: ${errorMessages}`);
+          } else {
+            console.error('Error response data:', data);
+            setError('An error occurred during registration.');
+          }
+        } else if (error.request) {
+          console.error('Error request data:', error.request);
+          setError('No response received from the server.');
+        } else {
+          console.error('Error message:', error.message);
+          setError('An unexpected error occurred.');
+        }
+      } else {
+        console.error('An unexpected error occurred:', error);
+        setError('An unexpected error occurred.');
+      }
+    }
+    
+  });
+  
+
   const handleRegister = () => {
-    console.log({ firstName, lastName, email, password });
     if (!firstName || !lastName || !email || !password) {
       setError('Please fill in all fields');
       return;
     }
-    // Handle registration logic here
-    navigation.navigate('Home');
+    const userData = {
+      firstname: firstName,
+      lastname: lastName,
+      email,
+      password,
+      agreeToTOS: true, 
+    };
+    registerMutation.mutate(userData);
   };
 
   return (
@@ -79,7 +134,7 @@ const Register = ({ navigation }: any) => {
                 <InputField
                   placeholder="Enter your first name"
                   value={firstName}
-                  onChangeText={(text) => setFirstName(text)}
+                  onChangeText={(text: React.SetStateAction<string>) => setFirstName(text)}
                 />
               </Input>
             </VStack>
@@ -97,7 +152,7 @@ const Register = ({ navigation }: any) => {
                 <InputField
                   placeholder="Enter your last name"
                   value={lastName}
-                  onChangeText={(text) => setLastName(text)}
+                  onChangeText={(text: React.SetStateAction<string>) => setLastName(text)}
                 />
               </Input>
             </VStack>
@@ -115,7 +170,7 @@ const Register = ({ navigation }: any) => {
                 <InputField
                   placeholder="Enter your email"
                   value={email}
-                  onChangeText={(text) => setEmail(text)}
+                  onChangeText={(text: React.SetStateAction<string>) => setEmail(text)}
                 />
               </Input>
             </VStack>
@@ -133,7 +188,7 @@ const Register = ({ navigation }: any) => {
                 <InputField
                   placeholder="Enter your password"
                   value={password}
-                  onChangeText={(text) => setPassword(text)}
+                  onChangeText={(text: React.SetStateAction<string>) => setPassword(text)}
                   secureTextEntry
                 />
               </Input>

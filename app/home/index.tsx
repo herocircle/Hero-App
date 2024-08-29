@@ -2,7 +2,7 @@ import CirclesCarousel from '../../components/CirclesCarousel/CirclesCarousel'
 import { AntDesign } from '@expo/vector-icons'
 import { InputField } from '@gluestack-ui/themed'
 import { Box, Button, HStack, Text, View, VStack, Image, ButtonGroup, ButtonText, RadioGroup, Radio, RadioIcon, RadioIndicator, CircleIcon, RadioLabel, Input } from '@gluestack-ui/themed'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { ScrollView } from 'react-native'
 import SubscribeBlock from '../../components/SubscribeBlock'
 import SupportComponent from '@/components/Support_metter'
@@ -11,11 +11,26 @@ import Footer from '@/components/footer'
 import FAQ from '@/components/FAQ'
 import OurImpact from '@/components/Impact'
 import HeroPartners from '@/components/HeroPartners'
+import { checkAuthStatus } from '../utils/authUtils'
 
 const Home = () => {
   const [isMonthly, setIsMonthly] = React.useState(true)
   const [values, setValues] = React.useState("6")
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  useEffect(() => {
+    const checkAuth = async () => {
+      const loggedIn = await checkAuthStatus();
+      setIsLoggedIn(loggedIn);
+    };
+    checkAuth();
+  }, []);
+  const handleAuthAction = () => {
+    if (isLoggedIn) {
+      console.log('Log out functionality here');
+    } else {
+      console.log('Join HERO functionality here');
+    }
+  };
   return (
     <View w='100%' pt="$4" bg="$white" >
       <ScrollView

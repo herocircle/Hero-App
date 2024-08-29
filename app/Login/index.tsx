@@ -1,30 +1,48 @@
 import React, { useState } from 'react';
 import { Box, Button, HStack, Image, Input, InputField, Pressable, Text, VStack } from '@gluestack-ui/themed';
 import { ScrollView } from 'react-native-gesture-handler';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage'; // For local storage
 
 const Login = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const testCredentials = {
-    email: 'test@example.com',
-    password: '123456',
-  };
-
-  const handleLogin = () => {
-    navigation.navigate('Home');
-    
+  const handleLogin = async () => {
     if (!email || !password) {
       setError('Please fill in both fields');
       return;
     }
-    if (email === testCredentials.email && password === testCredentials.password) {
-      console.log("ok");
+
+    try {
+      const response = await axios.post('https://staging-api.herocircle.app/auth/login', { email, password });
+      const { token, user } = response.data; 
+      await AsyncStorage.setItem('userToken', token);
+      await AsyncStorage.setItem('userInfo', JSON.stringify(user));
       navigation.navigate('Home');
-      // TO DO : link the login API 
-    } else {
-      setError('Invalid email or password');
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        if (err.response) {
+          const { data } = err.response;
+          switch (data.statusCode) {
+            case 401:
+              setError('Invalid email or password');
+              break;
+            case 404:
+              setError('User not found');
+              break;
+            default:
+              setError('An error occurred during login');
+          }
+        } else if (err.request) {
+          setError('No response received from the server');
+        } else {
+          setError('An unexpected error occurred');
+        }
+      } else {
+        setError('An unexpected error occurred');
+      }
     }
   };
 
@@ -65,7 +83,6 @@ const Login = ({ navigation }: any) => {
             <Text>OR</Text>
             <Box flex={1} h={1} bg="$black" />
           </HStack>
-
 
           <VStack w="100%" gap={15} mb="$2">
             <VStack gap={5}>
