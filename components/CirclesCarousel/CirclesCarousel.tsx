@@ -29,7 +29,6 @@ function CirclesCarousel({ AllCircles }: props) {
         width: PAGE_WIDTH,
         height: PAGE_WIDTH * 0.75,
     } as const);
-
     return (
         <View
             style={{

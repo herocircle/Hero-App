@@ -12,6 +12,7 @@ import FAQ from '@/components/FAQ'
 import OurImpact from '@/components/Impact'
 import HeroPartners from '@/components/HeroPartners'
 import { useAuth } from '@/contexts/AuthContext'
+import CirclesView from '../CriclesHome'
 
 const Home = () => {
   const [isMonthly, setIsMonthly] = React.useState(true)
@@ -76,44 +77,7 @@ const Home = () => {
             alt=""
           />
         </VStack>
-        <VStack>
-          <VStack
-            gap={10}
-            mt='$12'
-            px="$4"
-          >
-
-            <Text
-              fontWeight={700}
-              fontSize={22}
-              color='$black'
-            >
-              Subscribe to Specific Circles
-
-
-            </Text>
-            <Text
-              color='$black'
-            >
-              By choosing to subscribe to specific circles, you directly support groups of mobilizers addressing region-specific climate challenges.
-            </Text>
-          </VStack>
-          <CirclesCarousel
-            AllCircles={[
-              {
-                title: "EU Viable World for All Circle",
-                description: "Shape EU laws on Ocean Land and Renewable Energy",
-                image: require('@/assets/images/HeroImage.webp')
-              },
-              {
-                title: "Global HERO Circle",
-                description: "Support all mobilizers on HERO equally",
-                image: require('@/assets/images/HeroImage2.webp')
-              }
-            ]}
-          />
-        </VStack>
-
+        <CirclesView/>
 
 
         <VStack w='100%' gap={20} mt='$12' px="$4">
