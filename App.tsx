@@ -15,6 +15,7 @@ import Toast from "react-native-toast-message";
 import { useAppState } from "./hooks/useAppState";
 import Navigation from "./app/navigation";
 import { useOnlineManager } from "./hooks/useOnlineManager";
+import AuthContextProvider from "./contexts/AuthContext";
 
 LogBox.ignoreLogs([
   "Non-serializable values were found in the navigation state",
@@ -59,12 +60,14 @@ export default function App() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <QueryClientProvider client={queryClient}>
-        <GluestackUIProvider config={config}>
-          <GestureHandlerRootView style={{ flex: 1 }}>
-            <Navigation />
-            <Toast />
-          </GestureHandlerRootView>
-        </GluestackUIProvider>
+        <AuthContextProvider>
+          <GluestackUIProvider config={config}>
+            <GestureHandlerRootView style={{ flex: 1 }}>
+              <Navigation />
+              <Toast />
+            </GestureHandlerRootView>
+          </GluestackUIProvider>
+        </AuthContextProvider>
       </QueryClientProvider>
     </SafeAreaView>
   );

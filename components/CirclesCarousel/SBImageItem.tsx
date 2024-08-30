@@ -24,6 +24,8 @@ function SBImageItem({ item }: props) {
             mr={isAndroid ? 2 : 0}
             minHeight={isAndroid ? 200 : 12}
             position='relative'
+            overflow='hidden'
+            rounded={15}
         >
             <LinearGradient style={{
                 position: 'absolute',
@@ -46,11 +48,14 @@ function SBImageItem({ item }: props) {
                 cachePolicy="disk"
                 priority="high"
                 transition={1000}
+
                 alt=""
                 placeholder={isAndroid ? null : blurhash}
-                style={{ borderRadius: 10, width: "100%", height: imageHeight }}
+                style={{ borderRadius: 15, width: "100%", height: imageHeight, }}
                 source={item?.image || { uri: `https://picsum.photos/id/24/400/300` }} />
-            <Box flex={1} rounded={"$lg"} bg="#fff" zIndex={6} >
+            <Box
+                overflow='hidden'
+                flex={1} rounded={"$lg"} bg="#fff" zIndex={6} >
                 <Box w='100%' rounded={"$lg"} h='100%' bg="#1A2433" opacity={40} position={"absolute"} />
                 <HStack p="$3" position={"absolute"} w='100%' justifyContent={"space-between"} bottom={0} alignItems={"flex-end"} >
                     <Text fontFamily={"Visby-Bold"} color="white" fontSize={20} maxWidth='75%' >

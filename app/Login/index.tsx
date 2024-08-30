@@ -3,51 +3,39 @@ import { Box, Button, HStack, Image, Input, InputField, Pressable, Text, VStack 
 import { ScrollView } from 'react-native-gesture-handler';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage'; // For local storage
+import * as AppleAuthentication from 'expo-apple-authentication';
+import { ActivityIndicator, Platform } from 'react-native';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { FrontendLoginResponseDTO, UserAuthApi } from '@/Api';
+import { AXIOS_CONFIG } from '@/Api/wrapper';
 
 const Login = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
 
-  const handleLogin = async () => {
-    if (!email || !password) {
-      setError('Please fill in both fields');
-      return;
-    }
+  const queryClient = useQueryClient()
 
-    try {
-      const response = await axios.post('https://staging-api.herocircle.app/auth/login', { email, password });
-      const { token, user } = response.data; 
+  const { mutate: formLogin, isPending, error, isError } = useMutation({
+    mutationKey: ['login'],
+    mutationFn: async () => {
+      const restul = await new UserAuthApi(AXIOS_CONFIG).login({ email, password })
+      return restul.data
+    },
+    onSuccess: async (data: FrontendLoginResponseDTO) => {
+      const { token, user } = data;
       await AsyncStorage.setItem('userToken', token);
       await AsyncStorage.setItem('userInfo', JSON.stringify(user));
+      await AsyncStorage.setItem('UserSession', JSON.stringify({ userData: user, authToken: token }))
+      queryClient.invalidateQueries({ queryKey: ['UserSession'] })
       navigation.navigate('Home');
-    } catch (err) {
-      if (axios.isAxiosError(err)) {
-        if (err.response) {
-          const { data } = err.response;
-          switch (data.statusCode) {
-            case 401:
-              setError('Invalid email or password');
-              break;
-            case 404:
-              setError('User not found');
-              break;
-            default:
-              setError('An error occurred during login');
-          }
-        } else if (err.request) {
-          setError('No response received from the server');
-        } else {
-          setError('An unexpected error occurred');
-        }
-      } else {
-        setError('An unexpected error occurred');
-      }
-    }
-  };
+    },
+    onError: (error: any) => {
+      console.log('error', error)
+    },
+  })
 
   return (
-    <Box bg="$white" flex={1}>
+    <Box bg="$white" flex={1} >
       <ScrollView contentContainerStyle={{ flexGrow: 1, paddingBottom: 60 }} keyboardShouldPersistTaps="handled">
         <VStack w="100%" bg="#F2F2F2" mb="$8" maxHeight={400} overflow='hidden' flex={1}>
           <Image
@@ -83,6 +71,35 @@ const Login = ({ navigation }: any) => {
             <Text>OR</Text>
             <Box flex={1} h={1} bg="$black" />
           </HStack>
+          {Platform.OS === "ios" &&
+            <AppleAuthentication.AppleAuthenticationButton
+              buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
+              buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
+              cornerRadius={7}
+              style={{ width: '100%', height: 44, }}
+              onPress={async () => {
+                try {
+                  const credential = await AppleAuthentication.signInAsync({
+                    requestedScopes: [
+                      AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+                      AppleAuthentication.AppleAuthenticationScope.EMAIL,
+                    ],
+                  })
+                  // await appleMutate({ user: credential?.user })
+                } catch (e: any) {
+                  if (e?.code === 'ERR_REQUEST_CANCELED') {
+                    // handle that the user canceled the sign-in flow
+                  } else {
+                    // handle other errors
+                  }
+                }
+              }}
+            />}
+          <HStack alignItems="center" gap={6} alignSelf="center">
+            <Box flex={1} h={1} bg="$black" />
+            <Text>OR</Text>
+            <Box flex={1} h={1} bg="$black" />
+          </HStack>
 
           <VStack w="100%" gap={15} mb="$2">
             <VStack gap={5}>
@@ -99,7 +116,7 @@ const Login = ({ navigation }: any) => {
                 <InputField
                   placeholder="Enter your email"
                   value={email}
-                  onChangeText={(text) => setEmail(text)}
+                  onChangeText={(text) => setEmail(text?.toLocaleLowerCase())}
                 />
               </Input>
             </VStack>
@@ -130,16 +147,26 @@ const Login = ({ navigation }: any) => {
             </Text>
           </Pressable>
 
-          {error ? (
+          {isError ? (
             <Text color="red" fontWeight={700} >
-              {error}
+              {error?.response?.data?.message || 'An error occurred during login'}
             </Text>
           ) : null}
 
-          <Button width="100%" alignSelf="center" onPress={handleLogin} h={45} rounded="$xl" backgroundColor="#0202CC">
-            <Text fontWeight={600} color="white">
-              Log In
-            </Text>
+          <Button
+            width="100%" alignSelf="center" onPress={() => {
+              if (!email || !password) {
+                return;
+              }
+              formLogin()
+            }} h={45} rounded="$xl" backgroundColor="#0202CC">
+            {isPending ?
+              <ActivityIndicator />
+              :
+              <Text fontWeight={600} color="white">
+                Log In
+              </Text>
+            }
           </Button>
 
           <HStack mt="$2" gap={4} alignItems="center">
@@ -152,7 +179,7 @@ const Login = ({ navigation }: any) => {
           </HStack>
         </VStack>
       </ScrollView>
-    </Box>
+    </Box >
   );
 };
 

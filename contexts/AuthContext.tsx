@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import React, { createContext, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useQuery, } from '@tanstack/react-query';
 import { User } from '../Api/models';
@@ -7,11 +7,9 @@ import { User } from '../Api/models';
 export const AuthContext = createContext<any>({})
 
 
-
-
 export async function getUser(): Promise<any | null> {
     try {
-        const ParsedUser = await AsyncStorage.getItem("@User")
+        const ParsedUser = await AsyncStorage.getItem("UserSession")
         if (ParsedUser !== null) {
             const StringifiedUser = JSON.parse(ParsedUser)
             return StringifiedUser
@@ -22,15 +20,21 @@ export async function getUser(): Promise<any | null> {
         return null
     }
 }
-
+export const useAuth = () => {
+    const context = React.useContext(AuthContext)
+    if (context === undefined) {
+        throw new Error('useAuth must be used within an AuthProvider')
+    }
+    return context
+}
 const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
 
     const [userData, setUserData] = useState<User | null>(null)
     const [authToken, setAuthToken] = useState<string | null>(null)
 
-    const { isLoading } = useQuery({
+    const { isLoading, refetch } = useQuery({
         queryFn: async () => {
-            const ParsedUser = await AsyncStorage.getItem("@User")
+            const ParsedUser = await AsyncStorage.getItem("UserSession")
             if (ParsedUser !== null) {
                 const StringifiedUser = JSON.parse(ParsedUser)
                 setUserData(StringifiedUser?.userData)
@@ -39,13 +43,17 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
             }
             return null
         },
-        queryKey: ["@UserSessionFromStorage"],
+        queryKey: ["UserSession"],
     })
 
     function resetStates() {
         setUserData(null)
         setAuthToken(null)
     }
+
+    React.useEffect(() => {
+        refetch()
+    }, [])
 
     return (
         <AuthContext.Provider

@@ -1,8 +1,8 @@
+import { getUser } from '@/contexts/AuthContext';
 import { Configuration } from './configuration';
 import globalAxios from 'axios';
-// import { getUser } from '../Contexts/AuthContext';
 
-export const BaseUrl = "https://api.herocircle.app";
+export const BaseUrl = "https://staging-api.herocircle.app";
 
 globalAxios.interceptors.request.use(async (config) => {
   if (!config?.headers) {
@@ -10,9 +10,8 @@ globalAxios.interceptors.request.use(async (config) => {
   }
   config.headers = config.headers ?? {};
 
-  // const userSession = await getUser();
-  // config.headers.Authorization = `Bearer ${userSession?.authToken}`;
-  config.headers.Authorization = `Bearer {userSession?.authToken}`;
+  const userSession = await getUser();
+  config.headers.Authorization = `Bearer ${userSession?.authToken}`;
   return config;
 });
 

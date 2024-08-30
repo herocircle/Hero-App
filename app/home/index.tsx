@@ -11,26 +11,14 @@ import Footer from '@/components/footer'
 import FAQ from '@/components/FAQ'
 import OurImpact from '@/components/Impact'
 import HeroPartners from '@/components/HeroPartners'
-import { checkAuthStatus } from '../utils/authUtils'
+import { useAuth } from '@/contexts/AuthContext'
 
 const Home = () => {
   const [isMonthly, setIsMonthly] = React.useState(true)
   const [values, setValues] = React.useState("6")
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  useEffect(() => {
-    const checkAuth = async () => {
-      const loggedIn = await checkAuthStatus();
-      setIsLoggedIn(loggedIn);
-    };
-    checkAuth();
-  }, []);
-  const handleAuthAction = () => {
-    if (isLoggedIn) {
-      console.log('Log out functionality here');
-    } else {
-      console.log('Join HERO functionality here');
-    }
-  };
+
+  const { userData } = useAuth()
+
   return (
     <View w='100%' pt="$4" bg="$white" >
       <ScrollView
@@ -128,11 +116,6 @@ const Home = () => {
 
 
 
-
-
-
-
-
         <VStack w='100%' gap={20} mt='$12' px="$4">
           <Image
             source={require('@/assets/images/secondbanner.webp')}
@@ -185,7 +168,7 @@ const Home = () => {
 
         <SubscribeBlock />
         <SupportComponent />
-        <HeroPartners/>
+        <HeroPartners />
         <SubscriptionBreakdown />
         <OurImpact />
         <FAQ />

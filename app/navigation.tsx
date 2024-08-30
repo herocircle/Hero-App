@@ -14,9 +14,8 @@ import Register from './Register';
 import Login from './Login';
 import Home from './Home';
 import Feeds from './Feeds';
-import { checkAuthStatus } from './utils/authUtils';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import NetInfo from '@react-native-community/netinfo';
+import { useAuth } from '@/contexts/AuthContext';
 
 const Stack = createNativeStackNavigator();
 SplashScreen.preventAutoHideAsync();
@@ -34,7 +33,6 @@ function AuthStack() {
 }
 
 export default function Navigation() {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const queryClient = useQueryClient();
 
   const [fontsLoaded] = useFonts({
@@ -43,15 +41,7 @@ export default function Navigation() {
     'nova600': require("../assets/fonts/ProximaNovaBold.otf"),
     'nova800': require("../assets/fonts/ProximaNovaExtrabold.otf"),
   });
-  useEffect(() => {
-    checkAuth();
-  }, []);
-  
-  const checkAuth = async () => {
-    const loggedIn = await checkAuthStatus();
-    console.log('Auth status:', loggedIn); 
-    setIsLoggedIn(loggedIn);
-  };
+  const { userData } = useAuth()
 
 
 
@@ -73,22 +63,10 @@ export default function Navigation() {
     };
   }, [queryClient]);
 
-  useEffect(() => {
-    const unsubscribe = NetInfo.addEventListener(state => {
-      if (state.isConnected) {
-        checkAuth();
-      }
-    });
 
-    return () => {
-      unsubscribe();
-    };
-  }, []);
 
   const isAndroid = Platform.OS === 'android';
-  useEffect(() => {
-    console.log('isLoggedIn:', isLoggedIn);
-  }, [isLoggedIn]);
+
   return (
     <NavigationContainer>
       <BottomSheetModalProvider>
@@ -100,7 +78,7 @@ export default function Navigation() {
             ),
             headerRight: () => (
               <HStack gap="$2" alignItems='center' >
-                {!isLoggedIn ? (
+                {!userData ? (
                   <Button
                     alignSelf='center'
                     onPress={() => navigation.navigate('Register')}
@@ -119,8 +97,7 @@ export default function Navigation() {
                   <Button
                     alignSelf='center'
                     onPress={async () => {
-                      await AsyncStorage.removeItem('userToken');
-                      setIsLoggedIn(false);
+                      await AsyncStorage.removeItem('UserSession');
                       navigation.navigate('Login');
                     }}
                     h={35}
@@ -168,7 +145,7 @@ export default function Navigation() {
               drawerLabel: 'Feeds',
             }}
           />
-          {!isLoggedIn && (
+          {!userData && (
             <>
               <Drawer.Screen
                 name="Login"
