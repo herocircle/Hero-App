@@ -36,7 +36,7 @@ const SinglePartnerModal = ({ isVisible, onClose, selectedPartner }: any) => {
       
       style={{ justifyContent: 'center', alignItems: 'center', margin: 0 }}
     >
-      <Box bg="$black" p={20} opacity={0.75} minHeight="100%" flex={1} width="100%" alignItems="center">
+      <Box paddingTop={40} bg="$black" p={20} opacity={0.75} minHeight="100%" flex={1} width="100%" alignItems="center">
         <Pressable onPress={closeModal} style={{ position: 'absolute', right: 10, top: 10 }}>
           <Icon name="close-circle" size={30} color="white" />
         </Pressable>
@@ -65,7 +65,7 @@ const SinglePartnerModal = ({ isVisible, onClose, selectedPartner }: any) => {
         <HStack space={"xs"} mb={4}>
           {selectedPartner?.linkedin && (
             <Pressable onPress={() => Linking.openURL(selectedPartner?.linkedin)}>
-          <Icon name="earth" size={30} color="#0202CC" />
+          <Icon name="logo-linkedin" size={30} color="#0202CC" />
           </Pressable>
           )}
           {selectedPartner?.website && (
@@ -75,7 +75,7 @@ const SinglePartnerModal = ({ isVisible, onClose, selectedPartner }: any) => {
           )}
           {selectedPartner?.instagram && (
             <Pressable onPress={() => Linking.openURL(selectedPartner?.instagram)}>
-        <Icon name="earth" size={30} color="#0202CC" />
+        <Icon name="logo-instagram" size={30} color="#0202CC" />
         </Pressable>
           )}
           {selectedPartner?.twitter && (
