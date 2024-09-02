@@ -2,8 +2,13 @@ import { AntDesign } from "@expo/vector-icons";
 import { VStack, Button, HStack, ButtonGroup, Text, RadioGroup, Radio, RadioIndicator, RadioIcon, CircleIcon, RadioLabel, ButtonText, Input, InputField } from "@gluestack-ui/themed";
 import React, { useState, useEffect } from "react";
 import { View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { RootStackParamList } from "@/app/types";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
-const SubscribeBlock = () => {
+type RegisterV2ScreenProp = NativeStackNavigationProp<RootStackParamList, 'RegisterV2'>;
+
+const SubscribeBlock = ({ homepageStatistics }: any) => {
     const [isMonthly, setIsMonthly] = useState(true);
     const [values, setValues] = useState("Starter");
     const [amount, setAmount] = useState<string>(""); 
@@ -32,11 +37,19 @@ const SubscribeBlock = () => {
         setAmount('');
         setError('');
     }, [isMonthly]);
+    const navigation = useNavigation<RegisterV2ScreenProp>();
 
+    function handleRedirect() {
+        navigation.navigate('RegisterV2', {
+            amount: amount,
+            slug: '6397b2c07650f57cfc229e8a',
+            isMonthly: isMonthly
+        });
+    }
     return (
         <VStack gap={'$12'} bg="#E5EEFF" py="$6" px="$4">
             <Text fontWeight={"$bold"} fontSize={22} color="$black">
-                Join <Text color="#0202CC" fontWeight={"$bold"} fontSize={22}>1000+</Text> Global Supporters and get exclusive access to:
+                Join <Text color="#0202CC" fontWeight={"$bold"} fontSize={22}>{homepageStatistics?.globalCommunity || '1000+'}</Text> Global Supporters and get exclusive access to:
             </Text>
 
             <VStack gap={'$5'} mt={-20} mb="$2">
@@ -162,6 +175,9 @@ const SubscribeBlock = () => {
                 mt={-10}
                 rounded="$3xl"
                 backgroundColor="#0202CC"
+                onPress={() => {
+                    handleRedirect()
+                }}
             >
                 <Text fontWeight={600} color="white">
                     Proceed to payment
@@ -169,6 +185,7 @@ const SubscribeBlock = () => {
             </Button>
         </VStack>
     );
-}
+};
 
 export default SubscribeBlock;
+

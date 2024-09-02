@@ -13,12 +13,45 @@ import OurImpact from '@/components/Impact'
 import HeroPartners from '@/components/HeroPartners'
 import { useAuth } from '@/contexts/AuthContext'
 import CirclesView from '../CriclesHome'
+import { getStatistics, getStories, getStudies } from '../static-generation-utils/HomeService'
+interface Statistics {
+  mobilizers: number;
+  supporters: number;
+  circles: number;
+  subscriptions: number;
+  countries: number;
+  globalCommunity: number;
+}
 
 const Home = () => {
-  const [isMonthly, setIsMonthly] = React.useState(true)
-  const [values, setValues] = React.useState("6")
+  const [isMonthly, setIsMonthly] = React.useState(true);
+  const [values, setValues] = React.useState("6");
+  const [statistics, setStatistics] = useState<Statistics | undefined>(undefined);
 
-  const { userData } = useAuth()
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const { userData } = useAuth();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [statsRes] = await Promise.all([
+         
+          getStatistics()
+        ]);
+
+        setStatistics(statsRes);
+     
+      } catch (err) {
+      
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <View w='100%' pt="$4" bg="$white" >
@@ -130,7 +163,7 @@ const Home = () => {
 
 
 
-        <SubscribeBlock />
+        <SubscribeBlock homepageStatistics={statistics} />
         <SupportComponent />
         <HeroPartners />
         <SubscriptionBreakdown />
