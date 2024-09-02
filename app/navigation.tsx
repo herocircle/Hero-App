@@ -16,6 +16,7 @@ import Home from './Home';
 import Feeds from './Feeds';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useAuth } from '@/contexts/AuthContext';
+import Profile from './Profile';
 
 const Stack = createNativeStackNavigator();
 SplashScreen.preventAutoHideAsync();
@@ -145,26 +146,29 @@ export default function Navigation() {
               drawerLabel: 'Feeds',
             }}
           />
-          {!userData && (
-            <>
-              <Drawer.Screen
-                name="Login"
-                component={Login}
-                options={{
-                  drawerItemStyle: { display: 'none' },
-                  headerShown: false
-                }}
-              />
-              <Drawer.Screen
-                name="Register"
-                component={Register}
-                options={{
-                  drawerItemStyle: { display: 'none' },
-                  headerShown: false
-                }}
-              />
-            </>
-          )}
+          <Drawer.Screen
+            name="Profile"
+            component={Profile}
+            options={{
+              drawerLabel: 'Profile',
+            }}
+          />
+          <Drawer.Screen
+            name="Login"
+            component={Login}
+            options={{
+              drawerItemStyle: { display: 'none' },
+              headerShown: false
+            }}
+          />
+          <Drawer.Screen
+            name="Register"
+            component={Register}
+            options={{
+              drawerItemStyle: { display: 'none' },
+              headerShown: false
+            }}
+          />
         </Drawer.Navigator>
       </BottomSheetModalProvider>
     </NavigationContainer>
