@@ -8,7 +8,10 @@ import { HStack } from '@gluestack-ui/themed';
 import { VStack } from '@gluestack-ui/themed';
 import { Heading } from '@gluestack-ui/themed';
 import Password from './Password';
-const index = () => {
+import Subscriptions from './Subscriptions';
+import Invocies from './Invocies';
+import Payments from './Payments';
+const MainProfile = () => {
     const [activePage, setActivePage] = useState(0);
     const refPagerView = React.useRef<PagerView>(null);
 
@@ -114,20 +117,20 @@ const index = () => {
 
 
                 <PagerViewSinglePageLayout >
-                    <Profile />
+                    <Subscriptions />
                 </PagerViewSinglePageLayout>
 
 
 
 
                 <PagerViewSinglePageLayout >
-                    <Profile />
+                    <Payments />
                 </PagerViewSinglePageLayout>
 
 
 
                 <PagerViewSinglePageLayout >
-                    <Profile />
+                    <Invocies />
                 </PagerViewSinglePageLayout>
 
 
@@ -138,4 +141,4 @@ const index = () => {
     )
 }
 
-export default index
+export default MainProfile
