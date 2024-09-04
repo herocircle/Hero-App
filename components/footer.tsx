@@ -4,30 +4,30 @@ import { Box, HStack, Pressable, Text, View, VStack } from '@gluestack-ui/themed
 import React from 'react'
 import { Image } from 'react-native'
 
+export const icons = [
+    {
+        icon: <AntDesign name="instagram" size={20} />,
+        link: ""
+    },
+    {
+        icon: <SimpleLineIcons name="social-spotify" size={20} />,
+        link: ""
+    },
+    {
+        icon: <Entypo name="linkedin" size={20} />,
+        link: ""
+    },
+    {
+        icon: <AntDesign name="youtube" size={20} />,
+        link: ""
+    },
+    {
+        icon: <Ionicons name="logo-tiktok" size={20} />,
+        link: ""
+    },
+]
 const Footer = () => {
 
-    const icons = [
-        {
-            icon: <AntDesign name="instagram" size={20} color="#0202CC" />,
-            link: ""
-        },
-        {
-            icon: <SimpleLineIcons name="social-spotify" size={20} color="#0202CC" />,
-            link: ""
-        },
-        {
-            icon: <Entypo name="linkedin" size={20} color="#0202CC" />,
-            link: ""
-        },
-        {
-            icon: <AntDesign name="youtube" size={20} color="#0202CC" />,
-            link: ""
-        },
-        {
-            icon: <Ionicons name="logo-tiktok" size={20} color="#0202CC" />,
-            link: ""
-        },
-    ]
 
     return (
         <VStack bg="#0202CC" py="$10" gap="$6" px="$2">
@@ -69,7 +69,9 @@ const Footer = () => {
                         width="$8"
                         h="$8"
                         rounded="$full" bg="$white" >
-                        {item?.icon}
+                        <Text color="#0202CC" >
+                            {item?.icon}
+                        </Text>
                     </Pressable>
                 )}
             </HStack>

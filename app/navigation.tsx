@@ -7,8 +7,8 @@ import * as SplashScreen from 'expo-splash-screen';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { Image, Platform } from 'react-native';
 import { useFonts } from 'expo-font';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { Button, HStack, Pressable, Text } from '@gluestack-ui/themed';
+import { createDrawerNavigator, DrawerItemList } from '@react-navigation/drawer';
+import { Button, HStack, Pressable, Text, VStack } from '@gluestack-ui/themed';
 import { Ionicons } from '@expo/vector-icons';
 import Register from './Register';
 import Login from './Login';
@@ -17,6 +17,8 @@ import Feeds from './Feeds';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useAuth } from '@/contexts/AuthContext';
 import Profile from './Profile';
+import HeroTeam from './HeroTeam';
+import { icons } from '@/components/footer';
 
 const Stack = createNativeStackNavigator();
 SplashScreen.preventAutoHideAsync();
@@ -73,6 +75,66 @@ export default function Navigation() {
       <BottomSheetModalProvider>
         <Drawer.Navigator
           initialRouteName="Home"
+          drawerContent={(props) => {
+            return (
+              <VStack h="100%" py="$16" justifyContent='space-between'>
+                <VStack>
+                  <Image source={require('@/assets/images/newLogo.png')} style={{ width: 150, height: 50, objectFit: "contain" }} />
+                  <VStack mt="$6" gap="$1">
+                    <DrawerItemList {...props} />
+                  </VStack>
+                </VStack>
+
+                <VStack gap="$3" pl="$4">
+                  <Pressable
+                    onPress={() => props.navigation.navigate('HeroTeam')}
+                  >
+                    <Text fontFamily='nova' >HERO Team</Text>
+                  </Pressable>
+                  <Pressable
+                    onPress={() => props.navigation.navigate('Profile')}
+                  >
+                    <Text fontFamily='nova' >Help Center</Text>
+                  </Pressable>
+                  <Pressable
+                    onPress={() => props.navigation.navigate('Profile')}
+                  >
+                    <Text fontFamily='nova' >Terms of Service</Text>
+                  </Pressable>
+                  <Pressable
+                    onPress={() => props.navigation.navigate('Profile')}
+                  >
+                    <Text fontFamily='nova' >Data & Privacy</Text>
+                  </Pressable>
+                </VStack>
+
+                <VStack gap="$1" pl="$3"  >
+                  <Text fontFamily='nova' >© 2024 HERO Labs B.V.</Text>
+                  <Text fontFamily='nova' >All rights reserved.</Text>
+                  <Text fontFamily='nova' >Amsterdam, Netherlands.</Text>
+
+                  <HStack pl="$2" gap="$1" mt="$4">
+                    {icons?.map((item, index) =>
+                      <Pressable
+                        key={index}
+                        display='flex'
+                        flexDirection='row'
+                        alignItems='center'
+                        justifyContent='center'
+                        width="$9"
+                        h="$9"
+                        rounded="$full" bg="$black" >
+                        <Text color="$white">
+                          {item?.icon}
+                        </Text>
+                      </Pressable>
+                    )}
+                  </HStack>
+
+                </VStack>
+              </VStack>
+            );
+          }}
           screenOptions={({ navigation }) => ({
             headerLeft: () => (
               <Image source={require('@/assets/images/newLogo.png')} style={{ width: 150, height: 50, objectFit: "contain" }} />
@@ -119,6 +181,9 @@ export default function Navigation() {
               </HStack>
             ),
             drawerType: 'slide',
+            drawerContentStyle: {
+              backgroundColor: 'white',
+            },
             title: "",
             headerStyle: {
               height: 115,
@@ -129,9 +194,17 @@ export default function Navigation() {
               fontSize: 16,
               color: 'black',
             },
-            drawerPosition: "right"
+            drawerPosition: "right",
+
           })}
         >
+          <Drawer.Screen
+            name="Profile"
+            component={Profile}
+            options={{
+              drawerLabel: 'Profile',
+            }}
+          />
           <Drawer.Screen
             name="Home"
             component={Home}
@@ -147,10 +220,11 @@ export default function Navigation() {
             }}
           />
           <Drawer.Screen
-            name="Profile"
-            component={Profile}
+            name="HeroTeam"
+            component={HeroTeam}
             options={{
-              drawerLabel: 'Profile',
+              drawerLabel: 'Hero Team',
+              drawerItemStyle: { display: 'none' },
             }}
           />
           <Drawer.Screen
