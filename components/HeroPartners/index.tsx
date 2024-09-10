@@ -8,74 +8,75 @@ import SinglePartnerModal from '../Modals/partnerModal';
 import { Box, HStack, VStack, Text } from '@gluestack-ui/themed';
 import PartnersCarousel from './HeroCarousel';
 
-type Partner = { /* define your partner type here */ };
-type Tag = { _id: string; name: string };
-
-const AXIOS_CONFIG = {
-  baseURL: 'https://api.herocircle.app',
-};
-
-const fetchCirclesPartners = async (signal: AbortSignal): Promise<Partner[]> => {
-  try {
-    const response = await axios.get('/circles', { signal, ...AXIOS_CONFIG });
-    const partners = response.data.flatMap((circle: { partners: Partner[] }) => circle.partners);
-    return partners;
-  } catch (error) {
-    console.error('Error fetching circles partners:', error);
-    throw error;
-  }
-};
-
-const fetchTags = async (signal: AbortSignal): Promise<Tag[]> => {
-  try {
-    const response = await axios.get('/tags', { signal, ...AXIOS_CONFIG });
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching tags:', error);
-    throw error;
-  }
-};
-
 const PartnerHeader = () => {
-  const [selectedPartner, setSelectedPartner] = useState<Partner | null>(null);
-  const [tags, setTags] = useState<Tag[]>([]);
+  const [partnersData, setPartnersData] = useState<any[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [selectedPartner, setSelectedPartner] = useState<any | null>(null);
+  const [tags, setTags] = useState<any[]>([]);
   const [selectedTag, setSelectedTag] = useState<string>('all');
-  const [filteredPartners, setFilteredPartners] = useState<Partner[]>([]);
+  const [filteredPartners, setFilteredPartners] = useState<any[]>([]);
   const [showAllPartners, setShowAllPartners] = useState(false);
 
-  const { data: partnersData = [], isLoading: partnersLoading } = useQuery({
+  const AXIOS_CONFIG = {
+    baseURL: 'https://api.herocircle.app',
+  };
+
+  const fetchCirclesPartners = async (signal: AbortSignal) => {
+    try {
+      const response = await axios.get('/circles', { signal, ...AXIOS_CONFIG });
+      const partners = response.data.flatMap((circle: { partners: any }) => circle.partners);
+      setPartnersData(partners);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching circles partners:', error);
+      throw error;
+    }
+  };
+
+  const fetchTags = async (signal: AbortSignal) => {
+    try {
+      const response = await axios.get('/tags', { signal, ...AXIOS_CONFIG });
+      setTags(response.data);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching tags:', error);
+      throw error;
+    }
+  };
+
+  const { data: circles, isLoading } = useQuery({
     queryKey: ['getCirclesPartners'],
-    queryFn: fetchCirclesPartners,
+    queryFn: ({ signal }) => fetchCirclesPartners(signal),
   });
 
-  const { data: tagsData = [], isLoading: tagsLoading } = useQuery({
+  const { isLoading: tagsLoading } = useQuery({
     queryKey: ['getTags'],
-    queryFn: fetchTags,
+    queryFn: ({ signal }) => fetchTags(signal),
   });
-
-  useEffect(() => {
-    setTags(tagsData);
-  }, [tagsData]);
 
   useEffect(() => {
     if (selectedTag === 'all') {
       setFilteredPartners(partnersData);
     } else {
-      setFilteredPartners(partnersData.filter((partner: { tags: string | string[]; }) => partner.tags.includes(selectedTag)));
+      setFilteredPartners(partnersData.filter(partner => partner.tags.includes(selectedTag)));
     }
   }, [selectedTag, partnersData]);
 
-  if (partnersLoading || tagsLoading) {
+  if (isLoading) {
     return <Text>Loading...</Text>;
+  }
+
+  if (error) {
+    return <Text>{error}</Text>;
   }
 
   const toggleView = () => {
     setShowAllPartners(!showAllPartners);
   };
-
-  const handlePartnerSelect = (partner: Partner) => {
+  const handlePartnerSelect = (partner: any) => {
     setSelectedPartner(partner);
   };
+
   return (
     <Box padding="$4" backgroundColor="#f9f9f9">
       <VStack space="xs" marginBottom="$4">
@@ -115,14 +116,8 @@ const PartnerHeader = () => {
           </Text>
         </TouchableOpacity>
         <ScrollView>
-          <PartnersCarousel
-            handlePartnerSelect={handlePartnerSelect}
-            AllCircles={partnersData}
-            filteredPartners={filteredPartners}
-            showAllPartners={showAllPartners}
-            setSelectedPartner={setSelectedPartner}
-            tags={tags}
-          />
+       < PartnersCarousel             handlePartnerSelect={handlePartnerSelect}
+        AllCircles={partnersData} filteredPartners={filteredPartners} showAllPartners={showAllPartners} setSelectedPartner={selectedPartner} tags={tags}/>
           {selectedPartner && (
             <SinglePartnerModal
               selectedPartner={selectedPartner}
