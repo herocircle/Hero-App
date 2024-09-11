@@ -3,6 +3,9 @@ import { View, ScrollView, Image, Linking, TouchableOpacity } from 'react-native
 import { Divider, Text } from '@gluestack-ui/themed';
 import HeroTeamAbout from '@/components/Team_About/HeroTeamAbout';
 import { WebView } from 'react-native-webview';
+import CircleBoardAbout from '@/components/Circle_Board/CircleBoard';
+import FAQSection from '@/components/Circle_Board/FAQ';
+import SubscribeBlock from '@/components/SubscribeBlock';
 
 type TeamMember = {
   id: number;
@@ -16,7 +19,7 @@ function AboutUs() {
   const teamMembers: any = [];
   const [SelectedHeroMember, SetSelect] = useState<TeamMember | undefined>(teamMembers[0]);
   const [showAllTeam, setShowAllTeam] = useState(false);
-
+const [showAllMembers , setXhowAllMembers]= useState(false)
   const videoRef = useRef(null);
 
   const handleVideoPlay = () => {
@@ -25,6 +28,10 @@ function AboutUs() {
 
   const toggleView = () => {
     setShowAllTeam(!showAllTeam);
+  };
+  
+  const toggleViewBoard = () => {
+    setXhowAllMembers(!showAllMembers);
   };
   const handleButtonClick = () => {
     Linking.openURL('https://www.youtube.com/embed/X1IGUowJL2o?autoplay=1');
@@ -110,7 +117,6 @@ function AboutUs() {
             Together, we support people-led solutions, from passing the EU Nature Restoration Law to protect 20% of the EU's Natural Ecosystems to creating powerful campaigns that mobilize millions to accelerate the global transition to clean energy.
           </Text>
 
-          {/* Add your button here */}
           <TouchableOpacity
             
             onPress={handleButtonClick}
@@ -119,9 +125,33 @@ function AboutUs() {
 
               Watch TEDx
             </Text>
+            <View style={{ alignItems: "flex-start", width: "100%", paddingLeft: "5%" }}>
+        <Text style={{ fontSize: 24, fontWeight: 'bold', textAlign: 'left', marginBottom: 8, color: "black" }}>
+        HERO Circle Board
+
+        </Text>
+      </View>
+      <View style={{ padding: 16 }}>
+        <Text color='black'>
+        The Selection Board, appointed annually by HERO, includes at least two representatives from the Global South and a representative of the mobilizers and one from the HERO Supporter Community. Experts may be invited for specific regional or sectoral assessments. Applicants need 80% Board approval to join the HERO platform.        </Text>
+      </View>
+      <TouchableOpacity onPress={toggleViewBoard}>
+        <Text fontSize="$md" color="#0202CC" textAlign="center" marginVertical="$2" fontWeight="bold">
+          {showAllMembers ? 'Show Less Boards' : 'See All Boards'}
+        </Text>
+      </TouchableOpacity>
+      <ScrollView>
+        <SubscribeBlock/>
+      </ScrollView>
+            <ScrollView>
+              <CircleBoardAbout  showAllMembers={showAllMembers}/>
+            </ScrollView>
             </TouchableOpacity >
         </View>
       </View>
+      <ScrollView>
+        <FAQSection />
+      </ScrollView>
     </ScrollView>
   );
 }
