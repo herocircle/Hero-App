@@ -19,6 +19,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import Profile from './Profile';
 import HeroTeam from './HeroTeam';
 import { icons } from '@/components/footer';
+import CircleHomePage from './Circle';
 
 const Stack = createNativeStackNavigator();
 SplashScreen.preventAutoHideAsync();
@@ -137,7 +138,12 @@ export default function Navigation() {
           }}
           screenOptions={({ navigation }) => ({
             headerLeft: () => (
-              <Image source={require('@/assets/images/newLogo.png')} style={{ width: 150, height: 50, objectFit: "contain" }} />
+              <Pressable
+                onPress={() => navigation.navigate("Home")}
+              >
+
+                <Image source={require('@/assets/images/newLogo.png')} style={{ width: 150, height: 50, objectFit: "contain" }} />
+              </Pressable>
             ),
             headerRight: () => (
               <HStack gap="$2" alignItems='center' >
@@ -210,6 +216,13 @@ export default function Navigation() {
             component={Home}
             options={{
               drawerLabel: 'Home',
+            }}
+          />
+          <Drawer.Screen
+            name="CircleHomePage"
+            component={CircleHomePage}
+            options={{
+              drawerLabel: 'CircleHomePage',
             }}
           />
           <Drawer.Screen
