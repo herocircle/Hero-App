@@ -19,7 +19,11 @@ import { useAuth } from '@/contexts/AuthContext';
 import Profile from './Profile';
 import HeroTeam from './HeroTeam';
 import { icons } from '@/components/footer';
+
+import AboutUs from './About_Us';
+
 import CircleHomePage from './Circle';
+
 
 const Stack = createNativeStackNavigator();
 SplashScreen.preventAutoHideAsync();
@@ -230,6 +234,13 @@ export default function Navigation() {
             component={Feeds}
             options={{
               drawerLabel: 'Feeds',
+            }}
+          />
+             <Drawer.Screen
+            name="About Us"
+            component={AboutUs}
+            options={{
+              drawerLabel: 'About Us',
             }}
           />
           <Drawer.Screen

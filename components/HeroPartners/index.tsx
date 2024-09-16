@@ -117,7 +117,7 @@ const PartnerHeader = () => {
         </TouchableOpacity>
         <ScrollView>
        < PartnersCarousel             handlePartnerSelect={handlePartnerSelect}
- AllCircles={partnersData} filteredPartners={filteredPartners} showAllPartners={showAllPartners} setSelectedPartner={selectedPartner} tags={tags}/>
+        AllCircles={partnersData} filteredPartners={filteredPartners} showAllPartners={showAllPartners} setSelectedPartner={selectedPartner} tags={tags}/>
           {selectedPartner && (
             <SinglePartnerModal
               selectedPartner={selectedPartner}
