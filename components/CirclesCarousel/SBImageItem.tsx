@@ -160,7 +160,7 @@ function SBImageItem({ item, navigation }: props) {
 
             <Button
                 h={40}
-                onPress={() => navigation.navigate('CircleHomePage', { circleId: item?._id, circleName: item?.name })}
+                onPress={() => navigation.navigate('CircleHomePage', { circleId: item?._id, circleName: item?.url_name })}
                 w="$56"
                 rounded="$3xl"
                 backgroundColor="#0202CC"

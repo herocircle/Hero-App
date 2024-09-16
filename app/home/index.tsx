@@ -110,7 +110,7 @@ const Home = () => {
         <CirclesView />
 
 
-        <VStack w='100%' gap={20} mt='$12' px="$4">
+        <VStack w='100%' gap={20} mt='$12' px="$4" mb="$4">
           <Image
             source={require('@/assets/images/secondbanner.webp')}
             style={{ width: '90%', height: 300, objectFit: "contain" }}
