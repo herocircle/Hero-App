@@ -24,12 +24,9 @@ interface Statistics {
 }
 
 const Home = () => {
-  const [isMonthly, setIsMonthly] = React.useState(true);
-  const [values, setValues] = React.useState("6");
   const [statistics, setStatistics] = useState<Statistics | undefined>(undefined);
 
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   const { userData } = useAuth();
 
@@ -37,14 +34,14 @@ const Home = () => {
     const fetchData = async () => {
       try {
         const [statsRes] = await Promise.all([
-         
+
           getStatistics()
         ]);
 
         setStatistics(statsRes);
-     
+
       } catch (err) {
-      
+
       } finally {
         setLoading(false);
       }
@@ -110,7 +107,7 @@ const Home = () => {
             alt=""
           />
         </VStack>
-        <CirclesView/>
+        <CirclesView />
 
 
         <VStack w='100%' gap={20} mt='$12' px="$4">
