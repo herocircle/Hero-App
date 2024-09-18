@@ -10,6 +10,9 @@ import SubscribeBlock from '@/components/SubscribeBlock';
 import SecondHeroBanner from './SecondHeroBanner'
 import Footer from '@/components/footer'
 import SupportComponent from '@/components/Support_metter'
+import FeaturedMobilizers from './FeaturedMobilizers'
+import ClimateWins from './ClimateWins'
+import CircleAmbassadors from './CircleAmbassadors'
 
 type props = {
     navigation: any,
@@ -66,7 +69,8 @@ const CircleHomePage = ({ route, navigation }: props) => {
     });
 
     const singleCircle = data?.filter((item) => item.id === circleId)[0];
-    console.log(`@/assets/images/` + 'image')
+console.log(singleCircle)
+
     return (
         <View w='100%' h='100%' pt="$4" bg="$white" >
             <ScrollView
@@ -92,6 +96,13 @@ const CircleHomePage = ({ route, navigation }: props) => {
                         image={CircleHome?.secondBanner.image}
                         hasCurrentWork={currentWork?.length !== 0}
                     />}
+                {singleCircle?.mobilizers &&
+                    <FeaturedMobilizers navigation={navigation} mobilizers={singleCircle?.mobilizers} />
+                }
+                {currentWork &&
+                    <ClimateWins navigation={navigation} currentWork={currentWork} />
+                }
+                <CircleAmbassadors navigation={navigation} />
 
                 <SupportComponent />
                 <Footer />

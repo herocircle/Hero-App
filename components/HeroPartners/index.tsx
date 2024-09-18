@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { View, Image, TouchableOpacity, FlatList } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
+import { TouchableOpacity, } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { ScrollView } from 'react-native-gesture-handler';
 import SinglePartnerModal from '../Modals/partnerModal';
-import { Box, HStack, VStack, Text } from '@gluestack-ui/themed';
+import { Box, HStack, VStack, Text, Select, SelectTrigger, SelectInput, Icon, SelectPortal, SelectBackdrop, SelectContent, SelectDragIndicator, SelectItem, SelectIcon } from '@gluestack-ui/themed';
 import PartnersCarousel from './HeroCarousel';
+import { ChevronDownIcon } from '@gluestack-ui/themed';
+import { SelectDragIndicatorWrapper } from '@gluestack-ui/themed';
 
 const PartnerHeader = () => {
   const [partnersData, setPartnersData] = useState<any[]>([]);
@@ -90,34 +91,50 @@ const PartnerHeader = () => {
           <Text fontSize="$md" marginRight="$2" fontWeight="bold" color="#0202CC">
             Filter by:
           </Text>
-          <Picker
+
+          <Select
             selectedValue={selectedTag}
             onValueChange={(itemValue) => setSelectedTag(itemValue)}
-            style={{
-              height: 40,
-              width: 150,
-              borderColor: '#0202CC',
-              borderWidth: 1,
-              borderRadius: 10,
-              color: '#0202CC',
-              padding: 5,
-            }}
           >
-            <Picker.Item label="All" value="all" />
-            {tags.map(tag => (
-              <Picker.Item key={tag._id} label={tag.name} value={tag.name} />
-            ))}
-          </Picker>
+            <SelectTrigger borderColor='#0202CC' width={200} rounded={10} variant="outline" size="md">
+              <SelectInput
+                style={{
+                  height: 40,
+                  width: 150,
+                  color: '#0202CC',
+                  padding: 5,
+                }}
+                placeholder="Select option" />
+              <SelectIcon >
+                <Icon as={ChevronDownIcon} />
+              </SelectIcon>
+            </SelectTrigger>
+            <SelectPortal>
+              <SelectBackdrop />
+              <SelectContent>
+                <SelectDragIndicatorWrapper>
+                  <SelectDragIndicator />
+                </SelectDragIndicatorWrapper>
+                <SelectItem label="All" value="all" />
+                {tags.map(tag => (
+                  <SelectItem key={tag.name} label={tag.name} value={tag.name} />
+                ))}
+              </SelectContent>
+            </SelectPortal>
+          </Select>
         </HStack>
         <Box height="$1" backgroundColor="#000" marginVertical="$4" />
-        <TouchableOpacity onPress={toggleView}>
+        <TouchableOpacity
+        style={{alignSelf:"flex-end"}}
+        onPress={toggleView}>
           <Text fontSize="$md" color="#0202CC" textAlign="center" marginVertical="$2" fontWeight="bold">
             {showAllPartners ? 'Show Less Partners' : 'See All Partners'}
           </Text>
         </TouchableOpacity>
         <ScrollView>
-       < PartnersCarousel             handlePartnerSelect={handlePartnerSelect}
-        AllCircles={partnersData} filteredPartners={filteredPartners} showAllPartners={showAllPartners} setSelectedPartner={selectedPartner} tags={tags}/>
+          < PartnersCarousel
+            handlePartnerSelect={handlePartnerSelect}
+            AllCircles={partnersData} filteredPartners={filteredPartners} showAllPartners={showAllPartners} setSelectedPartner={selectedPartner} tags={tags} />
           {selectedPartner && (
             <SinglePartnerModal
               selectedPartner={selectedPartner}
