@@ -25,7 +25,6 @@ const OurImpact = () => {
         },
     ]
 
-    console.log(chips?.length)
     return (
         <VStack gap="$5" py="$16" px="$4" bg='#FAFAFA'>
             <Text fontSize={32} fontFamily='nova800' color="$black" textAlign='center' >Our collective impact</Text>

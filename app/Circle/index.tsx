@@ -13,6 +13,7 @@ import SupportComponent from '@/components/Support_metter'
 import FeaturedMobilizers from './FeaturedMobilizers'
 import ClimateWins from './ClimateWins'
 import CircleAmbassadors from './CircleAmbassadors'
+import EveryCliamteRoleKey from './EveryCliamteRoleKey'
 
 type props = {
     navigation: any,
@@ -69,7 +70,6 @@ const CircleHomePage = ({ route, navigation }: props) => {
     });
 
     const singleCircle = data?.filter((item) => item.id === circleId)[0];
-console.log(singleCircle)
 
     return (
         <View w='100%' h='100%' pt="$4" bg="$white" >
@@ -103,7 +103,7 @@ console.log(singleCircle)
                     <ClimateWins navigation={navigation} currentWork={currentWork} />
                 }
                 <CircleAmbassadors navigation={navigation} />
-
+<EveryCliamteRoleKey />
                 <SupportComponent />
                 <Footer />
 
