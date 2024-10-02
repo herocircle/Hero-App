@@ -1,7 +1,7 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useCallback, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useQuery, } from '@tanstack/react-query';
-import { User } from '../Api/models';
+import { PublicUserProfileRoleEnum, User } from '../Api/models';
 
 
 export const AuthContext = createContext<any>({})
@@ -55,13 +55,23 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
         refetch()
     }, [])
 
+    const isPrivilegedTier = useCallback(() => {
+        if (!userData?.role) return undefined;
+        return [
+            PublicUserProfileRoleEnum.ORGANIZATION,
+            PublicUserProfileRoleEnum.TRIAL,
+            PublicUserProfileRoleEnum.TRIALSUPPORTER
+        ].includes(userData?.role as any);
+    }, [userData?.role]);
+
     return (
         <AuthContext.Provider
             value={{
                 userData,
                 authToken,
                 isLoading,
-                resetStates
+                resetStates,
+                isPrivilegedTier
             }}
         >
             {children}

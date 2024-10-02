@@ -11,9 +11,12 @@ import Password from './Password';
 import Subscriptions from './Subscriptions';
 import Invocies from './Invocies';
 import Payments from './Payments';
+import { useAuth } from '@/contexts/AuthContext';
 const MainProfile = () => {
     const [activePage, setActivePage] = useState(0);
     const refPagerView = React.useRef<PagerView>(null);
+    const { userData } = useAuth()
+
 
     const handlePageChange = (page: number) => {
         requestAnimationFrame(() => refPagerView.current?.setPage(page));
@@ -43,22 +46,30 @@ const MainProfile = () => {
         <Box w="100%" h="100%" bg="white" pt="$2" position='relative'>
             <HStack alignItems='center' gap="$4" p="$4" >
                 <Avatar bgColor="$amber600" size="xl" borderRadius="$full">
-                    <AvatarFallbackText>Sandeep Srivastava</AvatarFallbackText>
+                    <AvatarFallbackText>{userData?.firstname}</AvatarFallbackText>
                     <AvatarImage
                         alt=""
                         source={{
-                            uri: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60",
+                            uri: userData?.avatar,
                         }}
                     />
                 </Avatar>
                 <VStack>
                     <Heading color="$black" fontFamily='nova600' size="sm">Welcome{" "}
                         <Text color="$black" fontFamily='nova800'>
-                            Richard
+                            {userData?.firstname}
                         </Text>
                     </Heading>
-                    <Text fontFamily='nova' color='$black' size="sm">This is supposed to be the bio of the user
-                    </Text>
+                    {userData?.country &&
+                        <Text fontFamily='nova' color='$black' size="sm">
+                            {userData?.country}
+                        </Text>
+                    }
+                    {userData?.description &&
+                        <Text fontFamily='nova' color='$black' size="sm">
+                            {userData?.description}
+                        </Text>
+                    }
                 </VStack>
             </HStack>
             <ScrollView
