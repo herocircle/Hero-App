@@ -19,12 +19,13 @@ const FirstHeroBanner = ({ title, circleName, image }: props) => {
 
     return (
         <VStack w='100%' gap={20} px="$4">
+               {image &&
             <Image
                 source={{ uri: image }}
                 style={{ width: '100%', height: 300, objectFit: "contain" }}
                 objectFit='contain'
                 alt=""
-            />
+                />}
 
             {circleName === "Empower the next 1 million mobilizers worldwide with a stable monthly income" && (
                 <Text

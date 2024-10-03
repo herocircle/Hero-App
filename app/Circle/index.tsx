@@ -38,12 +38,14 @@ const CircleHomePage = ({ route, navigation }: props) => {
     const { data: currentWork } = useQuery({
         queryKey: ['circle-work', circleId],
         queryFn: async () => {
-            const response = await new CircleWorkApi(AXIOS_CONFIG).getLatestWins(circleId, 'en-US');
+            const response = await new CircleWorkApi(AXIOS_CONFIG).getLatestWins(circleId, 'en');
+            console.log("aaaa", response.data)
+
             return response.data;
         }
     });
 
-
+console.log("azeazeazeaze", circleId)
     const { data: circleData } = useQuery({
         queryKey: ['circle-url-name', circleUrlName],
         queryFn: async () => {
@@ -69,7 +71,7 @@ const CircleHomePage = ({ route, navigation }: props) => {
         },
     });
 
-    const singleCircle = data?.filter((item) => item.id === circleId)[0];
+    const singleCircle = data?.filter((item: { id: any }) => item.id === circleId)[0];
 
     return (
         <View w='100%' h='100%' pt="$4" bg="$white" >
@@ -77,15 +79,15 @@ const CircleHomePage = ({ route, navigation }: props) => {
                 contentContainerStyle={{ flexGrow: 1, paddingBottom: 60 }}
             >
 
-                <FirstHeroBanner
+                 <FirstHeroBanner
                     title={CircleHome?.firstBanner.title || ''}
                     circleName={CircleHome?.circleName || ''}
                     image={CircleHome?.firstBanner.image as string}
-                />
+                /> 
 
                 <SubscribeBlock />
 
-                {CircleHome?.secondBanner.image &&
+              {CircleHome?.secondBanner.image &&
                     <SecondHeroBanner
                         circleHasNoMobilizers={singleCircle?.mobilizers.length === 0}
                         isGlobalCircle={circleId === '6397b2c07650f57cfc229e8a'}
@@ -98,13 +100,14 @@ const CircleHomePage = ({ route, navigation }: props) => {
                     />}
                 {singleCircle?.mobilizers &&
                     <FeaturedMobilizers navigation={navigation} mobilizers={singleCircle?.mobilizers} />
-                }
+                } 
+           
                 {currentWork &&
                     <ClimateWins navigation={navigation} currentWork={currentWork} />
-                }
-                <CircleAmbassadors navigation={navigation} />
-<EveryCliamteRoleKey />
-                <SupportComponent />
+                } 
+     <CircleAmbassadors navigation={navigation} /> 
+<EveryCliamteRoleKey /> 
+                 <SupportComponent /> 
                 <Footer />
 
             </ScrollView  >

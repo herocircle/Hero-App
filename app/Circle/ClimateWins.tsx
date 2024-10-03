@@ -1,9 +1,10 @@
 import { VStack, Text, View, Pressable } from '@gluestack-ui/themed'
 import { Dimensions, FlatList, Platform } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { CircleWork } from '@/Api'
 import { Image } from 'expo-image'
 import { LinearGradient } from 'expo-linear-gradient'
+import WorkModal from './WorkModal'
 
 type props = {
     navigation: any
@@ -71,7 +72,18 @@ function CircleWinCard({ navigation, item }: props2) {
     const isAndroid = Platform.OS !== "ios";
     const screenHeight = Dimensions.get('window').height;
     const imageHeight = screenHeight * 0.5;
-
+    const [selectedItem, setSelectedItem] = useState<any | null>(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+  
+    const openModal = (item: any) => {
+      setSelectedItem(item);
+      setIsModalOpen(true);
+    };
+  
+    const closeModal = () => {
+      setSelectedItem(null);
+      setIsModalOpen(false);
+    };
     return (
         <VStack
             width={330}
@@ -118,11 +130,19 @@ function CircleWinCard({ navigation, item }: props2) {
             <Text h={50} color="$black" fontSize={20} fontFamily='nova600' >
                 {item?.title}
             </Text>
-            <Pressable onPress={() => { }}>
+            <Pressable               onPress={() => openModal(item)} 
+            >
                 <Text fontSize="$md" fontWeight="$bold" color="#0202CC" textDecorationLine="underline" marginTop="$2">
                     Learn more
                 </Text>
             </Pressable>
+            {selectedItem && (
+        <WorkModal
+          isOpen={isModalOpen}
+          selectedItem={selectedItem}
+          closeModal={closeModal}
+        />
+      )}
         </VStack>
     )
 }

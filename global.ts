@@ -9,3 +9,4 @@ declare module "*.svg" {
 
 declare module '*.jpg';
 declare module '*.png';
+declare module 'expo-auth-session/providers/google';
