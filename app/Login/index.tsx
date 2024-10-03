@@ -7,6 +7,7 @@ import { ActivityIndicator, Platform } from 'react-native';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { FrontendLoginResponseDTO, UserAuthApi } from '@/Api';
 import { AXIOS_CONFIG } from '@/Api/wrapper';
+import * as Google from 'expo-auth-session/providers/google';
 
 const Login = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
@@ -32,6 +33,19 @@ const Login = ({ navigation }: any) => {
       console.log('error', error)
     },
   })
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    clientId: process.env.NEXT_PUBLIC_GOOGLE_AUTH_CLIENT_ID,  
+    iosClientId:process.env.NEXT_PUBLIC_GOOGLE_IOS_CLIENT_ID,  
+    androidClientId:  process.env.NEXT_PUBLIC_GOOGLE_ANDROID_CLIENT_ID, 
+  });
+
+  React.useEffect(() => {
+    if (response?.type === 'success') {
+      const { authentication } = response;
+      // Handle authentication (save tokens, navigate, etc.)
+      console.log('Google Login Successful', authentication);
+    }
+  }, [response]);
 
   return (
     <Box bg="$white" flex={1} >
@@ -58,6 +72,8 @@ const Login = ({ navigation }: any) => {
             h={45}
             rounded="$xl"
             justifyContent="center"
+            onPress={() => promptAsync()}
+            disabled={!request}
           >
             <Image size="2xs" source={require('@/assets/images/GoogleIcon.png')} mr="$1" alt="Google Icon" />
             <Text color="#191919B2" fontSize={16} fontFamily="Visby-Semibold">
@@ -94,11 +110,7 @@ const Login = ({ navigation }: any) => {
                 }
               }}
             />}
-          <HStack alignItems="center" gap={6} alignSelf="center">
-            <Box flex={1} h={1} bg="$black" />
-            <Text>OR</Text>
-            <Box flex={1} h={1} bg="$black" />
-          </HStack>
+        
 
           <VStack w="100%" gap={15} mb="$2">
             <VStack gap={5}>
