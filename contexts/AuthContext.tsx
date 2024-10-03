@@ -2,6 +2,8 @@ import React, { createContext, useCallback, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useQuery, } from '@tanstack/react-query';
 import { PublicUserProfileRoleEnum, User } from '../Api/models';
+import axios from 'axios';
+import { BaseUrl } from '@/Api/wrapper';
 
 
 export const AuthContext = createContext<any>({})
@@ -37,7 +39,15 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
             const ParsedUser = await AsyncStorage.getItem("UserSession")
             if (ParsedUser !== null) {
                 const StringifiedUser = JSON.parse(ParsedUser)
-                setUserData(StringifiedUser?.userData)
+                const result = await axios.get(
+                    `${BaseUrl}/user-profile/me`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${StringifiedUser?.authToken}`,
+                        },
+                    }
+                )
+                setUserData(result.data)
                 setAuthToken(StringifiedUser?.authToken)
                 return StringifiedUser
             }
