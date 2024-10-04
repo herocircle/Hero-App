@@ -40,6 +40,9 @@
         "projectId": "29a60c44-bb20-4366-8e76-475acf689173"
       }
     },
-    "owner": "botrossss"
+    "owner": "botrossss",
+    "plugins": [
+      "expo-font"
+    ]
   }
 }

@@ -34,9 +34,9 @@ const Login = ({ navigation }: any) => {
     },
   })
   const [request, response, promptAsync] = Google.useAuthRequest({
-    clientId: process.env.NEXT_PUBLIC_GOOGLE_AUTH_CLIENT_ID,  
-    iosClientId:process.env.NEXT_PUBLIC_GOOGLE_IOS_CLIENT_ID,  
-    androidClientId:  process.env.NEXT_PUBLIC_GOOGLE_ANDROID_CLIENT_ID, 
+    clientId: process.env.NEXT_PUBLIC_GOOGLE_AUTH_CLIENT_ID,
+    iosClientId: process.env.NEXT_PUBLIC_GOOGLE_IOS_CLIENT_ID || '',
+    androidClientId: process.env.NEXT_PUBLIC_GOOGLE_ANDROID_CLIENT_ID,
   });
 
   React.useEffect(() => {
@@ -110,7 +110,7 @@ const Login = ({ navigation }: any) => {
                 }
               }}
             />}
-        
+
 
           <VStack w="100%" gap={15} mb="$2">
             <VStack gap={5}>

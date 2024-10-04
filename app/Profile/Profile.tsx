@@ -201,22 +201,21 @@ const Profile = () => {
         });
     }, [userData])
 
-
     useEffect(() => {
         if (userData?.instagram) {
-            setSwitches({ ...switches, instagramConnnet: true })
+            setSwitches((prev) => ({ ...prev, instagramConnnet: true }));
         }
 
         if (userData?.twitter) {
-            setSwitches({ ...switches, twitterConnect: true })
+            setSwitches((prev) => ({ ...prev, twitterConnect: true }));
         }
 
         if (userData?.tiktok) {
-            setSwitches({ ...switches, tikTokConnect: true })
+            setSwitches((prev) => ({ ...prev, tikTokConnect: true }));
         }
 
         if (userData?.facebook) {
-            setSwitches({ ...switches, facebookConnect: true })
+            setSwitches((prev) => ({ ...prev, facebookConnect: true }));
         }
 
     }, [])

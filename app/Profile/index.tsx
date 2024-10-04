@@ -31,6 +31,7 @@ const MainProfile = () => {
         },
         {
             title: "Subscriptions",
+            hide: userData?.role === 'MOBILIZER'
         },
         {
             title: "Payments",
@@ -92,6 +93,7 @@ const MainProfile = () => {
 
             >
                 {pages?.map((item: any, index: number) => (
+                    !item?.hide &&
                     <Button
                         key={item?.title}
                         onPress={() => handlePageChange(index)}
@@ -126,11 +128,10 @@ const MainProfile = () => {
                 </PagerViewSinglePageLayout>
 
 
-
-                <PagerViewSinglePageLayout >
-                    <Subscriptions />
-                </PagerViewSinglePageLayout>
-
+            
+                    <PagerViewSinglePageLayout >
+                        <Subscriptions />
+                    </PagerViewSinglePageLayout>
 
 
 

@@ -39,10 +39,10 @@ const Subscriptions = () => {
       }
 
       {isSubscriber &&
-        userSubscriptions?.map((subscription: any) => subscription?.circle?.name && subscription?.amount && (
+        userSubscriptions?.map((subscription: any, index:number) => subscription?.circle?.name && subscription?.amount && (
           <SingleSubscription
             subscription={subscription}
-            key={subscription.circle.name}
+            key={`${subscription.circle.name}-${index}`}
             handleOpen={handleOpen}
 
           />

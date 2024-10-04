@@ -112,7 +112,7 @@ const SingleInvocie = ({
 
 
       <VStack
-        alignItems='center'
+        alignItems='flex-end'
         gap="$3"
         position='absolute'
         top={-5}
