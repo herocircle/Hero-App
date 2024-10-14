@@ -25,5 +25,8 @@
       "autoIncrement": true,
       "channel": "production"
     }
+  },
+  "cli": {
+    "appVersionSource": "remote"
   }
 }
