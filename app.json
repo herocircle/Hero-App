@@ -44,11 +44,10 @@
       }
     },
     "owner": "botrossss",
-    "plugins": [
-      "expo-font"
-    ],
+    "plugins": ["expo-font"],
     "updates": {
       "url": "https://u.expo.dev/29a60c44-bb20-4366-8e76-475acf689173"
-    }
+    },
+    "platforms": ["ios", "android"]
   }
 }

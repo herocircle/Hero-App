@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { TouchableOpacity, } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native';
 import SinglePartnerModal from '../Modals/partnerModal';
 import { Box, HStack, VStack, Text, Select, SelectTrigger, SelectInput, Icon, SelectPortal, SelectBackdrop, SelectContent, SelectDragIndicator, SelectItem, SelectIcon } from '@gluestack-ui/themed';
 import PartnersCarousel from './HeroCarousel';

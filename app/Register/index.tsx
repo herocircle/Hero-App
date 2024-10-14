@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Button, HStack, Image, Input, InputField, Text, VStack } from '@gluestack-ui/themed';
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native';
 import axios from 'axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigation } from '@react-navigation/native';
