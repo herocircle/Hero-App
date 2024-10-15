@@ -7,7 +7,6 @@
     },
     "preview": {
       "android": {
-        "node": "16.18.0",
         "buildType": "apk"
       },
       "channel": "preview"
