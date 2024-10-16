@@ -3,7 +3,7 @@ import { Button, ChevronDownIcon, Heading, HStack, Select, SelectBackdrop, Selec
 import ReusableInput from '@/components/ReusableInput'
 import { Switch } from '@gluestack-ui/themed';
 import axios, { AxiosError } from 'axios';
-import countryList from 'react-select-country-list'
+import countryList from 'react-select-country-list';
 import {
     LinkedinApi,
     PublicUserProfile,
