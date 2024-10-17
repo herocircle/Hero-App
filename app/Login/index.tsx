@@ -13,8 +13,17 @@ import { googleAuthConfig } from './GoogleFunctions';
 const Login = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const queryClient = useQueryClient()
+
+  async function onSuccess(data: FrontendLoginResponseDTO) {
+    const { token, user } = data;
+    await AsyncStorage.setItem('userToken', token);
+    await AsyncStorage.setItem('userInfo', JSON.stringify(user));
+    await AsyncStorage.setItem('UserSession', JSON.stringify({ userData: user, authToken: token }))
+    queryClient.invalidateQueries({ queryKey: ['UserSession'] })
+    navigation.navigate('Home');
+  }
+
 
   const { mutate: formLogin, isPending, error, isError } = useMutation({
     mutationKey: ['login'],
@@ -22,29 +31,31 @@ const Login = ({ navigation }: any) => {
       const restul = await new UserAuthApi(AXIOS_CONFIG).login({ email, password })
       return restul.data
     },
-    onSuccess: async (data: FrontendLoginResponseDTO) => {
-      const { token, user } = data;
-      await AsyncStorage.setItem('userToken', token);
-      await AsyncStorage.setItem('userInfo', JSON.stringify(user));
-      await AsyncStorage.setItem('UserSession', JSON.stringify({ userData: user, authToken: token }))
-      queryClient.invalidateQueries({ queryKey: ['UserSession'] })
-      navigation.navigate('Home');
-    },
+    onSuccess,
     onError: (error: any) => {
       console.log('error', error)
     },
   })
-  const [request, response, promptAsync] = Google.useAuthRequest(googleAuthConfig);
-  
-  function signupWithGmail(Token: string) {
-    console.log(Token)
-  }
 
+  const { mutate: googleLogin, isPending: logingIngWithGoogle, error: googleError, isError: isGoogleError } = useMutation({
+    mutationKey: ['login'],
+    mutationFn: async (token: string) => {
+      const restul = await new UserAuthApi(AXIOS_CONFIG).googleV2(token)
+      return restul.data
+    },
+    onSuccess,
+    onError: (error: any) => {
+      console.log('error', error)
+    },
+  })
+
+
+  const [request, response, promptAsync] = Google.useAuthRequest(googleAuthConfig);
 
   useEffect(() => {
     if (response?.type === "success") {
       response?.authentication?.accessToken &&
-        signupWithGmail(response?.authentication?.accessToken)
+        googleLogin(response?.authentication?.accessToken)
     }
   }, [response]);
 
@@ -166,6 +177,12 @@ const Login = ({ navigation }: any) => {
             </Text>
           ) : null}
 
+          {isGoogleError ? (
+            <Text color="red" fontWeight={700} >
+              {googleError?.response?.data?.message || 'An error occurred during login'}
+            </Text>
+          ) : null}
+
           <Button
             width="100%" alignSelf="center" onPress={() => {
               if (!email || !password) {
@@ -173,7 +190,7 @@ const Login = ({ navigation }: any) => {
               }
               formLogin()
             }} h={45} rounded="$xl" backgroundColor="#0202CC">
-            {isPending ?
+            {isPending || logingIngWithGoogle ?
               <ActivityIndicator />
               :
               <Text fontWeight={600} color="white">

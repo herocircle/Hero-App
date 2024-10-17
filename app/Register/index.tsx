@@ -27,24 +27,25 @@ const Register = () => {
   const navigation = useNavigation<NavigationProps>();
 
   const queryClient = useQueryClient()
+  async function onSuccess(data: FrontendLoginResponseDTO) {
+    const { token, user } = data;
+    Haptics.notificationAsync(
+      Haptics.NotificationFeedbackType.Success
+    )
+    await AsyncStorage.setItem('userToken', token);
+    await AsyncStorage.setItem('userInfo', JSON.stringify(user));
+    await AsyncStorage.setItem('UserSession', JSON.stringify({ userData: user, authToken: token }))
+    queryClient.invalidateQueries({ queryKey: ['UserSession'] })
+    navigation.navigate('Home');
+  }
 
-  const { mutate: formLogin, isPending } = useMutation({
+  const { mutate: formLogin, isPending, error } = useMutation({
     mutationKey: ['login'],
     mutationFn: async ({ email, password }: { email: string, password: string }) => {
       const restul = await new UserAuthApi(AXIOS_CONFIG).login({ email, password })
       return restul.data
     },
-    onSuccess: async (data: FrontendLoginResponseDTO) => {
-      const { token, user } = data;
-      Haptics.notificationAsync(
-        Haptics.NotificationFeedbackType.Success
-      )
-      await AsyncStorage.setItem('userToken', token);
-      await AsyncStorage.setItem('userInfo', JSON.stringify(user));
-      await AsyncStorage.setItem('UserSession', JSON.stringify({ userData: user, authToken: token }))
-      queryClient.invalidateQueries({ queryKey: ['UserSession'] })
-      navigation.navigate('Home');
-    },
+    onSuccess,
     onError: (error: any) => {
       console.log('error', error)
     },
@@ -72,18 +73,24 @@ const Register = () => {
     },
   })
 
+  const { mutate: registerWithGmail, isPending: registeringWithGamail, error: gmailError } = useMutation({
+    mutationKey: ['login'],
+    mutationFn: async ({ token }: { token: string }) => {
+      const restul = await new UserAuthApi(AXIOS_CONFIG).googleV2(token)
+      return restul.data
+    },
+    onSuccess,
+    onError: (error: any) => {
+      console.log('error', error)
+    },
+  })
 
   const [request, response, promptAsync] = Google.useAuthRequest(googleAuthConfig);
-  
-  function signupWithGmail(Token: string) {
-    console.log(Token)
-  }
-
 
   useEffect(() => {
     if (response?.type === "success") {
       response?.authentication?.accessToken &&
-        signupWithGmail(response?.authentication?.accessToken)
+        registerWithGmail(response?.authentication?.accessToken)
     }
   }, [response]);
 
@@ -246,13 +253,21 @@ const Register = () => {
             <Text color="#0202CC" fontSize={14}>Terms and Conditions</Text> and <Text fontSize={14} color="#0202CC">Privacy Policy</Text>
           </Text>
 
+          {error &&
+            <Text
+              fontFamily='nova' fontSize={12} color="$red500"
+            >
+              {error?.response?.data?.message}
+            </Text>
+          }
+
           <Button width="100%" onPress={() => {
             if (!firstName || !lastName || !email || !password) {
               return;
             }
             formRegister()
           }} h={45} rounded="$xl" backgroundColor="#0202CC">
-            {isPending || isRegsitereing ?
+            {isPending || isRegsitereing || registeringWithGamail ?
               <ActivityIndicator />
               :
               <Text fontWeight={600} color="white">
