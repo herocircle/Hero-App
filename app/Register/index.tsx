@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Button, HStack, Image, Input, InputField, Text, VStack } from '@gluestack-ui/themed';
 import { ScrollView } from 'react-native';
 import axios from 'axios';
@@ -12,6 +12,8 @@ import { FrontendLoginResponseDTO, User, UserAuthApi } from '@/Api';
 import { AXIOS_CONFIG } from '@/Api/wrapper';
 import * as Haptics from 'expo-haptics';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Google from "expo-auth-session/providers/google";
+import { googleAuthConfig } from '../Login/GoogleFunctions';
 
 // const API_URL = 'https://staging-api.herocircle.app';
 
@@ -71,61 +73,19 @@ const Register = () => {
   })
 
 
-  // const registerMutation = useMutation({
-  //   mutationFn: async (userData: any) => {
-  //     const response = await axios.post(`${API_URL}/auth/register`, userData);
-  //     return response.data;
-  //   },
-  //   onSuccess: () => {
-  //     navigation.navigate('Home');
-  //   },
-  //   onError: (error: unknown) => {
-  //     if (error instanceof AxiosError) {
-  //       console.error('Error during registration:', error);
-
-  //       if (error.response) {
-  //         const { data } = error.response;
-
-  //         if (data.message === 'Email already exists') {
-  //           setError('This email is already registered. Please use a different email or log in.');
-  //         } else if (data.errors && data.errors.issues) {
-  //           console.error('Validation issues:', data.errors.issues);
-  //           const errorMessages = data.errors.issues.map((issue: any) => issue.message).join(', ');
-  //           setError(`Validation failed: ${errorMessages}`);
-  //         } else {
-  //           console.error('Error response data:', data);
-  //           setError('An error occurred during registration.');
-  //         }
-  //       } else if (error.request) {
-  //         console.error('Error request data:', error.request);
-  //         setError('No response received from the server.');
-  //       } else {
-  //         console.error('Error message:', error.message);
-  //         setError('An unexpected error occurred.');
-  //       }
-  //     } else {
-  //       console.error('An unexpected error occurred:', error);
-  //       setError('An unexpected error occurred.');
-  //     }
-  //   }
-
-  // });
+  const [request, response, promptAsync] = Google.useAuthRequest(googleAuthConfig);
+  
+  function signupWithGmail(Token: string) {
+    console.log(Token)
+  }
 
 
-  // const handleRegister = () => {
-  //   if (!firstName || !lastName || !email || !password) {
-  //     setError('Please fill in all fields');
-  //     return;
-  //   }
-  //   const userData = {
-  //     firstname: firstName,
-  //     lastname: lastName,
-  //     email,
-  //     password,
-  //     agreeToTOS: true,
-  //   };
-  //   registerMutation.mutate(userData);
-  // };
+  useEffect(() => {
+    if (response?.type === "success") {
+      response?.authentication?.accessToken &&
+        signupWithGmail(response?.authentication?.accessToken)
+    }
+  }, [response]);
 
   return (
     <Box bg="$white" flex={1}>
@@ -153,6 +113,8 @@ const Register = () => {
             rounded="$xl"
             justifyContent="center"
             mb={4}
+            onPress={() => promptAsync()}
+            disabled={!request}
           >
             <Image size="2xs" source={require('@/assets/images/GoogleIcon.png')} mr="$1" alt="Google Icon" />
             <Text color="#191919B2" fontSize={16} fontFamily="Visby-Semibold">

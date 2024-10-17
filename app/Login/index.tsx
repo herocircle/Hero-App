@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Button, HStack, Image, Input, InputField, Pressable, Text, VStack } from '@gluestack-ui/themed';
 import { ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -7,7 +7,8 @@ import { ActivityIndicator, Platform } from 'react-native';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { FrontendLoginResponseDTO, UserAuthApi } from '@/Api';
 import { AXIOS_CONFIG } from '@/Api/wrapper';
-import * as Google from 'expo-auth-session/providers/google';
+import * as Google from "expo-auth-session/providers/google";
+import { googleAuthConfig } from './GoogleFunctions';
 
 const Login = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
@@ -33,19 +34,20 @@ const Login = ({ navigation }: any) => {
       console.log('error', error)
     },
   })
-  const [request, response, promptAsync] = Google.useAuthRequest({
-    clientId: process.env.NEXT_PUBLIC_GOOGLE_AUTH_CLIENT_ID,
-    iosClientId: process.env.NEXT_PUBLIC_GOOGLE_IOS_CLIENT_ID || '',
-    androidClientId: process.env.NEXT_PUBLIC_GOOGLE_ANDROID_CLIENT_ID,
-  });
+  const [request, response, promptAsync] = Google.useAuthRequest(googleAuthConfig);
+  
+  function signupWithGmail(Token: string) {
+    console.log(Token)
+  }
 
-  React.useEffect(() => {
-    if (response?.type === 'success') {
-      const { authentication } = response;
-      // Handle authentication (save tokens, navigate, etc.)
-      console.log('Google Login Successful', authentication);
+
+  useEffect(() => {
+    if (response?.type === "success") {
+      response?.authentication?.accessToken &&
+        signupWithGmail(response?.authentication?.accessToken)
     }
   }, [response]);
+
 
   return (
     <Box bg="$white" flex={1} >
