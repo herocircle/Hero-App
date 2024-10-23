@@ -61,7 +61,7 @@ const Subscriptions = () => {
         subscriptionId={selectedSubscription}
         showModal={showModal}
         setShowModal={setShowModal}
-        ref={ref}
+        refC={ref}
         queryClient={queryClient}
       />
 
@@ -142,10 +142,10 @@ type props2 = {
   showModal: boolean,
   setShowModal: (value: boolean) => void,
   subscriptionId: string | null,
-  ref: any,
+  refC: any,
   queryClient: any
 }
-const CancelSubscriptionModal = ({ subscriptionId, showModal, setShowModal, ref, queryClient }: props2) => {
+const CancelSubscriptionModal = ({ subscriptionId, showModal, setShowModal, refC, queryClient }: props2) => {
 
   const [isActiveStep, setIsActiveStep] = useState(1)
   const [values, setValues] = useState([])
@@ -195,7 +195,7 @@ const CancelSubscriptionModal = ({ subscriptionId, showModal, setShowModal, ref,
       onClose={() => {
         setShowModal(false)
       }}
-      finalFocusRef={ref}
+      finalFocusRef={refC}
     >
       <ModalBackdrop />
       <ModalContent
