@@ -2,28 +2,28 @@
 import { AntDesign, Entypo, Ionicons, SimpleLineIcons } from '@expo/vector-icons'
 import { Box, HStack, Pressable, Text, View, VStack } from '@gluestack-ui/themed'
 import React from 'react'
-import { Image } from 'react-native'
+import { Image, Linking } from 'react-native'
 
 export const icons = [
     {
         icon: <AntDesign name="instagram" size={20} />,
-        link: ""
+        link: 'https://www.instagram.com/herocircle.app'
     },
     {
         icon: <SimpleLineIcons name="social-spotify" size={20} />,
-        link: ""
+        link: "https://open.spotify.com/show/3OLdPSPIYXHR4wHGNAQG30?si=46ccc7acfde643d3&nd=1&dlsi=749b9052b0f74932"
     },
     {
         icon: <Entypo name="linkedin" size={20} />,
-        link: ""
+        link: "https://www.linkedin.com/company/herocircle/"
     },
     {
         icon: <AntDesign name="youtube" size={20} />,
-        link: ""
+        link: "https://www.youtube.com/@herocircle_app"
     },
     {
         icon: <Ionicons name="logo-tiktok" size={20} />,
-        link: ""
+        link: "https://www.tiktok.com/@herocircle.app"
     },
 ]
 const Footer = () => {
@@ -63,6 +63,7 @@ const Footer = () => {
                     <Pressable
                         key={index}
                         display='flex'
+                        onPress={() => Linking.openURL(item.link)}
                         flexDirection='row'
                         alignItems='center'
                         justifyContent='center'

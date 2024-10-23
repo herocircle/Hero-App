@@ -5,10 +5,21 @@ import { Text } from '@gluestack-ui/themed'
 import { ScrollView } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'
 import Footer from '@/components/footer'
+import InviteFriendModal from './InviteFriendModal'
 
 const Feeds = () => {
+    const [showModal, setShowModal] = React.useState(false)
+    const ref = React.useRef(null)
+
     return (
         <View w='100%' pt="$4" bg="$white"  >
+
+            <InviteFriendModal
+                showModal={showModal}
+                setShowModal={setShowModal}
+                refC={ref}
+            />
+
             <ScrollView
                 contentContainerStyle={{ flexGrow: 1, paddingBottom: 60 }}
             >
@@ -142,6 +153,7 @@ const Feeds = () => {
                             h={40}
                             rounded="$3xl"
                             backgroundColor="#0202CC"
+                            onPress={() => setShowModal(true)}
                         >
                             <Text
                                 fontWeight={600}

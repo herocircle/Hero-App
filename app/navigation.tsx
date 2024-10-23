@@ -223,20 +223,13 @@ export default function Navigation() {
             }}
           />
           <Drawer.Screen
-            name="CircleHomePage"
-            component={CircleHomePage}
-            options={{
-              drawerLabel: 'CircleHomePage',
-            }}
-          />
-          <Drawer.Screen
             name="Feeds"
             component={Feeds}
             options={{
               drawerLabel: 'Feeds',
             }}
           />
-             <Drawer.Screen
+          <Drawer.Screen
             name="About Us"
             component={AboutUs}
             options={{
