@@ -5,10 +5,23 @@ import { Text } from '@gluestack-ui/themed'
 import { ScrollView } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'
 import Footer from '@/components/footer'
+import InviteFriendModal from './InviteFriendModal'
+import { useAuth } from '@/contexts/AuthContext'
 
 const Feeds = () => {
+    const [showModal, setShowModal] = React.useState(false)
+    const ref = React.useRef(null)
+    const { userData } = useAuth()
+
     return (
         <View w='100%' pt="$4" bg="$white"  >
+
+            <InviteFriendModal
+                showModal={showModal}
+                setShowModal={setShowModal}
+                refC={ref}
+            />
+
             <ScrollView
                 contentContainerStyle={{ flexGrow: 1, paddingBottom: 60 }}
             >
@@ -16,24 +29,30 @@ const Feeds = () => {
 
                     <HStack alignItems='center' gap="$4" >
                         <Avatar bgColor="$amber600" size="lg" borderRadius="$full">
-                            <AvatarFallbackText>Sandeep Srivastava</AvatarFallbackText>
+                            <AvatarFallbackText>{userData?.firstname}</AvatarFallbackText>
                             <AvatarImage
                                 alt=""
                                 source={{
-                                    uri: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60",
+                                    uri: userData?.avatar,
                                 }}
                             />
                         </Avatar>
                         <VStack>
                             <Heading color="$black" fontFamily='nova600' size="sm">Welcome{" "}
                                 <Text color="$black" fontFamily='nova800'>
-                                    Richard
+                                    {userData?.firstname}
                                 </Text>
                             </Heading>
-                            <HStack >
-                                <Text fontFamily='nova' color='$black' size="sm">You are part of the{" "}<Text color="#0202CC" fontFamily='nova' size="sm">Circle name, Circle name,{'\n'} Circle name, Circle name,</Text>
+                            {userData?.country &&
+                                <Text fontFamily='nova' color='$black' size="sm">
+                                    {userData?.country}
                                 </Text>
-                            </HStack>
+                            }
+                            {userData?.description &&
+                                <Text fontFamily='nova' color='$black' size="sm">
+                                    {userData?.description}
+                                </Text>
+                            }
                         </VStack>
                     </HStack>
                     <VStack bg='#F9F9F9' borderRadius={20} px='$5' py="$7" gap="$8" >
@@ -142,6 +161,7 @@ const Feeds = () => {
                             h={40}
                             rounded="$3xl"
                             backgroundColor="#0202CC"
+                            onPress={() => setShowModal(true)}
                         >
                             <Text
                                 fontWeight={600}

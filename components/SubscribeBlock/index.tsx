@@ -6,11 +6,15 @@ import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from "@/app/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useAuth } from "@/contexts/AuthContext";
-import { PaymentSubscriptionsApi, SubscriptionRequestDto, SubscriptionRequestDtoBillingPeriodEnum } from "@/Api";
+import { PaymentSubscriptionsApi, SubscriptionRequestDtoBillingPeriodEnum } from "@/Api";
 import { useMutation } from "@tanstack/react-query";
 import { AXIOS_CONFIG } from "@/Api/wrapper";
 import { ActionsheetContent } from "@gluestack-ui/themed";
 import WebView from 'react-native-webview';
+import PlantLogo from "@/public/plantLogo.svg";
+import TreeLogo from "@/public/TreeLogo.svg";
+import EarthLogo from "@/public/earthLogo.svg";
+import { Image } from "expo-image";
 
 type RegisterV2ScreenProp = NativeStackNavigationProp<RootStackParamList, 'RegisterV2'>;
 
@@ -104,7 +108,7 @@ const SubscribeBlock = ({ homepageStatistics }: any) => {
     }
 
     const disabled = parseInt(amount) < (isMonthly ? 600 : 5000);
-    
+
     return (
         <VStack gap={'$12'} bg="#E5EEFF" py="$6" px="$4">
             <Text fontWeight={"$bold"} fontSize={22} color="$black">
@@ -190,7 +194,7 @@ const SubscribeBlock = ({ homepageStatistics }: any) => {
                 <RadioGroup value={amount} onChange={setAmount}>
                     <HStack space="sm" w='100%' alignItems='center' justifyContent='space-between'>
                         <VStack gap={5} alignSelf='center' alignItems='center'>
-                            <AntDesign name="checkcircle" size={45} color="#0202CC" />
+                            <PlantLogo width={120} height={50} />
                             <Text fontWeight={"$semibold"} fontSize={20} color="$black">
                                 ${currentPricing.starter}
                             </Text>
@@ -204,7 +208,7 @@ const SubscribeBlock = ({ homepageStatistics }: any) => {
                         </VStack>
 
                         <VStack gap={5} alignSelf='center' alignItems='center'>
-                            <AntDesign name="checkcircle" size={45} color="#0202CC" />
+                            <TreeLogo width={120} height={50} />
                             <Text fontWeight={"$semibold"} fontSize={20} color="$black">
                                 ${currentPricing.advocate}
                             </Text>
@@ -217,7 +221,7 @@ const SubscribeBlock = ({ homepageStatistics }: any) => {
                         </VStack>
 
                         <VStack gap={5} alignSelf='center' alignItems='center'>
-                            <AntDesign name="checkcircle" size={45} color="#0202CC" />
+                            <EarthLogo width={120} height={50} />
                             <Text fontWeight={"$semibold"} fontSize={20} color="$black">
                                 ${currentPricing.changer}
                             </Text>

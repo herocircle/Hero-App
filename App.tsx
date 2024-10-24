@@ -64,7 +64,7 @@ export default function App() {
           <GluestackUIProvider config={config}>
             <GestureHandlerRootView style={{ flex: 1 }}>
               <Navigation />
-              <Toast />
+              <Toast  />
             </GestureHandlerRootView>
           </GluestackUIProvider>
         </AuthContextProvider>
