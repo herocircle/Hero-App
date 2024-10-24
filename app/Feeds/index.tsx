@@ -7,11 +7,60 @@ import { AntDesign } from '@expo/vector-icons'
 import Footer from '@/components/footer'
 import InviteFriendModal from './InviteFriendModal'
 import { useAuth } from '@/contexts/AuthContext'
+import ClimateWins from '../Circle/ClimateWins'
+import useUserSubscriptions from '@/hooks/useUserSubscriptions'
+import { CirclesApi, ClimateWinsApi, UserImpactApi } from '@/Api'
+import { AXIOS_CONFIG } from '@/Api/wrapper'
+import { useQuery } from '@tanstack/react-query'
 
-const Feeds = () => {
+type props = {
+    navigation: any
+}
+
+const Feeds = ({ navigation }: props) => {
     const [showModal, setShowModal] = React.useState(false)
     const ref = React.useRef(null)
     const { userData } = useAuth()
+
+
+    const { userSubscriptions } = useUserSubscriptions();
+
+    const { data } = useQuery({
+        queryKey: ['circles-with-types'],
+        queryFn: async () => {
+            const response = await new CirclesApi(AXIOS_CONFIG).getCircles(
+                undefined,
+                undefined,
+                undefined,
+            );
+            return response.data;
+        }
+    });
+
+
+    const onlyCirclesFromDataThatUserSubscribedTo = data?.filter((circle) => {
+        return userSubscriptions?.find((sub) => sub.circle === circle.id);
+    }
+    );
+
+
+    const { data: userImpacts } = useQuery({
+        queryKey: ['userImpacts'],
+        queryFn: async () => {
+            const response = await new UserImpactApi(AXIOS_CONFIG).getMyImpact();
+            return response.data;
+        }
+    }
+    );
+
+
+    const { data: allClimateWins } = useQuery({
+        queryKey: ['ClimateWinsApi'],
+        queryFn: async () => {
+            const response = await new ClimateWinsApi(AXIOS_CONFIG).getAll();
+            return response.data;
+        }
+    });
 
     return (
         <View w='100%' pt="$4" bg="$white"  >
@@ -72,7 +121,7 @@ const Feeds = () => {
                                     justifyContent='center'
                                 >
                                     <Text color="#0202CC" fontSize={28} fontFamily='nova800'>
-                                        9
+                                        {userImpacts?.mobilizersSupported}
                                     </Text>
                                 </Box>
                                 <Text textAlign='center' color="$black" fontFamily='nova400'>
@@ -91,11 +140,12 @@ const Feeds = () => {
                                     justifyContent='center'
                                 >
                                     <Text color="#0202CC" fontSize={28} fontFamily='nova800'>
-                                        9
+                                        {allClimateWins?.length}
                                     </Text>
                                 </Box>
                                 <Text textAlign='center' color="$black" fontFamily='nova400'>
                                     Climate {'\n'} Wins
+
                                 </Text>
                             </VStack>
                             <VStack alignItems='center' gap="$4">
@@ -110,7 +160,7 @@ const Feeds = () => {
                                     justifyContent='center'
                                 >
                                     <Text color="#0202CC" fontSize={28} fontFamily='nova800'>
-                                        9
+                                        {userImpacts?.activeCampaignersSupported}
                                     </Text>
                                 </Box>
                                 <Text textAlign='center' color="$black" fontFamily='nova400'>
@@ -171,6 +221,14 @@ const Feeds = () => {
                             </Text>
                         </Button>
                     </VStack>
+
+                    {allClimateWins &&
+                        <ClimateWins
+                            currentWork={allClimateWins as any}
+                            navigation={navigation}
+                        />
+                    }
+
                 </VStack>
                 <Footer />
             </ScrollView>
