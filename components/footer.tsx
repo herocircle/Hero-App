@@ -27,33 +27,15 @@ export const icons = [
 ]
 
 const Footer = () => {
-  return (
-    <VStack bg="#0202CC" py="$10" gap="$6" px="$2">
-      <Box width={160} height={80} mt={-20} mb={-20}>
-        <Image
-          source={require("@/assets/images/HERO Logo_White.png")}
-          style={{ width: "100%", height: "100%", objectFit: "contain" }}
-          alt=""
-        />
-      </Box>
-
-
     return (
         <VStack bg="#0202CC" py="$10" gap="$6" px="$2">
-
-            <Box
-                width={160}
-                height={80}
-                mt={-20}
-                mb={-20}
-            >
+            <Box width={160} height={80} mt={-20} mb={-20}>
                 <Image
-                    source={require('@/assets/images/HERO Logo_White.png')}
+                    source={require("@/assets/images/HERO Logo_White.png")}
                     style={{ width: "100%", height: "100%", objectFit: "contain" }}
                     alt=""
                 />
             </Box>
-
 
             <VStack gap={8}  >
                 <Pressable >
