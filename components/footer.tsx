@@ -1,50 +1,41 @@
-
 import { AntDesign, Entypo, Ionicons, SimpleLineIcons } from '@expo/vector-icons'
 import { Box, HStack, Pressable, Text, View, VStack } from '@gluestack-ui/themed'
 import React from 'react'
-import { Image } from 'react-native'
+import { Image, Linking } from 'react-native'
 
 export const icons = [
     {
         icon: <AntDesign name="instagram" size={20} />,
-        link: ""
+        link: 'https://www.instagram.com/herocircle.app'
     },
     {
         icon: <SimpleLineIcons name="social-spotify" size={20} />,
-        link: ""
+        link: "https://open.spotify.com/show/3OLdPSPIYXHR4wHGNAQG30?si=46ccc7acfde643d3&nd=1&dlsi=749b9052b0f74932"
     },
     {
         icon: <Entypo name="linkedin" size={20} />,
-        link: ""
+        link: "https://www.linkedin.com/company/herocircle/"
     },
     {
         icon: <AntDesign name="youtube" size={20} />,
-        link: ""
+        link: "https://www.youtube.com/@herocircle_app"
     },
     {
         icon: <Ionicons name="logo-tiktok" size={20} />,
-        link: ""
+        link: "https://www.tiktok.com/@herocircle.app"
     },
 ]
+
 const Footer = () => {
-
-
     return (
         <VStack bg="#0202CC" py="$10" gap="$6" px="$2">
-
-            <Box
-                width={160}
-                height={80}
-                mt={-20}
-                mb={-20}
-            >
+            <Box width={160} height={80} mt={-20} mb={-20}>
                 <Image
-                    source={require('@/assets/images/HERO Logo_White.png')}
+                    source={require("@/assets/images/HERO Logo_White.png")}
                     style={{ width: "100%", height: "100%", objectFit: "contain" }}
                     alt=""
                 />
             </Box>
-
 
             <VStack gap={8}  >
                 <Pressable >
@@ -63,6 +54,7 @@ const Footer = () => {
                     <Pressable
                         key={index}
                         display='flex'
+                        onPress={() => Linking.openURL(item.link)}
                         flexDirection='row'
                         alignItems='center'
                         justifyContent='center'
@@ -82,5 +74,6 @@ const Footer = () => {
         </VStack>
     )
 }
+
 
 export default Footer
