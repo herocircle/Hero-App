@@ -7,6 +7,7 @@ const AndroidClientId = '962812642379-qr9lsjgo3tao2c5n6q0fvcrcb2tm3fen.apps.goog
 
 export const googleAuthConfig = {
     iosClientId: IosClientId,
+    expoClientId: webClientId,
     webClientId: webClientId,
     androidClientId: AndroidClientId,
     language: "english",
