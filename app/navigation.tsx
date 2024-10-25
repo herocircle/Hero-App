@@ -9,7 +9,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import * as Notifications from "expo-notifications";
 import * as SplashScreen from "expo-splash-screen";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
-import { Image, Platform } from "react-native";
+import { Image, Linking, Platform } from "react-native";
 import { useFonts } from "expo-font";
 import {
   createDrawerNavigator,
@@ -92,6 +92,7 @@ function CustomDrawerContent(
           {icons?.map((item, index) => (
             <Pressable
               key={index}
+              onPress={() => Linking.openURL(item.link)}
               display="flex"
               flexDirection="row"
               alignItems="center"
