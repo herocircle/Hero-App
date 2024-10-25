@@ -34,6 +34,7 @@ import {
   DrawerDescriptorMap,
 } from "@react-navigation/drawer/lib/typescript/src/types";
 
+
 // Initialize stack and drawer navigators
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -223,6 +224,7 @@ function DrawerNavigator() {
         }}
       />
     </Drawer.Navigator>
+
   );
 }
 
@@ -254,7 +256,7 @@ export default function Navigation() {
   useEffect(() => {
     const subscription = Notifications.addNotificationReceivedListener(
       async () => {
-        // queryClient.invalidateQueries(['newNotifications']) - logic to handle notifications if needed
+        // queryClient.invalidateQueries(['newNotifications'])
       }
     );
     return () => {

@@ -11,7 +11,7 @@ type props = {
     currentWork: CircleWork[]
 }
 
-const ClimateWins = ({ navigation , currentWork}: props) => {
+const ClimateWins = ({ navigation, currentWork }: props) => {
     return (
         <VStack w='100%' gap={20} >
 
@@ -74,15 +74,15 @@ function CircleWinCard({ navigation, item }: props2) {
     const imageHeight = screenHeight * 0.5;
     const [selectedItem, setSelectedItem] = useState<any | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
-  
+
     const openModal = (item: any) => {
-      setSelectedItem(item);
-      setIsModalOpen(true);
+        setSelectedItem(item);
+        setIsModalOpen(true);
     };
-  
+
     const closeModal = () => {
-      setSelectedItem(null);
-      setIsModalOpen(false);
+        setSelectedItem(null);
+        setIsModalOpen(false);
     };
     return (
         <VStack
@@ -130,19 +130,19 @@ function CircleWinCard({ navigation, item }: props2) {
             <Text h={50} color="$black" fontSize={20} fontFamily='nova600' >
                 {item?.title}
             </Text>
-            <Pressable               onPress={() => openModal(item)} 
+            <Pressable onPress={() => openModal(item)}
             >
                 <Text fontSize="$md" fontWeight="$bold" color="#0202CC" textDecorationLine="underline" marginTop="$2">
                     Learn more
                 </Text>
             </Pressable>
             {selectedItem && (
-        <WorkModal
-          isOpen={isModalOpen}
-          selectedItem={selectedItem}
-          closeModal={closeModal}
-        />
-      )}
+                <WorkModal
+                    isOpen={isModalOpen}
+                    selectedItem={selectedItem}
+                    closeModal={closeModal}
+                />
+            )}
         </VStack>
     )
 }
