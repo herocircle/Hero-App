@@ -50,7 +50,9 @@ const Login = ({ navigation }: any) => {
   })
 
 
-  const [request, response, promptAsync] = Google.useAuthRequest(googleAuthConfig);
+  const [request, response, promptAsync] = Google.useAuthRequest(googleAuthConfig, {
+    useProxy: false
+  });
 
   useEffect(() => {
     if (response?.type === "success") {
@@ -85,7 +87,7 @@ const Login = ({ navigation }: any) => {
             h={45}
             rounded="$xl"
             justifyContent="center"
-            onPress={() => promptAsync()}
+            onPress={() => promptAsync({ useProxy: false })}
             disabled={!request}
           >
             <Image size="2xs" source={require('@/assets/images/GoogleIcon.png')} mr="$1" alt="Google Icon" />

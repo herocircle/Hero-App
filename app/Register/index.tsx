@@ -109,8 +109,10 @@ const Register = () => {
     },
   });
 
-  const [request, response, promptAsync] =
-    Google.useAuthRequest(googleAuthConfig);
+
+  const [request, response, promptAsync] = Google.useAuthRequest(googleAuthConfig, {
+    useProxy:false
+  });
 
   useEffect(() => {
     if (response?.type === "success") {
