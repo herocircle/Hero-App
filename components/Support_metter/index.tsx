@@ -1,13 +1,21 @@
 import React from 'react';
-import { Box, Button, Text, VStack, Divider } from '@gluestack-ui/themed';
+import { Box, Button, Text, VStack, Divider, View } from '@gluestack-ui/themed';
 
 const SupportComponent = () => {
     return (
         <VStack gap="$5" py="$6" px="$5">
             <VStack space="md" alignItems="flex-start"  py="$5">
-                <Text fontSize="$2xl" fontFamily="nova800" color='black'>
+            <View style={{ width: '100%', padding: 10 }}>
+                <Text 
+                    fontSize="$2xl" 
+                    fontFamily="nova800" 
+                    color="black" 
+                    style={{ flexWrap: 'wrap', textAlign: 'left' }} 
+                >
                     Why Your Support Matters
                 </Text>
+            </View>
+
                 <Text fontFamily='nova' lineHeight={"$md"} textAlign='justify' mb='$4'>
                     Every climate role demands time and energy to advance solutions. With
                     your HERO Subscription, you support verified mobilizers by providing
@@ -32,9 +40,17 @@ const SupportComponent = () => {
                 <Divider bgColor="black" w="95%" />
             </Box>
             <VStack space="md" alignItems="flex-start" gap='$5' py="$5" >
-                <Text fontSize="$2xl" fontFamily="nova800" color='black' >
+                
+                <View style={{ width: '100%', padding: 10 }}>
+    <Text 
+        fontSize="$2xl" 
+        fontFamily="nova800" 
+        color="black" 
+        style={{ flexWrap: 'wrap', textAlign: 'left' }} 
+    >
                     How Mobilizers Work
-                </Text>
+                    </Text>
+</View>
                 <VStack gap="$5">
                     <VStack space="xs">
                         <Text fontSize="$lg" fontFamily="nova600" color='black' >
