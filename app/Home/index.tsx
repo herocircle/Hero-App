@@ -1,9 +1,9 @@
 import CirclesCarousel from '../../components/CirclesCarousel/CirclesCarousel'
 import { AntDesign } from '@expo/vector-icons'
-import { InputField } from '@gluestack-ui/themed'
+import { InputField, styled } from '@gluestack-ui/themed'
 import { Box, Button, HStack, Text, View, VStack, Image, ButtonGroup, ButtonText, RadioGroup, Radio, RadioIcon, RadioIndicator, CircleIcon, RadioLabel, Input } from '@gluestack-ui/themed'
-import React, { useEffect, useState } from 'react'
-import { ScrollView } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
+import { Animated, ScrollView } from 'react-native'
 import SubscribeBlock from '../../components/SubscribeBlock'
 import SupportComponent from '@/components/Support_metter'
 import SubscriptionBreakdown from '@/components/SubscriptionBreakdown'
@@ -49,11 +49,22 @@ const Home = () => {
 
     fetchData();
   }, []);
+  const scrollViewRef = useRef<ScrollView>(null);
+  const [subscribeBlockY, setSubscribeBlockY] = useState(0);
+  const [partnerY, setSubscribePartnerY] = useState(0);
+
+  const scrollToSubscribeBlock = () => {
+    scrollViewRef.current?.scrollTo({ y: subscribeBlockY, animated: true });
+  };
+  const scrollToPartnerY = () => {
+    scrollViewRef.current?.scrollTo({ y: partnerY, animated: true });
+  };
+
 
   return (
     <View w="100%" pt="$4" bg="$white">
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <VStack w="100%" gap={20} px="$4">
+<ScrollView ref={scrollViewRef} contentContainerStyle={{ flexGrow: 1 }}>
+<VStack w="100%" gap={20} px="$4">
           <Image
             source={require("@/assets/images/heroImage.png")}
             style={{ width: "100%", height: 300, objectFit: "contain" }}
@@ -77,6 +88,8 @@ const Home = () => {
               h={40}
               rounded="$3xl"
               backgroundColor="#0202CC"
+              onPress={scrollToSubscribeBlock}
+
             >
               <Text fontWeight={600} fontSize={14} color="white">
                 Join HERO
@@ -126,16 +139,30 @@ const Home = () => {
             bg="$transparent"
             marginLeft={-20}
             marginTop={-10}
+            onPress={scrollToPartnerY}
+
           >
             <Text fontWeight={800} color="#0202CC" underline fontSize={14}>
               Learn more
             </Text>
           </Button>
         </VStack>
+        
+        <Box onLayout={(event) => {
+          const { y } = event.nativeEvent.layout;
+          setSubscribeBlockY(y);
+        }}>
+          <SubscribeBlock homepageStatistics={statistics} />
+        </Box>
 
-        <SubscribeBlock homepageStatistics={statistics} />
-        <SupportComponent />
+          <SupportComponent />
+
+         <Box onLayout={(event) => {
+          const { y } = event.nativeEvent.layout;
+          setSubscribePartnerY(y);
+        }}>
         <HeroPartners />
+        </Box>
         <SubscriptionBreakdown />
         <OurImpact />
         <FAQ />
