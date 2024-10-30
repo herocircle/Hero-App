@@ -32,11 +32,11 @@ const Circle: React.FC<CircleProps> = ({ size, backgroundColor, borderColor, jus
 const SubscriptionBreakdown = () => {
   return (
     <VStack space="md" alignItems="center" backgroundColor="#0202CC" paddingHorizontal="$5" paddingVertical={"$12"} gap="$8">
-      <Text fontSize="$2xl" fontFamily='nova800' maxWidth={"85%"} color="white" textAlign="center" mb="$4">
+      <Text fontSize="$2xl" fontFamily='nova800'  color="white" textAlign="center" mb="$4">
         This is how the money of your subscription is used.
       </Text>
 
-      <VStack space="md" alignItems="center">
+      <VStack space="md" alignItems="center">  
         <Circle size="$24" backgroundColor="#0202CC" borderColor="white" justifyContent="center" alignItems="center">
           <Text fontSize="$2xl" fontWeight="bold" color="white">
             90%

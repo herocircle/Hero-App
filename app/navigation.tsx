@@ -64,10 +64,10 @@ export default function Navigation() {
   const queryClient = useQueryClient();
 
   const [fontsLoaded] = useFonts({
-    nova: require("../assets/fonts/ProximaNovaReg.otf"),
-    nova400: require("../assets/fonts/ProximaNovaSemibold.otf"),
-    nova600: require("../assets/fonts/ProximaNovaBold.otf"),
-    nova800: require("../assets/fonts/ProximaNovaExtrabold.otf"),
+    'nova': require("../assets/fonts/ProximaNovaReg.otf"),
+    'nova400': require("../assets/fonts/ProximaNovaSemibold.otf"),
+    'nova600': require("../assets/fonts/ProximaNovaBold.otf"),
+    'nova800': require("../assets/fonts/ProximaNovaExtrabold.otf"),
   });
   const { userData } = useAuth();
 
@@ -218,7 +218,7 @@ export default function Navigation() {
             },
             title: "",
             headerStyle: {
-              height: 115,
+              height: isAndroid ? 80 : 115,
               borderBottomColor: "white",
               shadowColor: "#fff",
             },

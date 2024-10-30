@@ -14,6 +14,8 @@ import * as Haptics from 'expo-haptics';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Google from "expo-auth-session/providers/google";
 import { googleAuthConfig } from '../Login/GoogleFunctions';
+import { Pressable } from '@gluestack-ui/themed';
+import { Ionicons } from '@expo/vector-icons';
 
 // const API_URL = 'https://staging-api.herocircle.app';
 
@@ -86,7 +88,7 @@ const Register = () => {
   })
 
   const [request, response, promptAsync] = Google.useAuthRequest(googleAuthConfig, {
-    useProxy:false
+    useProxy: false
   });
 
   useEffect(() => {
@@ -96,10 +98,24 @@ const Register = () => {
     }
   }, [response]);
 
+  const isIos = Platform.OS === "ios"
+
   return (
     <Box bg="$white" flex={1}>
       <ScrollView contentContainerStyle={{ flexGrow: 1, paddingBottom: 60 }} keyboardShouldPersistTaps="handled">
         <VStack w="100%" bg="#F2F2F2" mb="$8" maxHeight={400} overflow='hidden' flex={1}>
+        <Pressable
+            position='absolute'
+            zIndex={100}
+            top={15}
+            left={15}
+            onPress={() => {
+                navigation.navigate('Home');
+            }}
+          >
+            <Ionicons name="arrow-back-circle-outline" size={40} color="black" />
+          </Pressable>
+
           <Image
             source={require('@/assets/images/HERO_Payment-Funnel 3.png')}
             style={{ width: '100%', objectFit: "contain", height: 450, backgroundColor: '#F2F2F2' }}
@@ -137,7 +153,7 @@ const Register = () => {
             <Box flex={1} h={1} bg="$black" />
           </HStack>
 
-          {Platform.OS === "ios" &&
+          {isIos &&
             <AppleAuthentication.AppleAuthenticationButton
               buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_UP}
               buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
@@ -162,11 +178,12 @@ const Register = () => {
               }}
             />}
 
-          <HStack alignItems="center" gap={6} mb={4}>
-            <Box flex={1} h={1} bg="$black" />
-            <Text>OR</Text>
-            <Box flex={1} h={1} bg="$black" />
-          </HStack>
+          {isIos &&
+            <HStack alignItems="center" gap={6} mb={4}>
+              <Box flex={1} h={1} bg="$black" />
+              <Text>OR</Text>
+              <Box flex={1} h={1} bg="$black" />
+            </HStack>}
 
           {isError ? (
             <Text color="red" fontWeight={700} mb={4}>

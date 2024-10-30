@@ -9,6 +9,8 @@ import { FrontendLoginResponseDTO, UserAuthApi } from '@/Api';
 import { AXIOS_CONFIG } from '@/Api/wrapper';
 import * as Google from "expo-auth-session/providers/google";
 import { googleAuthConfig } from './GoogleFunctions';
+import { Ionicons } from '@expo/vector-icons';
+import { StackActions } from '@react-navigation/native';
 
 const Login = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
@@ -66,6 +68,17 @@ const Login = ({ navigation }: any) => {
     <Box bg="$white" flex={1} >
       <ScrollView contentContainerStyle={{ flexGrow: 1, paddingBottom: 60 }} keyboardShouldPersistTaps="handled">
         <VStack w="100%" bg="#F2F2F2" mb="$8" maxHeight={400} overflow='hidden' flex={1}>
+          <Pressable
+            position='absolute'
+            zIndex={100}
+            top={15}
+            left={15}
+            onPress={() => {
+                navigation.navigate('Home');
+            }}
+          >
+            <Ionicons name="arrow-back-circle-outline" size={40} color="black" />
+          </Pressable>
           <Image
             source={require('@/assets/images/HERO_Payment-Funnel 3.png')}
             style={{ width: '100%', objectFit: "contain", height: 450, backgroundColor: '#F2F2F2' }}
