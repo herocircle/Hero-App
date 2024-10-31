@@ -79,12 +79,14 @@ const Feeds = ({ navigation }: props) => {
                     <HStack alignItems='center' gap="$4" >
                         <Avatar bgColor="$amber600" size="lg" borderRadius="$full">
                             <AvatarFallbackText>{userData?.firstname}</AvatarFallbackText>
-                            <AvatarImage
-                                alt=""
-                                source={{
-                                    uri: userData?.avatar,
-                                }}
-                            />
+                            {userData?.avatar &&
+                                <AvatarImage
+                                    alt=""
+                                    source={{
+                                        uri: userData?.avatar,
+                                    }}
+                                />
+                            }
                         </Avatar>
                         <VStack>
                             <Heading color="$black" fontFamily='nova600' size="sm">Welcome{" "}

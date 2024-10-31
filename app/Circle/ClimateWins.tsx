@@ -17,7 +17,7 @@ const ClimateWins = ({ navigation, currentWork }: props) => {
 
 
             <VStack>
-                <VStack gap={10} mt='$4' px="$4">
+                <VStack gap={10} mt='$4' >
                     <Text fontWeight={700} fontSize={22} color='$black'>
                         These are the people-powered climate wins that we are creating together.
                     </Text>
@@ -84,16 +84,17 @@ function CircleWinCard({ navigation, item }: props2) {
         setSelectedItem(null);
         setIsModalOpen(false);
     };
+
     return (
         <VStack
-            width={330}
-            mr={31}
+            width={isAndroid ? 250 : 330}
+            mr={isAndroid ? 20: 31}
             mt={15}
             gap="$5"
         >
 
             <Pressable
-                maxHeight={280}
+                maxHeight={isAndroid ? 200 : 280}
                 position='relative'
                 overflow='hidden'
                 rounded={15}
@@ -127,7 +128,7 @@ function CircleWinCard({ navigation, item }: props2) {
                     ]}
                 />
             </Pressable>
-            <Text h={50} color="$black" fontSize={20} fontFamily='nova600' >
+            <Text color="$black" fontSize={20} fontFamily='nova600' >
                 {item?.title}
             </Text>
             <Pressable onPress={() => openModal(item)}

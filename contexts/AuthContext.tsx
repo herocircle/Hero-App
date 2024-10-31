@@ -74,6 +74,8 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
         ].includes(userData?.role as any);
     }, [userData?.role]);
 
+    const isLoggedIn = !!userData && !!authToken;
+
     return (
         <AuthContext.Provider
             value={{
@@ -81,7 +83,8 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
                 authToken,
                 isLoading,
                 resetStates,
-                isPrivilegedTier
+                isPrivilegedTier,
+                isLoggedIn
             }}
         >
             {children}

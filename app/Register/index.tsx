@@ -183,7 +183,7 @@ const Register = () => {
               mr="$1"
               alt="Google Icon"
             />
-            <Text color="#191919B2" fontSize={16} fontFamily="Visby-Semibold">
+            <Text color="#191919B2" fontSize={16} fontFamily="nova600">
               Register with Google
             </Text>
           </Button>

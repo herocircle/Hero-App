@@ -21,14 +21,14 @@ const SBImagePartner = ({ item, onPress }: props) => {
 
     return (
         <VStack
-            width={330}
-            mr={31}
+            width={isAndroid ? 250 : 330}
+            mr={isAndroid ? 20 : 31}
             mt={15}
             gap="$5"
         >
 
             <Pressable
-                maxHeight={280}
+                maxHeight={isAndroid ? 200 : 280}
                 position='relative'
                 overflow='hidden'
                 rounded={15}
@@ -69,7 +69,7 @@ const SBImagePartner = ({ item, onPress }: props) => {
             </Text>
 
             <Pressable onPress={onPress}>
-                <Text  fontSize="$md" fontWeight="$bold" color="#0202CC" textDecorationLine="underline"  marginTop="$2">
+                <Text fontSize="$md" fontWeight="$bold" color="#0202CC" textDecorationLine="underline" marginTop="$2">
                     Learn more
                 </Text>
             </Pressable>

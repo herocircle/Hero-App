@@ -93,7 +93,6 @@ const PartnersCarousel: FC<Props> = ({ AllCircles, handlePartnerSelect, filtered
                     horizontal={true}
                     showsHorizontalScrollIndicator={false}
                     viewabilityConfig={{ itemVisiblePercentThreshold: 60, }}
-                    style={{ padding: 10 }}
                     contentContainerStyle={{ paddingRight: 10 }}
                     decelerationRate={0.5}
                     keyExtractor={(_, index) => `id_${index}`}

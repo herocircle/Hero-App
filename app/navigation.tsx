@@ -69,7 +69,7 @@ export default function Navigation() {
     'nova600': require("../assets/fonts/ProximaNovaBold.otf"),
     'nova800': require("../assets/fonts/ProximaNovaExtrabold.otf"),
   });
-  const { userData } = useAuth();
+  const { isLoggedIn } = useAuth();
 
   useEffect(() => {
     const onLayoutRootView = async () => {
@@ -93,14 +93,15 @@ export default function Navigation() {
 
   const isAndroid = Platform.OS === "android";
 
+
   return (
-    <NavigationContainer>
+    fontsLoaded ? <NavigationContainer>
       <BottomSheetModalProvider>
         <Drawer.Navigator
           initialRouteName="Home"
           drawerContent={(props) => {
             return (
-              <VStack h="100%" py="$16" justifyContent="space-between">
+              <VStack h="100%" py={isAndroid ? "$8" : "$16"} justifyContent="space-between">
                 <VStack>
                   <Image
                     source={require("@/assets/images/newLogo.png")}
@@ -174,7 +175,7 @@ export default function Navigation() {
             ),
             headerRight: () => (
               <HStack gap="$2" alignItems="center">
-                {!userData ? (
+                {!isLoggedIn ? (
                   <Button
                     alignSelf="center"
                     onPress={() => navigation.navigate("Register")}
@@ -218,9 +219,9 @@ export default function Navigation() {
             },
             title: "",
             headerStyle: {
-              height: isAndroid ? 80 : 115,
+              height: isAndroid ? 65 : 115,
               borderBottomColor: "white",
-              shadowColor: "#fff",
+              shadowColor: "#fff"
             },
             drawerLabelStyle: {
               fontSize: 16,
@@ -229,13 +230,15 @@ export default function Navigation() {
             drawerPosition: "right",
           })}
         >
-          <Drawer.Screen
-            name="Profile"
-            component={Profile}
-            options={{
-              drawerLabel: "Profile",
-            }}
-          />
+          {isLoggedIn &&
+            <Drawer.Screen
+              name="Profile"
+              component={Profile}
+              options={{
+                drawerLabel: "Profile",
+              }}
+            />
+          }
           <Drawer.Screen
             name="Home"
             component={Home}
@@ -243,14 +246,15 @@ export default function Navigation() {
               drawerLabel: "Home",
             }}
           />
-          <Drawer.Screen
-
-            name="Feeds"
-            component={Feeds}
-            options={{
-              drawerLabel: "Feeds",
-            }}
-          />
+          {isLoggedIn &&
+            <Drawer.Screen
+              name="Feeds"
+              component={Feeds}
+              options={{
+                drawerLabel: "Feeds",
+              }}
+            />
+          }
           <Drawer.Screen
             name="About Us"
             component={AboutUs}
@@ -308,6 +312,14 @@ export default function Navigation() {
           />
         </Drawer.Navigator>
       </BottomSheetModalProvider>
-    </NavigationContainer>
+    </NavigationContainer> :
+      <Text
+        fontSize={30}
+        textAlign="center"
+        mt="auto"
+        mb="auto"
+      >
+        Loading...
+      </Text>
   );
 }

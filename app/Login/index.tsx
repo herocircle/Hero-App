@@ -10,7 +10,6 @@ import { AXIOS_CONFIG } from '@/Api/wrapper';
 import * as Google from "expo-auth-session/providers/google";
 import { googleAuthConfig } from './GoogleFunctions';
 import { Ionicons } from '@expo/vector-icons';
-import { StackActions } from '@react-navigation/native';
 
 const Login = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
@@ -104,7 +103,7 @@ const Login = ({ navigation }: any) => {
             disabled={!request}
           >
             <Image size="2xs" source={require('@/assets/images/GoogleIcon.png')} mr="$1" alt="Google Icon" />
-            <Text color="#191919B2" fontSize={16} fontFamily="Visby-Semibold">
+            <Text color="#191919B2" fontSize={16} fontFamily="nova600">
               Login with Google
             </Text>
           </Button>
