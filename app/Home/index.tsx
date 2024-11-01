@@ -28,7 +28,7 @@ const Home = () => {
 
   const [loading, setLoading] = useState(true);
 
-  const { userData } = useAuth();
+  const { isLoggedIn } = useAuth();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -63,8 +63,8 @@ const Home = () => {
 
   return (
     <View w="100%" pt="$4" bg="$white">
-<ScrollView ref={scrollViewRef} contentContainerStyle={{ flexGrow: 1 }}>
-<VStack w="100%" gap={20} px="$4">
+      <ScrollView ref={scrollViewRef} contentContainerStyle={{ flexGrow: 1 }}>
+        <VStack w="100%" gap={20} px="$4">
           <Image
             source={require("@/assets/images/heroImage.png")}
             style={{ width: "100%", height: 300, objectFit: "contain" }}
@@ -147,7 +147,7 @@ const Home = () => {
             </Text>
           </Button>
         </VStack>
-        
+
         <Box onLayout={(event) => {
           const { y } = event.nativeEvent.layout;
           setSubscribeBlockY(y);
@@ -155,13 +155,13 @@ const Home = () => {
           <SubscribeBlock homepageStatistics={statistics} />
         </Box>
 
-          <SupportComponent />
+        <SupportComponent />
 
-         <Box onLayout={(event) => {
+        <Box onLayout={(event) => {
           const { y } = event.nativeEvent.layout;
           setSubscribePartnerY(y);
         }}>
-        <HeroPartners />
+          <HeroPartners />
         </Box>
         <SubscriptionBreakdown />
         <OurImpact />

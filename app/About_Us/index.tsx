@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { View, ScrollView, Image, Linking, TouchableOpacity } from 'react-native';
-import { Divider, Text } from '@gluestack-ui/themed';
+import { Divider, Text, VStack } from '@gluestack-ui/themed';
 import HeroTeamAbout from '@/components/Team_About/HeroTeamAbout';
 import { WebView } from 'react-native-webview';
 import CircleBoardAbout from '@/components/Circle_Board/CircleBoard';
@@ -48,7 +48,7 @@ function AboutUs() {
         />
       </View>
 
-      <View style={{ padding: 16 }}>
+      <VStack gap="$3" style={{ padding: 16 }}>
         <Text style={{ fontSize: 24, fontWeight: "bold", color: "#0202CC" }}>
           About Us
         </Text>
@@ -102,7 +102,7 @@ function AboutUs() {
             Meet the HERO Team
           </Text>
         </TouchableOpacity>
-      </View>
+      </VStack>
 
       <View
         style={{ alignItems: "flex-start", width: "100%", paddingLeft: "5%" }}

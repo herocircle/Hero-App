@@ -1,8 +1,7 @@
-import { Text, Pressable, Box, VStack } from '@gluestack-ui/themed';
+import { Text, Pressable,  VStack } from '@gluestack-ui/themed';
 import React from "react";
-import { Platform, Dimensions, TouchableOpacity } from "react-native";
+import { Platform, Dimensions } from "react-native";
 import { Image } from 'expo-image';
-import { LinearGradient } from 'expo-linear-gradient';
 
 type props = {
     item: any,
@@ -42,27 +41,6 @@ const SBImagePartner = ({ item, onPress }: props) => {
                     style={{ borderRadius: 15, width: "100%", height: imageHeight }}
                     source={item?.avatar || { uri: `https://picsum.photos/id/24/400/300` }}
                 />
-                <LinearGradient
-                    style={{
-                        position: 'absolute',
-                        left: 0,
-                        right: 0,
-                        top: -2,
-                        height: imageHeight,
-                        borderRadius: 15,
-                        zIndex: 5
-                    }}
-                    start={[0, 1]}
-                    end={[1, 0]}
-                    colors={[
-                        'rgba(0, 0, 0, .6)',
-                        'rgba(0, 0, 0, .4)',
-                        'rgba(0, 0, 0, .2)',
-                        'rgba(0, 0, 0, .0)',
-                    ]}
-                />
-
-
             </Pressable>
             <Text color="$black" fontSize={20} fontFamily='nova600' >
                 {item.firstname} {item.lastname}
