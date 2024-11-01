@@ -82,8 +82,7 @@ type HeroMemberProps = {
 const HeroMember = ({ item, navigation }: HeroMemberProps) => {
     const [selectedPartner, setSelectedPartner] = useState<TeamMember | null>(null);
     const [isVisible, setIsVisible] = useState(false);
-    const [showMore, setShowMore] = useState(false); // State to control "Learn More" visibility
-
+    const [showMore, setShowMore] = useState(false);
     const handlePartnerSelect = (partner: TeamMember) => {
         setSelectedPartner(partner);
         setIsVisible(true);
@@ -119,7 +118,7 @@ const HeroMember = ({ item, navigation }: HeroMemberProps) => {
                                 setShowMore(false);
                             } else {
                                 handlePartnerSelect(item);
-                                setShowMore(true); // Expand the description when selecting a partner
+                                setShowMore(true); 
                             }
                         }}
                         style={{ alignSelf: 'flex-end' }}
