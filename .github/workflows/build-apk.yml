@@ -60,6 +60,12 @@ jobs:
 
       - name: 📦 Install dependencies
         run: yarn
+      - name: 📦 Install EAS CLI
+
+        run: yarn global add eas-cli
+
+      - name: 📦 Install EDC
+        run: npx expo install expo-dev-client
 
       - name: 👷 Build app
         run: |
