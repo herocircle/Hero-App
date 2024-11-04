@@ -12,6 +12,7 @@ on:
           - macos-latest
           - ubuntu-latest
         default: ubuntu-latest
+        required: false
       platform:
         type: choice
         description: Platform to build for
@@ -19,6 +20,7 @@ on:
           - android
           - ios
         default: android
+        required: false
       profile:
         type: choice
         description: Build profile to use
@@ -27,6 +29,7 @@ on:
           - preview
           - production
         default: development
+        required: false
       should_submit:
         type: boolean
         description: Whether to perform the submit step
