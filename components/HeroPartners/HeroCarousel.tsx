@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { View, FlatList, Image, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { Box, Text, HStack, VStack,  } from "@gluestack-ui/themed";
+import { Box, Text, HStack, VStack, } from "@gluestack-ui/themed";
 import SBImagePartner from "./SBImagePartner";
 type Props = {
     AllCircles: any,
@@ -88,7 +88,11 @@ const PartnersCarousel: FC<Props> = ({ AllCircles, handlePartnerSelect, filtered
                     </Box>
                 )
             ) : (
-                <FlatList
+                null
+            )}
+
+            {
+                !showAllPartners && filteredPartners.length > 0 && <FlatList
                     snapToAlignment={'start'}
                     horizontal={true}
                     showsHorizontalScrollIndicator={false}
@@ -96,12 +100,14 @@ const PartnersCarousel: FC<Props> = ({ AllCircles, handlePartnerSelect, filtered
                     contentContainerStyle={{ paddingRight: 10 }}
                     decelerationRate={0.5}
                     keyExtractor={(_, index) => `id_${index}`}
-                    data={AllCircles}
+                    data={data}
                     renderItem={({ item }) => <SBImagePartner navigation={navigation} item={item} onPress={() => handlePartnerSelect(item)} />}
 
                 />
-            )}
+            }
 
+
+            {filteredPartners.length === 0 && <Text>No partners found</Text>}
 
         </View>
     );

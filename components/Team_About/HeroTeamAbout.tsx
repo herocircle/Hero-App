@@ -67,7 +67,7 @@ const HeroTeamAbout: FC<Props> = ({ showAllTeam }) => {
           teamData?.map((item: any) =>
             <Box
               width="$full"
-              key={item?.firstname}
+              key={item?.id+item?.name}
               backgroundColor="#fff"
               borderRadius="$md"
               borderWidth="$1"

@@ -2,6 +2,7 @@ import { AntDesign, Entypo, Ionicons, SimpleLineIcons } from '@expo/vector-icons
 import { Box, HStack, Pressable, Text, View, VStack } from '@gluestack-ui/themed'
 import React from 'react'
 import { Image, Linking } from 'react-native'
+import { useNavigation } from "@react-navigation/native"
 
 export const icons = [
     {
@@ -27,6 +28,7 @@ export const icons = [
 ]
 
 const Footer = () => {
+    const navigation = useNavigation()
     return (
         <VStack bg="#0202CC" py="$10" gap="$6" px="$2">
             <Box width={160} height={80} mt={-20} mb={-20}>
@@ -38,13 +40,19 @@ const Footer = () => {
             </Box>
 
             <VStack gap={8}  >
-                <Pressable >
+                <Pressable
+                    onPress={() => navigation.navigate('About Us' as never)}
+                >
                     <Text fontFamily='nova400' color="$white">About Us</Text>
                 </Pressable>
-                <Pressable>
+                <Pressable
+                    onPress={() => navigation.navigate('HelpCenter' as never)}
+                >
                     <Text fontFamily='nova400' color="$white">Contact Us</Text>
                 </Pressable>
-                <Pressable>
+                <Pressable
+                    onPress={() => navigation.navigate('PrivacyPolicy' as never)}
+                >
                     <Text fontFamily='nova400' color="$white">Privacy Policy</Text>
                 </Pressable>
             </VStack>

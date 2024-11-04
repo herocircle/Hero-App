@@ -74,14 +74,14 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    paddingVertical: 64,
+    paddingBottom: 64,
+    paddingTop:40,
     padding: 16,
   },
   header: {
     fontSize: 32,
     fontWeight: "bold",
     marginBottom: 16,
-    marginTop: 16,
     color: "black",
     textAlign: "center",
   },
