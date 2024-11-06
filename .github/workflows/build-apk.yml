@@ -105,11 +105,14 @@ jobs:
             /home/runner/work/Hero-App/Hero-App/
           key: ${{ runner.os }}-build-files-heroapp-batata
 
+      - name: Set tag with commit SHA
+        run: echo "TAG=development-${GITHUB_SHA::8}" >> $GITHUB_ENV
+
       - name: Release
         uses: ncipollo/release-action@v1
         with:
           artifacts: "./app-build/**/*,./app-build/*.*,**/*.apk"
-          tag: ${{ 'development' }}
+          tag: ${{ env.TAG }}
 
       - name: 🚢 Submit
         if: ${{ github.event.inputs.should_submit }}
