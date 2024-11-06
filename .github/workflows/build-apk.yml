@@ -75,6 +75,7 @@ jobs:
 
       - name: 🏗 Setup Expo and Install Tools
         run: |
+          yarn global add expo
           yarn global add eas-cli
           npx expo install expo-dev-client
           yarn
