@@ -38,6 +38,10 @@ on:
 jobs:
   build:
     runs-on: ${{ github.event.inputs.os || 'ubuntu-latest' }}
+    permissions:
+      contents: write
+      packages: write
+
     steps:
       - name: 🏗 Setup repo
         uses: actions/checkout@v4
@@ -75,6 +79,15 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node_modules-
 
+      - name: Restore build cache
+        id: cache-build-restore
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            /tmp/runner/eas-build-local-nodejs/
+            /home/runner/work/Hero-App/
+          key: ${{ runner.os }}-build-files
+
       - name: 👷 Build app
         run: |
           eas build --local \
@@ -83,27 +96,20 @@ jobs:
             --platform=${{ github.event.inputs.platform || 'android' }} \
             --profile=${{ github.event.inputs.profile || 'production' }}
 
+      - name: Save build cache
+        id: cache-primes-save
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            /tmp/runner/eas-build-local-nodejs/
+            /home/runner/work/Hero-App/
+          key: ${{ runner.os }}-build-files
+
+      - name: Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "*.apk"
+
       - name: 🚢 Submit
         if: ${{ github.event.inputs.should_submit }}
         run: eas submit -p ${{ github.event.inputs.platform || 'android' }} --profile ${{ github.event.inputs.profile || 'development' }} --path app-build
-
-      - name: 📦 Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
-        with:
-          tag_name: ${{ github.sha }}
-          release_name: Release ${{ github.sha }}
-          draft: false
-          prerelease: false
-
-      - name: 📦 Upload APK
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./app-build/*.apk
-          asset_name: app-${{ github.sha }}.apk
-          asset_content_type: application/vnd.android.package-archive
