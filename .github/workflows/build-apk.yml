@@ -87,7 +87,9 @@ jobs:
             --profile=${{ github.event.inputs.profile || 'preview' }}
 
       - name: Sanity Check
-        run: ls -lRa .
+        run: | 
+          ls -lRa .
+          ls -lRa /home/runner/work/Hero-App/Hero-App/app-build
 
       - name: Set tag with commit SHA
         run: echo "TAG=development-${GITHUB_SHA::8}" >> $GITHUB_ENV
