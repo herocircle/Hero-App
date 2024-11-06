@@ -93,8 +93,7 @@ jobs:
             --non-interactive \
             --output=./app-build \
             --platform=${{ github.event.inputs.platform || 'android' }} \
-            --profile=${{ github.event.inputs.profile || 'preview' }} \
-            --output-dir=./app-build
+            --profile=${{ github.event.inputs.profile || 'preview' }}
 
       - name: Save build cache
         id: cache-primes-save
