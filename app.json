@@ -8,7 +8,7 @@
     "scheme": "hero",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/splash2.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -43,7 +43,7 @@
         "projectId": "29a60c44-bb20-4366-8e76-475acf689173"
       }
     },
-    "owner": "botrossss",
+    "owner": "hero_app",
     "plugins": ["expo-font"],
     "updates": {
       "url": "https://u.expo.dev/29a60c44-bb20-4366-8e76-475acf689173"
