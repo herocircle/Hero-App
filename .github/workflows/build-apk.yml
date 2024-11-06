@@ -55,6 +55,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           cache: yarn
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
 
       - name: 🏗 Setup Expo and EAS
         uses: expo/expo-github-action@v7
@@ -87,8 +89,7 @@ jobs:
             --profile=${{ github.event.inputs.profile || 'preview' }}
 
       - name: Sanity Check
-        run: | 
-          ls -lRa .
+        run: |
           ls -lRa /home/runner/work/Hero-App/Hero-App/app-build
 
       - name: Set tag with commit SHA

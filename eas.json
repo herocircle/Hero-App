@@ -6,6 +6,10 @@
       "channel": "development"
     },
     "preview": {
+      "cache": {
+        "key": "v1",
+        "paths": ["node_modules", "android/build", "ios/build"]
+      },
       "android": {
         "image": "latest",
         "buildType": "apk"
@@ -23,6 +27,10 @@
       "channel": "preview3"
     },
     "production": {
+      "cache": {
+        "key": "v1",
+        "paths": ["node_modules", "android/build", "ios/build"]
+      },
       "android": {
         "image": "latest",
         "buildType": "apk"
