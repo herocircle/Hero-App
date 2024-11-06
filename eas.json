@@ -22,6 +22,9 @@
       "channel": "preview3"
     },
     "production": {
+      "android": {
+        "image": "latest"
+      },
       "autoIncrement": true,
       "channel": "production"
     }

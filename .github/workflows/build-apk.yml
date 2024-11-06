@@ -1,0 +1,80 @@
+name: Build App
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      os:
+        type: choice
+        description: OS to build on. Ubuntu is faster, MacOS supports iOS builds
+        options:
+          - macos-latest
+          - ubuntu-latest
+        default: ubuntu-latest
+        required: false
+      platform:
+        type: choice
+        description: Platform to build for
+        options:
+          - android
+          - ios
+        default: android
+        required: false
+      profile:
+        type: choice
+        description: Build profile to use
+        options:
+          - development
+          - preview
+          - production
+        default: development
+        required: false
+      should_submit:
+        type: boolean
+        description: Whether to perform the submit step
+        required: true
+        default: false
+jobs:
+  build:
+    runs-on: ${{ github.event.inputs.os || 'ubuntu-latest' }}
+    strategy:
+      matrix:
+        node: [18.x]
+    steps:
+      - name: 🏗 Setup repo
+        uses: actions/checkout@v2
+
+      - name: 🏗 Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node }}
+          cache: yarn
+
+      - name: 🏗 Setup Expo and EAS
+        uses: expo/expo-github-action@v7
+        with:
+          token: ${{ secrets.EXPO_TOKEN }}
+          expo-version: latest
+          eas-version: latest
+
+      - name: 📦 Install dependencies
+        run: yarn
+      - name: 📦 Install EAS CLI
+
+        run: yarn global add eas-cli
+
+      - name: 📦 Install EDC
+        run: npx expo install expo-dev-client
+
+      - name: 👷 Build app
+        run: |
+          eas build --local \
+            --non-interactive \
+            --output=./app-build \
+            --platform=${{ github.event.inputs.platform || 'android' }} \
+            --profile=${{ github.event.inputs.profile || 'development' }}
+
+      - name: 🚢 Submit
+        if: ${{ github.event.inputs.should_submit }}
+        run: eas submit -p ${{ github.event.inputs.platform || 'android' }} --profile ${{ github.event.inputs.profile || 'development' }} --path app-build
