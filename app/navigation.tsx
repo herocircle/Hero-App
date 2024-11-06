@@ -56,6 +56,7 @@ function AuthStack() {
         name="Register"
         component={Register}
       />
+      
     </Stack.Navigator>
   );
 }
@@ -255,6 +256,7 @@ export default function Navigation() {
               }}
             />
           }
+          
           <Drawer.Screen
             name="About Us"
             component={AboutUs}
@@ -270,6 +272,15 @@ export default function Navigation() {
               drawerItemStyle: { display: "none" },
             }}
           />
+          
+          <Drawer.Screen
+  name="CircleHomePage"
+  component={CircleHomePage}
+  options={{
+    drawerLabel: "Circle Home Page",
+  }}
+/>
+
           <Drawer.Screen
             name="HelpCenter"
             component={HelpCenter}
