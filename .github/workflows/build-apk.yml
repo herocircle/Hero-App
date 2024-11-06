@@ -85,8 +85,8 @@ jobs:
         with:
           path: |
             /tmp/runner/eas-build-local-nodejs/
-            /home/runner/work/Hero-App/
-          key: ${{ runner.os }}-build-files
+            /home/runner/work/Hero-App/Hero-App/
+          key: ${{ runner.os }}-build-files-heroapp-batata
 
       - name: 👷 Build app
         run: |
@@ -102,13 +102,13 @@ jobs:
         with:
           path: |
             /tmp/runner/eas-build-local-nodejs/
-            /home/runner/work/Hero-App/
-          key: ${{ runner.os }}-build-files
+            /home/runner/work/Hero-App/Hero-App/
+          key: ${{ runner.os }}-build-files-heroapp-batata
 
       - name: Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "*.apk,**/*.apk"
+          artifacts: "./app-build/**/*,./app-build/*.*,**/*.apk"
           tag: ${{ 'development' }}
 
       - name: 🚢 Submit
