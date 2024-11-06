@@ -67,7 +67,6 @@ jobs:
       - name: 📦 Install dependencies
         run: yarn
       - name: 📦 Install EAS CLI
-
         run: yarn global add eas-cli
 
       - name: 📦 Install EDC
@@ -84,3 +83,24 @@ jobs:
       - name: 🚢 Submit
         if: ${{ github.event.inputs.should_submit }}
         run: eas submit -p ${{ github.event.inputs.platform || 'android' }} --profile ${{ github.event.inputs.profile || 'development' }} --path app-build
+
+      - name: 📦 Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.sha }}
+          release_name: Release ${{ github.sha }}
+          draft: false
+          prerelease: false
+
+      - name: 📦 Upload APK
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./app-build/*.apk
+          asset_name: app-${{ github.sha }}.apk
+          asset_content_type: application/vnd.android.package-archive
