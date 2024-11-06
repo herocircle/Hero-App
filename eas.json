@@ -3,7 +3,11 @@
     "development": {
       "developmentClient": true,
       "distribution": "internal",
-      "channel": "development"
+      "channel": "development",
+      "cache": {
+        "key": "v1",
+        "paths": ["node_modules/**", "android/app/build/**", "ios/Pods/**"]
+      }
     },
     "preview": {
       "android": {
@@ -24,6 +28,10 @@
     "production": {
       "android": {
         "image": "latest"
+      },
+      "cache": {
+        "key": "v1",
+        "paths": ["android/app/build/**", "ios/Pods/**"]
       },
       "autoIncrement": true,
       "channel": "production"
