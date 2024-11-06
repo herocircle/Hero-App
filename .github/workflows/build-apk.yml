@@ -25,9 +25,9 @@ on:
         type: choice
         description: Build profile to use
         options:
-          - preview
+          - preview2
           - production
-        default: preview
+        default: preview2
         required: false
       should_submit:
         type: boolean
@@ -84,13 +84,14 @@ jobs:
         run: |
           eas build --local \
             --non-interactive \
-            --output=./app-build \
             --platform=${{ github.event.inputs.platform || 'android' }} \
             --profile=${{ github.event.inputs.profile || 'preview' }}
+          cd android
+          gradlew assembleRelease
 
       - name: Sanity Check
         run: |
-          ls -lRa /home/runner/work/Hero-App/Hero-App/app-build
+          ls -lRa . | grep -v node_modules
 
       - name: Set tag with commit SHA
         run: echo "TAG=development-${GITHUB_SHA::8}" >> $GITHUB_ENV
@@ -98,7 +99,7 @@ jobs:
       - name: Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "./app-build/**/*,./app-build/*.*,**/*.apk"
+          artifacts: "**/*.apk"
           tag: ${{ env.TAG }}
 
       - name: 🚢 Submit
