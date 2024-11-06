@@ -108,7 +108,8 @@ jobs:
       - name: Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "*.apk"
+          artifacts: "*.apk,**/*.apk"
+          tag: ${{ github.sha || 'development' }}
 
       - name: 🚢 Submit
         if: ${{ github.event.inputs.should_submit }}
