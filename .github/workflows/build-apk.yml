@@ -25,10 +25,9 @@ on:
         type: choice
         description: Build profile to use
         options:
-          - development
           - preview
           - production
-        default: development
+        default: preview
         required: false
       should_submit:
         type: boolean
@@ -94,7 +93,8 @@ jobs:
             --non-interactive \
             --output=./app-build \
             --platform=${{ github.event.inputs.platform || 'android' }} \
-            --profile=${{ github.event.inputs.profile || 'production' }}
+            --profile=${{ github.event.inputs.profile || 'preview' }} \ 
+            --output-dir=./app-build
 
       - name: Save build cache
         id: cache-primes-save

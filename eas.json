@@ -11,7 +11,12 @@
     },
     "preview": {
       "android": {
+        "image": "latest",
         "buildType": "apk"
+      },
+      "cache": {
+        "key": "v1",
+        "paths": ["node_modules/**", "android/app/build/**", "ios/Pods/**"]
       },
       "channel": "preview"
     },
@@ -27,7 +32,8 @@
     },
     "production": {
       "android": {
-        "image": "latest"
+        "image": "latest",
+        "buildType": "apk"
       },
       "cache": {
         "key": "v1",
