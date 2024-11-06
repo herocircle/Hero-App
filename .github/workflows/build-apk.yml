@@ -86,8 +86,6 @@ jobs:
             --non-interactive \
             --platform=${{ github.event.inputs.platform || 'android' }} \
             --profile=${{ github.event.inputs.profile || 'preview' }}
-          cd android
-          gradlew assembleRelease
 
       - name: Sanity Check
         run: |
