@@ -78,15 +78,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node_modules-
 
-      - name: Restore build cache
-        id: cache-build-restore
-        uses: actions/cache/restore@v4
-        with:
-          path: |
-            /tmp/runner/eas-build-local-nodejs/
-            /home/runner/work/Hero-App/Hero-App/
-          key: ${{ runner.os }}-build-files-heroapp-batata
-
       - name: 👷 Build app
         run: |
           eas build --local \
@@ -95,14 +86,8 @@ jobs:
             --platform=${{ github.event.inputs.platform || 'android' }} \
             --profile=${{ github.event.inputs.profile || 'preview' }}
 
-      - name: Save build cache
-        id: cache-primes-save
-        uses: actions/cache/save@v4
-        with:
-          path: |
-            /tmp/runner/eas-build-local-nodejs/
-            /home/runner/work/Hero-App/Hero-App/
-          key: ${{ runner.os }}-build-files-heroapp-batata
+      - name: Sanity Check
+        run: ls -la app-build
 
       - name: Set tag with commit SHA
         run: echo "TAG=development-${GITHUB_SHA::8}" >> $GITHUB_ENV
