@@ -134,8 +134,8 @@ const HeroTeamAbout: FC<Props> = ({ showAllTeam }) => {
             horizontal={true}
             showsHorizontalScrollIndicator={false}
             snapToAlignment={'center'}
+            style={{padding:10}}
             pagingEnabled={true}
-            style={{ padding: 10 }}
             contentContainerStyle={{ paddingRight: 10 }}
             decelerationRate={0.5}
             renderItem={({ item }) => <SBImageItemTeam onLearnMore={() => handlePartnerSelect(item)} item={item} navigation={navigation} />}

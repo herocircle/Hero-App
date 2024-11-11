@@ -28,7 +28,6 @@ const Home = () => {
 
   const [loading, setLoading] = useState(true);
 
-  const { isLoggedIn } = useAuth();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -64,109 +63,115 @@ const Home = () => {
   return (
     <View w="100%" pt="$4" bg="$white">
       <ScrollView ref={scrollViewRef} contentContainerStyle={{ flexGrow: 1 }}>
-        <VStack w="100%" gap={20} px="$4">
-          <Image
-            source={require("@/assets/images/heroImage.png")}
-            style={{ width: "100%", height: 300, objectFit: "contain" }}
-            objectFit="contain"
-            alt=""
-          />
+        <VStack gap="$8" >
 
-          <Text fontWeight={700} fontSize={22} color="$black">
-            Your platform to directly fund the people accelerating climate
-            solutions worldwide.
-          </Text>
+          <VStack w="100%" gap={20} px="$4">
+            <Image
+              source={require("@/assets/images/heroImage.png")}
+              style={{ width: "100%", height: 300, objectFit: "contain" }}
+              objectFit="contain"
+              alt=""
+            />
 
-          <Text color="$black">
-            Subscribe to HERO to back verified mobilizers - researchers,
-            campaigners, and negotiators globally - leading systemic change from
-            the grassroots
-          </Text>
-          <HStack gap={8} alignItems="center">
+            <Text fontWeight={700} fontSize={22} color="$black">
+              Your platform to directly fund the people accelerating climate
+              solutions worldwide.
+            </Text>
+
+            <Text color="$black">
+              Subscribe to HERO to back verified mobilizers - researchers,
+              campaigners, and negotiators globally - leading systemic change from
+              the grassroots
+            </Text>
+            <HStack gap={8} alignItems="center">
+              <Button
+                alignSelf="center"
+                h={40}
+                rounded="$3xl"
+                backgroundColor="#0202CC"
+                onPress={scrollToSubscribeBlock}
+
+              >
+                <Text fontWeight={600} fontSize={14} color="white">
+                  Join HERO
+                </Text>
+              </Button>
+              <Text fontSize={14} color="$black">
+                Starting at €6 / month
+              </Text>
+            </HStack>
+            <Image
+              mt={-20}
+              source={require("@/assets/images/featuredIn.png")}
+              style={{ width: "100%", objectFit: "contain" }}
+              objectFit="contain"
+              alt=""
+            />
+          </VStack>
+          <CirclesView />
+
+          <VStack w="100%" gap={20} px="$4" mt="$4" >
+            <Image
+              source={require("@/assets/images/secondbanner.webp")}
+              style={{ width: "90%", height: 300, objectFit: "contain" }}
+              objectFit="contain"
+              alt=""
+            />
+
+            <Text fontWeight={700} fontSize={22} color="$black">
+              Empower the next million mobilizers worldwide with a stable monthly
+              income.
+            </Text>
+
+            <Text color="$black">
+              Through your HERO subscription, you're powering a new kind of
+              economy - one where passionate climate mobilizers are financially
+              supported by the communities they serve, enhancing their ability to
+              enact lasting, grassroots change worldwide.
+            </Text>
+            <Text color="$black">
+              Together, we support people-led solutions, from passing the EU
+              Nature Restoration Law to protect 20% of the EU’s Natural Ecosystems
+              to creating powerful campaigns that mobilize millions to accelerate
+              the global transition to clean energy.{" "}
+            </Text>
             <Button
-              alignSelf="center"
-              h={40}
-              rounded="$3xl"
-              backgroundColor="#0202CC"
-              onPress={scrollToSubscribeBlock}
+              alignSelf="flex-start"
+              bg="$transparent"
+              marginLeft={-20}
+              marginTop={-10}
+              onPress={scrollToPartnerY}
 
             >
-              <Text fontWeight={600} fontSize={14} color="white">
-                Join HERO
+              <Text fontWeight={800} color="#0202CC" underline fontSize={14}>
+                Learn more
               </Text>
             </Button>
-            <Text fontSize={14} color="$black">
-              Starting at €6 / month
-            </Text>
-          </HStack>
-          <Image
-            mt={-20}
-            source={require("@/assets/images/featuredIn.png")}
-            style={{ width: "100%", objectFit: "contain" }}
-            objectFit="contain"
-            alt=""
-          />
+          </VStack>
+
+          <Box onLayout={(event) => {
+            const { y } = event.nativeEvent.layout;
+            setSubscribeBlockY(y);
+          }}>
+            <SubscribeBlock homepageStatistics={statistics} />
+          </Box>
+
+
+          <SupportComponent />
+          <VStack>
+            <Box onLayout={(event) => {
+              const { y } = event.nativeEvent.layout;
+              setSubscribePartnerY(y);
+            }}>
+              <HeroPartners />
+            </Box>
+
+            <SubscriptionBreakdown />
+            <OurImpact />
+          </VStack>
+          <FAQ />
+          <Footer />
         </VStack>
-        <CirclesView />
-
-        <VStack w="100%" gap={20} mt="$12" px="$4" mb="$4">
-          <Image
-            source={require("@/assets/images/secondbanner.webp")}
-            style={{ width: "90%", height: 300, objectFit: "contain" }}
-            objectFit="contain"
-            alt=""
-          />
-
-          <Text fontWeight={700} fontSize={22} color="$black">
-            Empower the next million mobilizers worldwide with a stable monthly
-            income.
-          </Text>
-
-          <Text color="$black">
-            Through your HERO subscription, you're powering a new kind of
-            economy - one where passionate climate mobilizers are financially
-            supported by the communities they serve, enhancing their ability to
-            enact lasting, grassroots change worldwide.
-          </Text>
-          <Text color="$black">
-            Together, we support people-led solutions, from passing the EU
-            Nature Restoration Law to protect 20% of the EU’s Natural Ecosystems
-            to creating powerful campaigns that mobilize millions to accelerate
-            the global transition to clean energy.{" "}
-          </Text>
-          <Button
-            alignSelf="flex-start"
-            bg="$transparent"
-            marginLeft={-20}
-            marginTop={-10}
-            onPress={scrollToPartnerY}
-
-          >
-            <Text fontWeight={800} color="#0202CC" underline fontSize={14}>
-              Learn more
-            </Text>
-          </Button>
-        </VStack>
-
-        <Box onLayout={(event) => {
-          const { y } = event.nativeEvent.layout;
-          setSubscribeBlockY(y);
-        }}>
-          <SubscribeBlock homepageStatistics={statistics} />
-        </Box>
-
-        <SupportComponent />
-
-        <Box onLayout={(event) => {
-          const { y } = event.nativeEvent.layout;
-          setSubscribePartnerY(y);
-        }}>
-          <HeroPartners />
-        </Box>
-        <SubscriptionBreakdown />
-        <OurImpact />
-        <FAQ />
-        <Footer />
       </ScrollView>
     </View>
   );

@@ -19,7 +19,7 @@ function SBImageItemTeam({ item, onLearnMore }: props) {
     return (
         <Pressable
             width={isAndroid ? 250 : 330}
-            mr={isAndroid ? 20 : 31}
+            mr={ 20}
             mt={15}
             gap="$5"
         >

@@ -21,7 +21,6 @@ const FeaturedMobilizers = ({ navigation, mobilizers }: props) => {
     const [selectedTag, setSelectedTag] = useState<string>('all');
     const [filteredPartners, setFilteredPartners] = useState<any[]>([]);
     const [showAllPartners, setShowAllPartners] = useState(false);
-console.log(mobilizers)
 
     const toggleView = () => {
         setShowAllPartners(!showAllPartners);

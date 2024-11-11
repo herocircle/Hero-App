@@ -14,10 +14,8 @@ const HeroTeam = () => {
     const fetchTeamMembers = async () => {
         try {
             const response = await new TeamMemberApi(AXIOS_CONFIG).getTeamMembers();
-            console.log("API response:", response.data);
             return response.data || [];
         } catch (error) {
-            console.error("Error fetching team members:", error);
             return [];
         }
     };
@@ -60,7 +58,7 @@ const HeroTeam = () => {
 
                     {teamMembers.map(member => (
                      <HeroMember
-                     key={member.id}
+                     key={member.name}
                      item={member}
                      navigation={navigation}
                  />

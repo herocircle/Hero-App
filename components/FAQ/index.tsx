@@ -31,7 +31,7 @@ const FAQ = () => {
         },
     ]
     return (
-        <View gap="$5" py="$16" px="$4">
+        <View gap="$5" py="$5" px="$4">
             <VStack
                 gap={10}
             >

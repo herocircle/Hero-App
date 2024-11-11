@@ -110,7 +110,7 @@ const SubscribeBlock = ({ homepageStatistics }: any) => {
     const disabled = parseInt(amount) < (isMonthly ? 600 : 5000);
 
     return (
-        <VStack gap={'$12'} bg="#E5EEFF" py="$6" px="$4">
+        <VStack gap={'$12'} bg="#E5EEFF" py="$12" px="$4">
             <Text fontWeight={"$bold"} fontSize={22} color="$black">
                 Join <Text color="#0202CC" fontWeight={"$bold"} fontSize={22}>{homepageStatistics?.globalCommunity || '1000+'}</Text> Global Supporters and get exclusive access to:
             </Text>

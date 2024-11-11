@@ -26,8 +26,6 @@ type props = {
 const SecondHeroBanner = ({ text1, circleHasNoMobilizers, circleName, hasCurrentWork, image, isGlobalCircle,
     text2, text3,
 }: props) => {
-    console.log(image)
-
     return (
         <VStack w='100%' gap={20} mt='$12' px="$4" mb="$4">
             {image &&

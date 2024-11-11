@@ -30,7 +30,7 @@ export const icons = [
 const Footer = () => {
     const navigation = useNavigation()
     return (
-        <VStack bg="#0202CC" py="$10" gap="$6" px="$2">
+        <VStack bg="#0202CC" py="$10" gap="$6" px="$2" >
             <Box width={160} height={80} mt={-20} mb={-20}>
                 <Image
                     source={require("@/assets/images/HERO Logo_White.png")}

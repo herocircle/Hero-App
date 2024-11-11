@@ -21,7 +21,7 @@ function SBImageItem({ item, navigation }: props) {
     return (
         <VStack
             width={330}
-            mr={31}
+            mr={20}
             mt={15}
             gap="$5"
         >

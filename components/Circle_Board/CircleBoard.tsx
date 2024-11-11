@@ -26,7 +26,6 @@ const CircleBoardAbout: FC<Props> = ({ showAllMembers }) => {
 
     const fetchCircleBoardMembers = async () => {
         const response = await new CircleBoardApi(AXIOS_CONFIG).findAll(undefined);
-        console.log("data:",response.data)
         setMembers(response.data);
         return response.data;
     };

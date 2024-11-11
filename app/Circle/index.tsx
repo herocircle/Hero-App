@@ -39,13 +39,10 @@ const CircleHomePage = ({ route, navigation }: props) => {
         queryKey: ['circle-work', circleId],
         queryFn: async () => {
             const response = await new CircleWorkApi(AXIOS_CONFIG).getLatestWins(circleId, 'en');
-            console.log("aaaa", response.data)
-
             return response.data;
         }
     });
 
-console.log("azeazeazeaze", circleId)
     const { data: circleData } = useQuery({
         queryKey: ['circle-url-name', circleUrlName],
         queryFn: async () => {

@@ -79,7 +79,7 @@ const PartnerHeader = () => {
   };
 
   return (
-    <Box padding="$4" backgroundColor="#f9f9f9">
+    <Box px="$4" py="$12" backgroundColor="#f9f9f9">
       <VStack space="xs" marginBottom="$4">
         <Text fontSize="$2xl" color="$black" fontWeight="bold">
           <Text fontSize="$3xl" fontWeight='$bold' color="#0202CC">{filteredPartners.length}</Text> | HERO partners

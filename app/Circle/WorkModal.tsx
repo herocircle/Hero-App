@@ -12,7 +12,6 @@ type WorkModalProps = {
 };
 
 const WorkModal = ({ isOpen, selectedItem, closeModal }: WorkModalProps) => {
-  console.log(selectedItem?.title)
   return (
     <Modal
       isVisible={isOpen}

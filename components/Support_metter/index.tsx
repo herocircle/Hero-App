@@ -3,7 +3,7 @@ import { Box, Button, Text, VStack, Divider, View } from '@gluestack-ui/themed';
 
 const SupportComponent = () => {
     return (
-        <VStack gap="$5" py="$6" px="$5">
+        <VStack gap="$5" px="$5">
             <VStack space="md" alignItems="flex-start"  py="$5">
             <View style={{ width: '100%', padding: 10 }}>
                 <Text 
