@@ -20,9 +20,8 @@ type props = {
     route: any
 }
 const CircleHomePage = ({ route, navigation }: props) => {
-    const circleId = route?.params.circleId
-    const circleUrlName = route?.params.circleName
-
+    const circleId = route?.params?.circleId || "6397b2c07650f57cfc229e8a";
+    const circleUrlName = route?.params?.circleName || "globalcircle";
     const { data } = useQuery({
         queryKey: ['circles-with-types'],
         queryFn: async () => {

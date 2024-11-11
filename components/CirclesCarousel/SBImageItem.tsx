@@ -159,20 +159,24 @@ function SBImageItem({ item, navigation }: props) {
             </Text>
 
             <Button
-                h={40}
-                onPress={() => navigation.navigate('CircleHomePage', { circleId: item?._id, circleName: item?.url_name })}
-                w="$56"
-                rounded="$3xl"
-                backgroundColor="#0202CC"
-            >
-                <Text
-                    fontWeight={600}
-                    fontSize={14}
-                    fontFamily='nova400'
-                    color="white">
-                    Discover this circle
-                </Text>
-            </Button>
+    h={40}
+    onPress={() => navigation.navigate('CircleHomePage', { circleId: item?._id, circleName: item?.url_name })}
+    w="$56"
+    rounded="$3xl"
+    backgroundColor="#0202CC"
+    justifyContent="center"
+    alignItems="center"
+>
+    <Text
+        fontWeight="600"
+        fontSize={14}
+        color="white"
+        style={{ textAlign: 'center' }}
+    >
+        Discover this circle
+    </Text>
+</Button>
+
         </VStack>
     );
 }
