@@ -84,7 +84,6 @@ function CircleWinCard({ navigation, item }: props2) {
         setSelectedItem(null);
         setIsModalOpen(false);
     };
-
     return (
         <VStack
             width={isAndroid ? 250 : 330}
