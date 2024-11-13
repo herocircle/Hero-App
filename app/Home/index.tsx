@@ -157,7 +157,9 @@ const Home = () => {
           </Box>
 
 
-          <SupportComponent />
+          <SupportComponent 
+          scrollToSubscribeBlock={scrollToSubscribeBlock}
+          />
           <VStack>
             <Box onLayout={(event) => {
               const { y } = event.nativeEvent.layout;

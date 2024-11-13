@@ -53,25 +53,7 @@ const SubscribeBlock = ({ homepageStatistics }: any) => {
     const handleOpen = () => SetOpen(true)
     const handleClose = () => SetOpen(false)
 
-    const prices = [
-        {
-            value: "Starter",
-            monthlyPrice: 600,
-            annualPrice: 5000
-        },
-        {
-            value: "Advocate",
-            monthlyPrice: 2000,
-            annualPrice: 10000
-        },
-        {
-            value: "Changer",
-            monthlyPrice: 5000,
-            annualPrice: 50000
-        }
-    ]
-
-
+ 
 
     const {
         mutate: createSession,
@@ -80,10 +62,11 @@ const SubscribeBlock = ({ homepageStatistics }: any) => {
         isError: hasError
     } = useMutation({
         mutationFn: async () => {
+            console.log(amount)
             const result = await new PaymentSubscriptionsApi(AXIOS_CONFIG).createCheckout({
                 billingPeriod: isMonthly ? SubscriptionRequestDtoBillingPeriodEnum.Month : SubscriptionRequestDtoBillingPeriodEnum.Year,
                 circleId: '6397b2c07650f57cfc229e8a',
-                subscriptionAmount: parseInt(amount),
+                subscriptionAmount: parseInt(amount) * 100,
                 isNewLandingTrial: false
             }, `en-US/success`, `en-US/success`);
             return result.data;
@@ -94,6 +77,7 @@ const SubscribeBlock = ({ homepageStatistics }: any) => {
             data?.url && handleOpen()
         },
         onError: (error: any) => {
+            
             console.log(error?.response?.data?.message, 'error');
         }
     }
@@ -107,7 +91,7 @@ const SubscribeBlock = ({ homepageStatistics }: any) => {
             createSession();
     }
 
-    const disabled = parseInt(amount) < (isMonthly ? 600 : 5000);
+    const disabled = (parseInt(amount) * 100) < (isMonthly ? 600 : 5000);
 
     return (
         <VStack gap={'$12'} bg="#E5EEFF" py="$12" px="$4">
@@ -199,7 +183,7 @@ const SubscribeBlock = ({ homepageStatistics }: any) => {
                                 ${currentPricing.starter}
                             </Text>
                             <Radio
-                                value={isMonthly ? '600' : '5000'}>
+                                value={isMonthly ? '6' : '50'}>
                                 <RadioIndicator mr="$2">
                                     <RadioIcon as={CircleIcon} />
                                 </RadioIndicator>
@@ -212,7 +196,7 @@ const SubscribeBlock = ({ homepageStatistics }: any) => {
                             <Text fontWeight={"$semibold"} fontSize={20} color="$black">
                                 ${currentPricing.advocate}
                             </Text>
-                            <Radio value={isMonthly ? '2000' : '10000'}>
+                            <Radio value={isMonthly ? '20' : '100'}>
                                 <RadioIndicator mr="$2">
                                     <RadioIcon as={CircleIcon} />
                                 </RadioIndicator>
@@ -225,7 +209,7 @@ const SubscribeBlock = ({ homepageStatistics }: any) => {
                             <Text fontWeight={"$semibold"} fontSize={20} color="$black">
                                 ${currentPricing.changer}
                             </Text>
-                            <Radio value={isMonthly ? '5000' : '50000'}>
+                            <Radio value={isMonthly ? '50' : '500'}>
                                 <RadioIndicator mr="$2">
                                     <RadioIcon as={CircleIcon} />
                                 </RadioIndicator>
@@ -240,6 +224,7 @@ const SubscribeBlock = ({ homepageStatistics }: any) => {
                 <Input bg="#D9D9D9" h="$12" rounded="$2xl">
                     <InputField
                         placeholderTextColor={"$black"}
+                        value={amount}
                         placeholder="Enter a custom amount"
                         onChangeText={handleAmountChange}
                         keyboardType="numeric"

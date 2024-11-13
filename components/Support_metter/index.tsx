@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Button, Text, VStack, Divider, View } from '@gluestack-ui/themed';
 
-const SupportComponent = () => {
+const SupportComponent = ({scrollToSubscribeBlock}:any) => {
     return (
         <VStack gap="$5" px="$5">
             <VStack space="md" alignItems="flex-start"  py="$5">
@@ -24,6 +24,7 @@ const SupportComponent = () => {
                 </Text>
 
                 <Button
+                    onPress={scrollToSubscribeBlock}
                     marginTop='$8'
                     alignSelf='flex-start'
                     h={'$12'}
