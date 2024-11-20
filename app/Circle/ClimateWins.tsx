@@ -13,45 +13,44 @@ type props = {
 
 const ClimateWins = ({ navigation, currentWork }: props) => {
     return (
-        <VStack w='100%' gap={20} >
+      <VStack w="100%" gap={20}>
+        <VStack>
+          <VStack gap={10} mt="$4" px="$4">
+            <Text fontWeight={700} fontSize={22} color="$black">
+              These are the people-powered climate wins that we are creating
+              together.
+            </Text>
+            <Text color="$black">
+              From initiatives like the Green Deal that impact millions of
+              citizens to the adoption of green public transportation at the
+              city level, mobilizers contribute to creating systemic change.{" "}
+            </Text>
+          </VStack>
 
-
-            <VStack>
-                <VStack gap={10} mt='$4' >
-                    <Text fontWeight={700} fontSize={22} color='$black'>
-                        These are the people-powered climate wins that we are creating together.
-                    </Text>
-                    <Text color='$black'>
-                        From initiatives like the Green Deal that impact millions of citizens to the adoption of green public transportation at the city level, mobilizers contribute to creating systemic change.                    </Text>
-                </VStack>
-
-                <View
-                    style={{
-                        alignItems: "center",
-                        width: "100%"
-                    }}
-                >
-                    <FlatList
-                        snapToAlignment={'start'}
-                        horizontal={true}
-                        showsHorizontalScrollIndicator={false}
-                        viewabilityConfig={{ itemVisiblePercentThreshold: 60, }}
-                        style={{ padding: 10 }}
-                        contentContainerStyle={{ paddingRight: 10 }}
-                        decelerationRate={0.5}
-                        keyExtractor={(_, index) => `id_${index}`}
-                        data={currentWork}
-                        renderItem={({ item }) =>
-                            <CircleWinCard
-                                item={item}
-                                navigation={navigation}
-                            />
-                        }
-                    />
-                </View>
-            </VStack>
+          <View
+            style={{
+              alignItems: "center",
+              width: "100%",
+            }}
+          >
+            <FlatList
+              snapToAlignment={"start"}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              viewabilityConfig={{ itemVisiblePercentThreshold: 60 }}
+              style={{ padding: 10 }}
+              contentContainerStyle={{ paddingRight: 10 }}
+              decelerationRate={0.5}
+              keyExtractor={(_, index) => `id_${index}`}
+              data={currentWork}
+              renderItem={({ item }) => (
+                <CircleWinCard item={item} navigation={navigation} />
+              )}
+            />
+          </View>
         </VStack>
-    )
+      </VStack>
+    );
 }
 
 export default ClimateWins
