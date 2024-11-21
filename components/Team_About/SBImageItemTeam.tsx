@@ -19,6 +19,7 @@ function SBImageItemTeam({ item, onLearnMore }: props) {
     return (
         <Pressable
             width={isAndroid ? 250 : 330}
+            maxWidth={isAndroid ? 250 : 330}
             mr={ 20}
             mt={15}
             gap="$5"
@@ -41,6 +42,7 @@ function SBImageItemTeam({ item, onLearnMore }: props) {
             </Pressable>
             <VStack
                 position='relative'
+                maxWidth={"$full"}
                 gap="$2"
             >
                 <Box

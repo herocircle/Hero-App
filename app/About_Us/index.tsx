@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { View, ScrollView, Image, Linking, TouchableOpacity } from 'react-native';
+import { View, ScrollView, Image, Linking, TouchableOpacity, Pressable } from 'react-native';
 import { Box, Divider, Text, VStack } from '@gluestack-ui/themed';
 import HeroTeamAbout from '@/components/Team_About/HeroTeamAbout';
 import { WebView } from 'react-native-webview';
@@ -7,6 +7,7 @@ import CircleBoardAbout from '@/components/Circle_Board/CircleBoard';
 import FAQSection from '@/components/Circle_Board/FAQ';
 import SubscribeBlock from '@/components/SubscribeBlock';
 import Footer from "@/components/footer";
+import { Dimensions } from 'react-native';
 
 type TeamMember = {
   id: number;
@@ -23,7 +24,7 @@ function AboutUs() {
   );
   const [showAllTeam, setShowAllTeam] = useState(false);
   const [showAllMembers, setXhowAllMembers] = useState(false);
-  const videoRef = useRef(null);
+  const videoRef = useRef<ScrollView>(null);
 
   const handleVideoPlay = () => {
     Linking.openURL("https://www.youtube.com/embed/X1IGUowJL2o?autoplay=1");
@@ -39,8 +40,40 @@ function AboutUs() {
   const handleButtonClick = () => {
     Linking.openURL("https://www.youtube.com/embed/X1IGUowJL2o?autoplay=1");
   };
+
+  {/* on click i want to scroll to the video and play it */ }
+
+
+  const scrollViewRef = useRef<ScrollView>(null);
+  const webViewRef = useRef<any>(null); // Ref for the WebView
+
+  const videoUrl = "https://www.youtube.com/embed/X1IGUowJL2o?autoplay=0";
+
+  const scrollToAndPlayVideo = () => {
+
+    scrollViewRef.current?.scrollTo({
+      y:1800,
+      animated: true,
+    });
+
+    // // Play the video
+    setTimeout(() => {
+      webViewRef.current?.injectJavaScript(`
+        if (window.YT) {
+          var player = new YT.Player('player', {
+            events: {
+              'onReady': function(event) { event.target.playVideo(); }
+            }
+          });
+        } else {
+          console.error('YouTube API not loaded');
+        }
+      `);
+    }, 500); // Delay to ensure WebView is scrolled into view
+  };
   return (
     <ScrollView
+      ref={scrollViewRef}
       contentContainerStyle={{ backgroundColor: "#fff" }}
       style={{ flex: 1 }}>
 
@@ -156,13 +189,20 @@ function AboutUs() {
       <View style={{ flex: 1, padding: 16, marginBottom: 15 }}>
         <View style={{ height: 300, marginBottom: 24 }}>
           <WebView
+            ref={webViewRef}
             source={{
-              uri: "https://www.youtube.com/embed/X1IGUowJL2o?autoplay=0",
+              uri: videoUrl,
             }}
+            javaScriptEnabled={true}
+            injectedJavaScript={`
+              var tag = document.createElement('script');
+              tag.src = "https://www.youtube.com/embed/X1IGUowJL2o?autoplay=0";
+              var firstScriptTag = document.getElementsByTagName('script')[0];
+              firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            `}
             style={{ flex: 1 }}
           />
         </View>
-
         <View>
           <Text
             style={{
@@ -188,40 +228,48 @@ function AboutUs() {
             the global transition to clean energy.
           </Text>
 
-          <Text
-            style={{
-              color: "#0202CC",
-              fontWeight: "700",
-              textDecorationLine: "underline",
-              marginBottom: 16,
-            }}
-          >
-            Watch TEDx
-          </Text>
+
+          <View style={{ justifyContent: "center", alignItems: "center" }}>
+            <Pressable
+              onPress={scrollToAndPlayVideo}
+              style={{alignSelf:"flex-start"}}
+            >
+              <Text
+                style={{
+                  color: "#0202CC",
+                  fontWeight: "700",
+                  textDecorationLine: "underline",
+                  marginBottom: 16,
+                }}
+              >
+                Watch TEDx
+              </Text>
+            </Pressable>
+          </View>
         </View>
       </View>
       <VStack gap="$3" py={"$6"} px="$4" >
         <TouchableOpacity onPress={handleButtonClick}>
-        <Text
-              style={{
-                fontSize: 24,
-                fontWeight: "bold",
-                textAlign: "left",
-                marginBottom: 8,
-                color: "black",
-              }}
-            >
-              HERO Circle Board
-            </Text>
+          <Text
+            style={{
+              fontSize: 24,
+              fontWeight: "bold",
+              textAlign: "left",
+              marginBottom: 8,
+              color: "black",
+            }}
+          >
+            HERO Circle Board
+          </Text>
 
-            <Text color="black">
-              The Selection Board, appointed annually by HERO, includes at
-              least two representatives from the Global South and a
-              representative of the mobilizers and one from the HERO Supporter
-              Community. Experts may be invited for specific regional or
-              sectoral assessments. Applicants need 80% Board approval to join
-              the HERO platform.{" "}
-            </Text>
+          <Text color="black">
+            The Selection Board, appointed annually by HERO, includes at
+            least two representatives from the Global South and a
+            representative of the mobilizers and one from the HERO Supporter
+            Community. Experts may be invited for specific regional or
+            sectoral assessments. Applicants need 80% Board approval to join
+            the HERO platform.{" "}
+          </Text>
           <TouchableOpacity onPress={toggleViewBoard}>
             <Text
               fontSize="$md"
