@@ -67,7 +67,6 @@ function SBImageItemTeam({ item, onLearnMore }: props) {
                     color='black'
                     fontWeight="$bold"
                     fontSize={20}
-                    width={300}
                     numberOfLines={2}
                 >
                     {item?.name || 'Name not available'}
@@ -77,7 +76,6 @@ function SBImageItemTeam({ item, onLearnMore }: props) {
                     fontWeight={450}
                     fontSize={14}
                     numberOfLines={3}
-                    width={300}
                     ellipsizeMode='tail'
                 >
                     {item?.description || 'Goal not available'}
