@@ -123,7 +123,7 @@ const Feeds = ({ navigation }: props) => {
                                     justifyContent='center'
                                 >
                                     <Text color="#0202CC" fontSize={28} fontFamily='nova800'>
-                                        {userImpacts?.mobilizersSupported}
+                                        {userImpacts?.mobilizersSupported || 0}
                                     </Text>
                                 </Box>
                                 <Text textAlign='center' color="$black" fontFamily='nova400'>
@@ -162,7 +162,7 @@ const Feeds = ({ navigation }: props) => {
                                     justifyContent='center'
                                 >
                                     <Text color="#0202CC" fontSize={28} fontFamily='nova800'>
-                                        {userImpacts?.activeCampaignersSupported}
+                                        {userImpacts?.activeCampaignersSupported || 0}
                                     </Text>
                                 </Box>
                                 <Text textAlign='center' color="$black" fontFamily='nova400'>

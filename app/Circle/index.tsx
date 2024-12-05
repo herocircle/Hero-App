@@ -14,6 +14,7 @@ import FeaturedMobilizers from './FeaturedMobilizers'
 import ClimateWins from './ClimateWins'
 import CircleAmbassadors from './CircleAmbassadors'
 import EveryCliamteRoleKey from './EveryCliamteRoleKey'
+import { Box } from '@gluestack-ui/themed'
 
 type props = {
     navigation: any,
@@ -69,21 +70,26 @@ const CircleHomePage = ({ route, navigation }: props) => {
 
     const singleCircle = data?.filter((item: { id: any }) => item.id === circleId)[0];
 
+    const isGlobalCircle = singleCircle?.id === '6397b2c07650f57cfc229e8a';
+
     return (
         <View w='100%' h='100%' pt="$4" bg="$white" >
             <ScrollView
                 contentContainerStyle={{ flexGrow: 1, paddingBottom: 60 }}
             >
 
-                 <FirstHeroBanner
+                <FirstHeroBanner
                     title={CircleHome?.firstBanner.title || ''}
                     circleName={CircleHome?.circleName || ''}
                     image={CircleHome?.firstBanner.image as string}
-                /> 
+                />
 
-                <SubscribeBlock />
+                {isGlobalCircle &&
+                    <FeaturedMobilizers navigation={navigation} mobilizers={singleCircle?.mobilizers} />
+                }
+           
 
-              {CircleHome?.secondBanner.image &&
+                {CircleHome?.secondBanner.image &&
                     <SecondHeroBanner
                         circleHasNoMobilizers={singleCircle?.mobilizers.length === 0}
                         isGlobalCircle={circleId === '6397b2c07650f57cfc229e8a'}
@@ -94,16 +100,19 @@ const CircleHomePage = ({ route, navigation }: props) => {
                         image={CircleHome?.secondBanner.image}
                         hasCurrentWork={currentWork?.length !== 0}
                     />}
-                {singleCircle?.mobilizers &&
-                    <FeaturedMobilizers navigation={navigation} mobilizers={singleCircle?.mobilizers} />
-                } 
-           
-                {currentWork &&
+
+                {
+                    singleCircle?.ambassadors?.length !== 0 &&
+                    <CircleAmbassadors circles={data || []} navigation={navigation} />
+                }
+                {currentWork && isGlobalCircle &&
                     <ClimateWins navigation={navigation} currentWork={currentWork} />
-                } 
-     <CircleAmbassadors navigation={navigation} /> 
-<EveryCliamteRoleKey /> 
-                 <SupportComponent /> 
+                }
+                     <SubscribeBlock />
+                {isGlobalCircle &&
+                    <EveryCliamteRoleKey />}
+                <SupportComponent />
+                <Box h={30} />
                 <Footer />
 
             </ScrollView  >

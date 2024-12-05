@@ -1,17 +1,31 @@
-import React from 'react'
-import { VStack, Text, View, Button } from '@gluestack-ui/themed'
+import React, { useState } from 'react'
+import { VStack, Text, View, Button, HStack } from '@gluestack-ui/themed'
 import { Dimensions, FlatList, Platform } from 'react-native'
 import { Pressable } from '@gluestack-ui/themed'
 import { Image } from 'expo-image'
 import { LinearGradient } from 'expo-linear-gradient';
 import { Box } from '@gluestack-ui/themed'
-import { Ambassador } from '@/Api'
+import { Ambassador, Circle } from '@/Api'
 
 type props = {
-    navigation: any
+    navigation: any,
+    circles: Circle[]
 }
 
-const CircleAmbassadors = ({ navigation }: props) => {
+const CircleAmbassadors = ({ navigation, circles }: props) => {
+
+
+    const [mobilizersList, setMobilizers] = useState<any[]>([]);
+
+
+
+    React.useEffect(() => {
+        setMobilizers(circles?.flatMap(circle => circle.ambassadors));
+    }, [])
+
+
+
+
     return (
         <VStack w='100%' gap={20} >
             <VStack>
@@ -37,7 +51,7 @@ const CircleAmbassadors = ({ navigation }: props) => {
                         contentContainerStyle={{ paddingRight: 10 }}
                         decelerationRate={0.5}
                         keyExtractor={(_, index) => `id_${index}`}
-                        data={[]}
+                        data={mobilizersList}
                         renderItem={({ item }) =>
                             <CircleAmbassadorCard
                                 item={item}
@@ -55,7 +69,7 @@ export default CircleAmbassadors
 
 type props2 = {
     navigation: any,
-    item: Ambassador
+    item: any
 }
 function CircleAmbassadorCard({ navigation, item }: props2) {
     const blurhash =
@@ -86,7 +100,7 @@ function CircleAmbassadorCard({ navigation, item }: props2) {
                     alt=""
                     placeholder={isAndroid ? null : blurhash}
                     style={{ borderRadius: 15, width: "100%", height: imageHeight }}
-                    source={item?.image || { uri: `https://picsum.photos/id/24/400/300` }}
+                    source={item?.avatar || { uri: 'https://assets-global.website-files.com/649ec43fcf25ca83c7cd72f3/653a610b56749aaa6b7ad5b5_Group%20631504.png' }}
                 />
                 <LinearGradient
                     style={{
@@ -108,9 +122,45 @@ function CircleAmbassadorCard({ navigation, item }: props2) {
                     ]}
                 />
             </Pressable>
+            <HStack gap={4} flexWrap='wrap' >
+
+                {item?.country &&
+                    <Box borderRadius={9} borderWidth={2} borderColor='#0202CC' alignSelf='flex-start' p="$2" >
+                        <Text color="#0202CC" fontFamily='nova600'>
+                            {item?.country}
+                        </Text>
+                    </Box>
+                }
+                {item?.tags?.length !== 0 &&
+                    item?.tags?.map((tag: any) =>
+                        tag && <Box
+                            key={tag}
+                            borderRadius={9} borderWidth={2} borderColor='#0202CC' alignSelf='flex-start' p="$2"
+                        >
+                            <Text color="#0202CC" fontFamily='nova600'>
+                                {tag}
+                            </Text>
+                        </Box>
+                    )
+                }
+            </HStack>
             <Text h={50} color="$black" fontSize={20} fontFamily='nova600' >
-                {item?.firstName} {item?.lastName}
+                {item?.firstname} {item?.lastname}
             </Text>
+            {/* 
+            {mobilizer.tags?.length !== 0 &&
+                      mobilizer?.tags?.map((item: any) =>
+                        <div key={item} className="rounded-xl border border-indigo-800 px-3 py-2 text-xs">
+                          {t(`tags.${item}`) || 'Global'}
+
+                        </div>
+                      )
+                    } */}
+
+
+
+
+
             <Pressable onPress={() => { }}>
                 <Text fontSize="$md" fontWeight="$bold" color="#0202CC" textDecorationLine="underline" marginTop="$2">
                     Learn more

@@ -17,7 +17,7 @@ const ClimateWins = ({ navigation, currentWork }: props) => {
 
 
             <VStack>
-                <VStack gap={10} mt='$4' >
+                <VStack gap={10} mt='$4' px="$2">
                     <Text fontWeight={700} fontSize={22} color='$black'>
                         These are the people-powered climate wins that we are creating together.
                     </Text>
