@@ -56,7 +56,7 @@ function AuthStack() {
         name="Register"
         component={Register}
       />
-      
+
     </Stack.Navigator>
   );
 }
@@ -70,7 +70,7 @@ export default function Navigation() {
     'nova600': require("../assets/fonts/ProximaNovaBold.otf"),
     'nova800': require("../assets/fonts/ProximaNovaExtrabold.otf"),
   });
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn,logout } = useAuth();
 
   useEffect(() => {
     const onLayoutRootView = async () => {
@@ -192,7 +192,7 @@ export default function Navigation() {
                   <Button
                     alignSelf="center"
                     onPress={async () => {
-                      await AsyncStorage.removeItem("UserSession");
+                      logout()
                       navigation.navigate("Login");
                     }}
                     h={35}
@@ -256,7 +256,7 @@ export default function Navigation() {
               }}
             />
           }
-          
+
           <Drawer.Screen
             name="About Us"
             component={AboutUs}
@@ -272,14 +272,14 @@ export default function Navigation() {
               drawerItemStyle: { display: "none" },
             }}
           />
-          
+
           <Drawer.Screen
-  name="CircleHomePage"
-  component={CircleHomePage}
-  options={{
-    drawerLabel: "Circle Home Page",
-  }}
-/>
+            name="CircleHomePage"
+            component={CircleHomePage}
+            options={{
+              drawerLabel: "Circle Home Page",
+            }}
+          />
 
           <Drawer.Screen
             name="HelpCenter"

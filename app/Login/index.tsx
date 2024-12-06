@@ -70,7 +70,7 @@ const Login = ({ navigation }: any) => {
           <Pressable
             position='absolute'
             zIndex={100}
-            top={15}
+            top={30}
             left={15}
             onPress={() => {
                 navigation.navigate('Home');

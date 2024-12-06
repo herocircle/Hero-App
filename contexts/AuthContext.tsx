@@ -51,6 +51,8 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
                 setAuthToken(StringifiedUser?.authToken)
                 return StringifiedUser
             }
+            setUserData(null)
+            setAuthToken(null)
             return null
         },
         queryKey: ["UserSession"],
@@ -76,6 +78,11 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
 
     const isLoggedIn = !!userData && !!authToken;
 
+    async function logout() {
+        await AsyncStorage.removeItem("UserSession")
+        resetStates()
+    }
+
     return (
         <AuthContext.Provider
             value={{
@@ -84,7 +91,8 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
                 isLoading,
                 resetStates,
                 isPrivilegedTier,
-                isLoggedIn
+                isLoggedIn,
+                logout
             }}
         >
             {children}

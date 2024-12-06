@@ -1,5 +1,5 @@
 import { AntDesign } from "@expo/vector-icons";
-import { VStack, Button, HStack, ButtonGroup, Text, RadioGroup, Radio, RadioIndicator, RadioIcon, CircleIcon, RadioLabel, ButtonText, Input, InputField, Actionsheet, ActionsheetBackdrop, Box } from "@gluestack-ui/themed";
+import { VStack, Button, HStack, ButtonGroup, Text, ButtonText, Input, InputField, Actionsheet, ActionsheetBackdrop, Box, Pressable } from "@gluestack-ui/themed";
 import React, { useState, useEffect } from "react";
 import { ActivityIndicator, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -14,13 +14,12 @@ import WebView from 'react-native-webview';
 import PlantLogo from "@/public/plantLogo.svg";
 import TreeLogo from "@/public/TreeLogo.svg";
 import EarthLogo from "@/public/earthLogo.svg";
-import { Image } from "expo-image";
 
 type RegisterV2ScreenProp = NativeStackNavigationProp<RootStackParamList, 'RegisterV2'>;
 
 const SubscribeBlock = ({ homepageStatistics }: any) => {
     const [isMonthly, setIsMonthly] = useState(true);
-    const [amount, setAmount] = useState<string>("");
+    const [amount, setAmount] = useState<string>("20");
     const [error, setError] = useState('');
     const { userData } = useAuth()
     const pricing = {
@@ -43,9 +42,9 @@ const SubscribeBlock = ({ homepageStatistics }: any) => {
     };
 
     useEffect(() => {
-        setAmount('');
         setError('');
     }, [isMonthly]);
+
     const navigation = useNavigation<RegisterV2ScreenProp>();
 
     const [SessionLink, setSessionLink] = useState('')
@@ -53,7 +52,7 @@ const SubscribeBlock = ({ homepageStatistics }: any) => {
     const handleOpen = () => SetOpen(true)
     const handleClose = () => SetOpen(false)
 
- 
+
 
     const {
         mutate: createSession,
@@ -77,7 +76,7 @@ const SubscribeBlock = ({ homepageStatistics }: any) => {
             data?.url && handleOpen()
         },
         onError: (error: any) => {
-            
+
             console.log(error?.response?.data?.message, 'error');
         }
     }
@@ -94,7 +93,7 @@ const SubscribeBlock = ({ homepageStatistics }: any) => {
     const disabled = (parseInt(amount) * 100) < (isMonthly ? 600 : 5000);
 
     return (
-        <VStack gap={'$12'} bg="#E5EEFF" py="$12" px="$4">
+        <VStack gap={'$12'} bg="#E5EEFF" py="$12" px="$2">
             <Text fontWeight={"$bold"} fontSize={22} color="$black">
                 Join <Text color="#0202CC" fontWeight={"$bold"} fontSize={22}>{homepageStatistics?.globalCommunity || '1000+'}</Text> Global Supporters and get exclusive access to:
             </Text>
@@ -174,57 +173,109 @@ const SubscribeBlock = ({ homepageStatistics }: any) => {
                 </VStack>
             </ButtonGroup>
 
-            <HStack>
-                <RadioGroup value={amount} onChange={setAmount}>
-                    <HStack space="sm" w='100%' alignItems='center' justifyContent='space-between'>
-                        <VStack gap={5} alignSelf='center' alignItems='center'>
-                            <PlantLogo width={120} height={50} />
-                            <Text fontWeight={"$semibold"} fontSize={20} color="$black">
-                                ${currentPricing.starter}
-                            </Text>
-                            <Radio
-                                value={isMonthly ? '6' : '50'}>
-                                <RadioIndicator mr="$2">
-                                    <RadioIcon as={CircleIcon} />
-                                </RadioIndicator>
-                                <RadioLabel fontSize={18} color="$black">Starter</RadioLabel>
-                            </Radio>
-                        </VStack>
+            <HStack space="sm" w='100%' alignItems='center' justifyContent='space-evenly'>
+                <Pressable
+                    flex={1}
+                    onPress={() => {
+                        setAmount(isMonthly ? '6' : '50');
+                    }}
+                >
+                    <VStack
+                        borderWidth={2}
+                        flex={1}
+                        px={2}
+                        bg="#F6F6F6"
+                        h={230}
+                        rounded="$2xl"
+                        borderColor={parseInt(amount) === (isMonthly ? 6 : 50) ? "#0202CC" : "#F6F6F6"}
+                        gap={5} alignSelf='center' justifyContent="center" alignItems='center'>
+                        <PlantLogo width={120} height={50} />
+                        <Text fontWeight={"$semibold"} fontSize={20} color="$black">
+                            ${currentPricing.starter}
+                        </Text>
+                        <Text
+                            underline
+                            fontWeight={600}
+                            fontSize={18} color="$black">
+                            Starter
+                        </Text>
+                        <Text
+                            textAlign="center"
+                            fontSize={14} color="$black">
+                            "Enable a mobilizer to travel to meet a city or government representative."
+                        </Text>
+                    </VStack>
+                </Pressable>
 
-                        <VStack gap={5} alignSelf='center' alignItems='center'>
-                            <TreeLogo width={120} height={50} />
-                            <Text fontWeight={"$semibold"} fontSize={20} color="$black">
-                                ${currentPricing.advocate}
-                            </Text>
-                            <Radio value={isMonthly ? '20' : '100'}>
-                                <RadioIndicator mr="$2">
-                                    <RadioIcon as={CircleIcon} />
-                                </RadioIndicator>
-                                <RadioLabel fontSize={18} color="$black">Advocate</RadioLabel>
-                            </Radio>
-                        </VStack>
 
-                        <VStack gap={5} alignSelf='center' alignItems='center'>
-                            <EarthLogo width={120} height={50} />
-                            <Text fontWeight={"$semibold"} fontSize={20} color="$black">
-                                ${currentPricing.changer}
-                            </Text>
-                            <Radio value={isMonthly ? '50' : '500'}>
-                                <RadioIndicator mr="$2">
-                                    <RadioIcon as={CircleIcon} />
-                                </RadioIndicator>
-                                <RadioLabel fontSize={18} color="$black">Changer</RadioLabel>
-                            </Radio>
-                        </VStack>
-                    </HStack>
-                </RadioGroup>
+                <Pressable flex={1}
+                    onPress={() => {
+                        setAmount(isMonthly ? '20' : '100');
+                    }}
+                >
+                    <VStack
+                        borderWidth={2}
+                        bg="#F6F6F6"
+                        flex={1} px={1}
+                        h={230}
+                        rounded="$2xl"
+                        borderColor={parseInt(amount) === (isMonthly ? 20 : 100) ? "#0202CC" : "#F6F6F6"}
+                        gap={5} alignSelf='center' justifyContent="center" alignItems='center'>
+                        <TreeLogo width={120} height={50} />
+                        <Text fontWeight={"$semibold"} fontSize={20} color="$black">
+                            ${currentPricing.advocate}
+                        </Text>
+                        <Text
+                            underline
+                            fontWeight={600}
+                            fontSize={18} color="$black">
+                            Advocate
+                        </Text>
+                        <Text
+                            textAlign="center"
+                            fontSize={14} color="$black">
+                            "Support a mobilizer in hosting a community climate event."
+                        </Text>
+                    </VStack>
+                </Pressable>
+
+                <Pressable flex={1}
+                    onPress={() => {
+                        setAmount(isMonthly ? '50' : '500');
+                    }}
+                >
+                    <VStack
+                        borderWidth={2}
+                        bg="#F6F6F6"
+                        flex={1} px={2}
+                        h={230}
+                        rounded="$2xl"
+                        borderColor={parseInt(amount) === (isMonthly ? 50 : 500) ? "#0202CC" : "#F6F6F6"}
+                        gap={5} alignSelf='center' justifyContent="center" alignItems='center'>
+                        <EarthLogo width={120} height={50} />
+                        <Text fontWeight={"$semibold"} fontSize={20} color="$black">
+                            ${currentPricing.changer}
+                        </Text>
+                        <Text
+                            underline
+                            fontWeight={600}
+                            fontSize={18} color="$black">
+                            Changer
+                        </Text>
+                        <Text
+                            textAlign="center"
+                            fontSize={14} color="$black">
+                            "Back a mobilizer's attendance to an international climate summit."
+                        </Text>
+                    </VStack>
+                </Pressable>
             </HStack>
 
             <View style={{ backgroundColor: '#D9D9D9', height: 50, borderRadius: 30 }}>
                 <Input bg="#D9D9D9" h="$12" rounded="$2xl">
                     <InputField
                         placeholderTextColor={"$black"}
-                        value={amount}
+                        value={amount === '6' || amount === '20' || amount === '50' || amount === '500' || amount === '100' ? '' : amount}
                         placeholder="Enter a custom amount"
                         onChangeText={handleAmountChange}
                         keyboardType="numeric"
