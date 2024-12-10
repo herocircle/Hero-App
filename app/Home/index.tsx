@@ -14,6 +14,7 @@ import HeroPartners from '@/components/HeroPartners'
 import { useAuth } from '@/contexts/AuthContext'
 import CirclesView from '../CriclesHome'
 import { getStatistics, getStories, getStudies } from '../static-generation-utils/HomeService'
+import VideoComponent from './VideoComponent'
 interface Statistics {
   mobilizers: number;
   supporters: number;
@@ -156,7 +157,7 @@ const Home = () => {
             <SubscribeBlock homepageStatistics={statistics} />
           </Box>
 
-
+<VideoComponent />
           <SupportComponent 
           scrollToSubscribeBlock={scrollToSubscribeBlock}
           />
