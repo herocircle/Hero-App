@@ -13,7 +13,7 @@ type WorkModalProps = {
 
 const WorkModal = ({ isOpen, selectedItem, closeModal }: WorkModalProps) => {
   const [sound, setSound] = React.useState<Audio.Sound | null>(null);
-  const [isPlaying, setIsPlaying] = React.useState(false); 
+  const [isPlaying, setIsPlaying] = React.useState(false);
 
   const playAudio = async (audioUrl: string) => {
     try {
@@ -38,7 +38,10 @@ const WorkModal = ({ isOpen, selectedItem, closeModal }: WorkModalProps) => {
   return (
     <Modal
       isVisible={isOpen}
-      onBackdropPress={closeModal}
+      onBackdropPress={() => {
+        closeModal()
+        stopAudio()
+      }}
       backdropColor="black"
       backdropOpacity={0.4}
       style={{ justifyContent: 'center', alignItems: 'center', margin: 0 }}
@@ -46,7 +49,11 @@ const WorkModal = ({ isOpen, selectedItem, closeModal }: WorkModalProps) => {
       <Box py={70} px={20} bg="$black" minHeight="100%" flex={1} width="100%" alignItems="center">
         <ScrollView contentContainerStyle={{ alignItems: 'center' }}>
           <Box position='relative' minHeight="100%" flex={1} width="100%" alignItems="center">
-            <Pressable onPress={closeModal} style={{ position: 'absolute', right: 20, top: 6, zIndex: 100 }}>
+            <Pressable onPress={() => {
+              closeModal()
+              stopAudio()
+            }}
+              style={{ position: 'absolute', right: 20, top: 6, zIndex: 100 }}>
               <Icon name="close-circle" size={30} color="white" />
             </Pressable>
 

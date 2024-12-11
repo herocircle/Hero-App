@@ -193,7 +193,7 @@ export default function Navigation() {
                     alignSelf="center"
                     onPress={async () => {
                       logout()
-                      navigation.navigate("Login");
+                      navigation.navigate("Home");
                     }}
                     h={35}
                     rounded="$3xl"

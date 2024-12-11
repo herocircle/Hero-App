@@ -15,7 +15,7 @@ const VideoComponent = () => {
                 isOpen={workModalState}
                 selectedItem={{
                     title: "Our Community Manifesto",
-                    audioUrl: "/HERO_Manifesto Audio.mp3",
+                    audioUrl: "https://herocircle.app/HERO_Manifesto Audio.mp3",
                     description: "Welcome to HERO! You are joining a community of forward thinkers, storytellers and doers. We believe in creating new narratives of radical hope combined with meaningful action. We are solution driven, science-based and inclusive. We are learning as we go, we don’t have all the answers, and most likely, we are going to make some mistakes along the way, there is no playbook for this, but our purpose is clear: democratize climate action by empowering citizens from all backgrounds to contribute and back passionate mobilizers with the resources they need to advance climate solutions faster. Every step we take together pushes us all forward. We're grateful to have you here, and it's an honor to stand with you on the right side of history as we shape the future for generations to come.",
                 }}
                 closeModal={() => setWorkModalState(false)}

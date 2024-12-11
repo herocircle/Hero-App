@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import Accordion from "./ReusableAccordion"
 import { Faq } from '@/Api'
 import axios from 'axios'
+import { BaseUrl } from '@/Api/wrapper'
 const FAQ = () => {
     const [faqs, setFaqs] = useState<Faq[]>([]);
     const [loading, setLoading] = useState(true);
@@ -12,11 +13,11 @@ const FAQ = () => {
     useEffect(() => {
         const fetchFAQs = async () => {
             try {
-                const response = await axios.get(`https://api.herocircle.app/faq`);
+                const response = await axios.get(`${BaseUrl}/faq`);
                 const allFaqs = response.data;
                 const filteredFaqs = allFaqs.filter((faq: any) => faq.lang === ('en'));
-
-                setFaqs(filteredFaqs);
+                const sortedFaqs = filteredFaqs.sort((a: any, b: any) => a.index - b.index);
+                setFaqs(sortedFaqs);
             } catch (err) {
                 setError('Failed to fetch FAQs');
             } finally {
