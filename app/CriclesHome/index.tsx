@@ -30,11 +30,12 @@ const CirclesView: React.FC = () => {
       <VStack>
         <VStack gap={10} mt='$4' px="$4">
           <Text fontWeight={700} fontSize={22} color='$black'>
-            Subscribe to Specific Circles
+          Discover HERO Climate Action Circles
+
+
           </Text>
           <Text color='$black'>
-            By choosing to subscribe to specific circles, you directly support groups of mobilizers addressing region-specific climate challenges.
-          </Text>
+          Circles are groups of mobilizers addressing region-specific climate challenges with expert, localised strategies. By subscribing to a Circle, you provide direct support to these mobilisers.          </Text>
         </VStack>
 
         <CirclesCarousel AllCircles={circlesData} />

@@ -26,7 +26,7 @@ const OurImpact = () => {
     ]
 
     return (
-        <VStack gap="$5" py="$16" px="$4" bg='#FAFAFA'>
+        <VStack gap="$5" py="$16" mb={-32} px="$4" bg='#FAFAFA'>
             <Text fontSize={32} fontFamily='nova800' color="$black" textAlign='center' >Our collective impact</Text>
 
             <Image

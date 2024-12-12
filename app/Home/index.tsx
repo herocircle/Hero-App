@@ -111,57 +111,21 @@ const Home = () => {
           </VStack>
           <CirclesView />
 
-          <VStack w="100%" gap={20} px="$4" mt="$4" >
-            <Image
-              source={require("@/assets/images/secondbanner.webp")}
-              style={{ width: "90%", height: 300, objectFit: "contain" }}
-              objectFit="contain"
-              alt=""
-            />
+          <VideoComponent />
 
-            <Text fontWeight={700} fontSize={22} color="$black">
-              Empower the next million mobilizers worldwide with a stable monthly
-              income.
-            </Text>
-
-            <Text color="$black">
-              Through your HERO subscription, you're powering a new kind of
-              economy - one where passionate climate mobilizers are financially
-              supported by the communities they serve, enhancing their ability to
-              enact lasting, grassroots change worldwide.
-            </Text>
-            <Text color="$black">
-              Together, we support people-led solutions, from passing the EU
-              Nature Restoration Law to protect 20% of the EU’s Natural Ecosystems
-              to creating powerful campaigns that mobilize millions to accelerate
-              the global transition to clean energy.{" "}
-            </Text>
-            <Button
-              alignSelf="flex-start"
-              bg="$transparent"
-              marginLeft={-20}
-              marginTop={-10}
-              onPress={scrollToPartnerY}
-
-            >
-              <Text fontWeight={800} color="#0202CC" underline fontSize={14}>
-                Learn more
-              </Text>
-            </Button>
-          </VStack>
-
+          <OurImpact />
           <Box onLayout={(event) => {
             const { y } = event.nativeEvent.layout;
             setSubscribeBlockY(y);
           }}>
             <SubscribeBlock homepageStatistics={statistics} />
           </Box>
-
-<VideoComponent />
-          <SupportComponent 
-          scrollToSubscribeBlock={scrollToSubscribeBlock}
+       
+          <SupportComponent
+            scrollToSubscribeBlock={scrollToSubscribeBlock}
           />
           <VStack>
+             <SubscriptionBreakdown />
             <Box onLayout={(event) => {
               const { y } = event.nativeEvent.layout;
               setSubscribePartnerY(y);
@@ -169,8 +133,7 @@ const Home = () => {
               <HeroPartners />
             </Box>
 
-            <SubscriptionBreakdown />
-            <OurImpact />
+
           </VStack>
           <FAQ />
           <Footer />
