@@ -127,8 +127,14 @@ const CircleHomePage = ({ route, navigation }: props) => {
                     <CircleAmbassadors circles={data || []} navigation={navigation} />
                 }
                 {currentWork && isGlobalCircle &&
-                    <ClimateWins navigation={navigation} currentWork={currentWork} />
+                    <Box onLayout={(event) => {
+                        const { y } = event.nativeEvent.layout;
+                        setSubscribeBlockY(y);
+                    }}>
+                        <ClimateWins navigation={navigation} currentWork={currentWork} />
+                    </Box>
                 }
+                
                 <SubscribeBlock />
 
                 {!isGlobalCircle && !(currentWork?.length === 0) && (
@@ -143,7 +149,8 @@ const CircleHomePage = ({ route, navigation }: props) => {
                 )}
 
                 {isGlobalCircle &&
-                    <EveryCliamteRoleKey />}
+                    <EveryCliamteRoleKey />
+                }
                 <SupportComponent />
                 <Box h={30} />
                 <Footer />
