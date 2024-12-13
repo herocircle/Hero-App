@@ -109,7 +109,7 @@ function CircleMobilizerCard({  item }: props2) {
       <HStack gap={4} flexWrap='wrap' >
 
         {item?.country &&
-          <Box borderRadius={9} borderWidth={2} borderColor='#0202CC' alignSelf='flex-start' p="$2" >
+          <Box borderRadius={9} borderWidth={1} borderColor='#0202CC' alignSelf='flex-start' p="$2" >
             <Text color="#0202CC" fontFamily='nova600'>
               {item?.country}
             </Text>
@@ -119,7 +119,7 @@ function CircleMobilizerCard({  item }: props2) {
           item?.tags?.map((tag: any) =>
             tag && <Box
               key={tag}
-              borderRadius={9} borderWidth={2} borderColor='#0202CC' alignSelf='flex-start' p="$2"
+              borderRadius={9} borderWidth={1} borderColor='#0202CC' alignSelf='flex-start' p="$2"
             >
               <Text color="#0202CC" fontFamily='nova600'>
                 {tag}

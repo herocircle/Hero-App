@@ -3,7 +3,7 @@ import { AXIOS_CONFIG } from '@/Api/wrapper'
 import { Text } from '@gluestack-ui/themed'
 import { View } from '@gluestack-ui/themed'
 import { useQuery } from '@tanstack/react-query'
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import { ScrollView } from 'react-native'
 import FirstHeroBanner from './FirstHeroBanner'
 import SubscribeBlock from '@/components/SubscribeBlock';
@@ -16,6 +16,7 @@ import CircleAmbassadors from './CircleAmbassadors'
 import EveryCliamteRoleKey from './EveryCliamteRoleKey'
 import CircleMobilizers from './Mobilizers'
 import { Box } from '@gluestack-ui/themed'
+import OurWork from './OurWork'
 
 type props = {
     navigation: any,
@@ -73,9 +74,21 @@ const CircleHomePage = ({ route, navigation }: props) => {
 
     const isGlobalCircle = (singleCircle as any)?._id?.toString() === '6397b2c07650f57cfc229e8a';
 
+
+
+
+    const scrollViewRef = useRef<ScrollView>(null);
+    const [subscribeBlockY, setSubscribeBlockY] = useState(0);
+
+    const scrollToOurWorkBlock = () => {
+        scrollViewRef.current?.scrollTo({ y: subscribeBlockY, animated: true });
+    };
+
+
     return (
         <View w='100%' h='100%' pt="$4" bg="$white" >
             <ScrollView
+                ref={scrollViewRef}
                 contentContainerStyle={{ flexGrow: 1, paddingBottom: 60 }}
             >
 
@@ -106,6 +119,7 @@ const CircleHomePage = ({ route, navigation }: props) => {
                         text3={CircleHome?.secondBanner.text3}
                         image={CircleHome?.secondBanner.image}
                         hasCurrentWork={currentWork?.length !== 0}
+                        onPress={() => scrollToOurWorkBlock()}
                     />}
 
                 {
@@ -116,6 +130,18 @@ const CircleHomePage = ({ route, navigation }: props) => {
                     <ClimateWins navigation={navigation} currentWork={currentWork} />
                 }
                 <SubscribeBlock />
+
+                {!isGlobalCircle && !(currentWork?.length === 0) && (
+                    <Box onLayout={(event) => {
+                        const { y } = event.nativeEvent.layout;
+                        setSubscribeBlockY(y);
+                    }}>
+                        <OurWork currentWork={currentWork}
+                            circleHasNoMobilizers={singleCircle?.mobilizers.length === 0}
+                        />
+                    </Box>
+                )}
+
                 {isGlobalCircle &&
                     <EveryCliamteRoleKey />}
                 <SupportComponent />

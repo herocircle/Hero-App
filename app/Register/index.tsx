@@ -393,7 +393,7 @@ const Register = () => {
                 <Box
                   h={26}
                   w={26}
-                  borderWidth={2}
+                  borderWidth={1}
                   borderColor="#0202CC"
                   rounded="$full"
                   justifyContent="center"
@@ -407,7 +407,7 @@ const Register = () => {
                 <Box
                   h={26}
                   w={26}
-                  borderWidth={2}
+                  borderWidth={1}
                   borderColor="#D9D9D9"
                   rounded="$full"
                   justifyContent="center"

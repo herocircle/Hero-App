@@ -181,7 +181,7 @@ const SubscribeBlock = ({ homepageStatistics }: any) => {
                     }}
                 >
                     <VStack
-                        borderWidth={2}
+                        borderWidth={1}
                         flex={1}
                         px={2}
                         bg="#F6F6F6"
@@ -214,7 +214,7 @@ const SubscribeBlock = ({ homepageStatistics }: any) => {
                     }}
                 >
                     <VStack
-                        borderWidth={2}
+                        borderWidth={1}
                         bg="#F6F6F6"
                         flex={1} px={1}
                         h={230}
@@ -245,7 +245,7 @@ const SubscribeBlock = ({ homepageStatistics }: any) => {
                     }}
                 >
                     <VStack
-                        borderWidth={2}
+                        borderWidth={1}
                         bg="#F6F6F6"
                         flex={1} px={2}
                         h={230}

@@ -42,7 +42,7 @@ const SinglePartnerModal = ({ isVisible, onClose, selectedPartner }: any) => {
           <Icon name="close-circle" size={30} color="white" />
         </Pressable>
 
-        <Box borderRadius={75} borderWidth={2} borderColor="white" overflow="hidden" mb={4}>
+        <Box borderRadius={75} borderWidth={1} borderColor="white" overflow="hidden" mb={4}>
           <Image
             source={{ uri: selectedPartner?.avatar || selectedPartner?.image || 'https://via.placeholder.com/150' }}
             style={{ width: 150, height: 150, borderRadius: 75 }}

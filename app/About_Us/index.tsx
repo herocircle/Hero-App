@@ -8,6 +8,7 @@ import FAQSection from '@/components/Circle_Board/FAQ';
 import SubscribeBlock from '@/components/SubscribeBlock';
 import Footer from "@/components/footer";
 import { Dimensions } from 'react-native';
+import FAQ from '@/components/FAQ';
 
 type TeamMember = {
   id: number;
@@ -52,7 +53,7 @@ function AboutUs() {
   const scrollToAndPlayVideo = () => {
 
     scrollViewRef.current?.scrollTo({
-      y:1800,
+      y: 1800,
       animated: true,
     });
 
@@ -232,7 +233,7 @@ function AboutUs() {
           <View style={{ justifyContent: "center", alignItems: "center" }}>
             <Pressable
               onPress={scrollToAndPlayVideo}
-              style={{alignSelf:"flex-start"}}
+              style={{ alignSelf: "flex-start" }}
             >
               <Text
                 style={{
@@ -290,6 +291,7 @@ function AboutUs() {
       </Box>
 
       <FAQSection />
+      <FAQ aboutUsPage={true} />
       <Footer />
     </ScrollView>
   );

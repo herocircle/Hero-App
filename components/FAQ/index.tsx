@@ -5,7 +5,12 @@ import Accordion from "./ReusableAccordion"
 import { Faq } from '@/Api'
 import axios from 'axios'
 import { BaseUrl } from '@/Api/wrapper'
-const FAQ = () => {
+
+type props = {
+    aboutUsPage?: boolean
+}
+
+const FAQ = ({ aboutUsPage }: props) => {
     const [faqs, setFaqs] = useState<Faq[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -47,7 +52,10 @@ const FAQ = () => {
                     fontFamily='nova'
                     lineHeight={18}
                 >
-                    Everything you need to know about HERO and how it works. Do you have additional questions? Feel free to reach out to us at hi@herocircle.app                </Text>
+                    {
+                        aboutUsPage ? "At HERO, we allow you to support climate mobilizers worldwide with a stable income, so that they can accelerate their grassroots campaigns and advocacy. Here’s what you need to know about us and how your support makes a difference." :
+                            "At HERO, we allow you to support climate mobilizers worldwide with a stable income, so that they can accelerate their grassroots campaigns and advocacy. Here’s what you need to know about us and how your support makes a difference. Do you have additional questions? Feel free to reach out to us at hi@herocircle.app"}
+                </Text>
             </VStack>
             {loading && <Text>Loading...</Text>}
             <Accordion questions={faqs} />

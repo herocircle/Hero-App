@@ -79,7 +79,7 @@ function SBImageItem({ item, navigation }: props) {
                         py={2}
                         bg="transparent"
                         borderColor="#0202CC"
-                        borderWidth={2}
+                        borderWidth={1}
                         borderRadius={8}
                         zIndex={6}
                     >

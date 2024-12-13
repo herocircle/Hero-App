@@ -21,9 +21,10 @@ type props = {
     text3: string,
     image: string,
     hasCurrentWork: boolean
+    onPress?: () => void
 }
 
-const SecondHeroBanner = ({ text1, circleHasNoMobilizers, circleName, hasCurrentWork, image, isGlobalCircle,
+const SecondHeroBanner = ({ text1, circleHasNoMobilizers, circleName, hasCurrentWork, image, isGlobalCircle, onPress,
     text2, text3,
 }: props) => {
     return (
@@ -82,7 +83,7 @@ const SecondHeroBanner = ({ text1, circleHasNoMobilizers, circleName, hasCurrent
                     fontWeight={800}
                     color="#0202CC"
                     underline
-
+                    onPress={onPress}
                     fontSize={14}
                 >
                     Learn more
