@@ -15,6 +15,10 @@ import { useAuth } from '@/contexts/AuthContext'
 import CirclesView from '../CriclesHome'
 import { getStatistics, getStories, getStudies } from '../static-generation-utils/HomeService'
 import VideoComponent from './VideoComponent'
+import DynamicImageSlider from './DynamicImageSlider'
+import { useQuery } from '@tanstack/react-query'
+import { SlidersApi } from '@/Api'
+import { AXIOS_CONFIG } from '@/Api/wrapper'
 interface Statistics {
   mobilizers: number;
   supporters: number;
@@ -59,6 +63,29 @@ const Home = () => {
   const scrollToPartnerY = () => {
     scrollViewRef.current?.scrollTo({ y: partnerY, animated: true });
   };
+
+
+  const { data: sliders2 } = useQuery({
+    queryKey: ["slider-2"],
+    queryFn: async () => {
+      const res = await new SlidersApi(AXIOS_CONFIG).findAll();
+      const filtredData = res.data.filter(slider => slider.displayLocation === "home");
+      return filtredData;
+    },
+    staleTime: 3000
+  });
+
+
+
+  const { data: sliders } = useQuery({
+    queryKey: ["slider-1"],
+    queryFn: async () => {
+      const res = await new SlidersApi(AXIOS_CONFIG).findAll();
+      const filtredData = res.data.filter(slider => slider.displayLocation === "home 1");
+      return filtredData;
+    },
+    staleTime: 3000
+  });
 
 
   return (
@@ -113,6 +140,11 @@ const Home = () => {
 
           <VideoComponent />
 
+          <DynamicImageSlider
+            imagesArray={sliders2?.[0]?.entries || []}
+          />
+
+
           <OurImpact />
           <Box onLayout={(event) => {
             const { y } = event.nativeEvent.layout;
@@ -120,12 +152,15 @@ const Home = () => {
           }}>
             <SubscribeBlock homepageStatistics={statistics} />
           </Box>
-       
+
           <SupportComponent
             scrollToSubscribeBlock={scrollToSubscribeBlock}
           />
           <VStack>
-             <SubscriptionBreakdown />
+            <SubscriptionBreakdown />
+            <DynamicImageSlider
+            imagesArray={sliders?.[0]?.entries || []}
+          />
             <Box onLayout={(event) => {
               const { y } = event.nativeEvent.layout;
               setSubscribePartnerY(y);
