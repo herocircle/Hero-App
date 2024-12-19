@@ -1,28 +1,47 @@
-import { VStack, Text, View, Pressable } from '@gluestack-ui/themed'
+import { VStack, Text, View, Pressable, } from '@gluestack-ui/themed'
 import { Dimensions, FlatList, Platform } from 'react-native'
 import React, { useState } from 'react'
 import { CircleWork } from '@/Api'
 import { Image } from 'expo-image'
 import { LinearGradient } from 'expo-linear-gradient'
 import WorkModal from './WorkModal'
+import { Linking } from 'react-native';
 
 type props = {
     navigation: any
     currentWork: CircleWork[]
+    title?: string
+    subTitle?: string
+    showSpotify?: boolean
 }
 
-const ClimateWins = ({ navigation, currentWork }: props) => {
+const ClimateWins = ({ navigation, currentWork, title, subTitle, showSpotify }: props) => {
     return (
-        <VStack w='100%' gap={20} >
+        <VStack w='100%' gap={20} pt={28}>
 
 
             <VStack>
                 <VStack gap={10} mt='$4' px="$2">
                     <Text fontWeight={700} fontSize={22} color='$black'>
-                        These are the people-powered climate wins that we are creating together.
+                        {title ? title : "These are the people-powered climate wins that we are creating together."}
                     </Text>
                     <Text color='$black'>
-                        From initiatives like the Green Deal that impact millions of citizens to the adoption of green public transportation at the city level, mobilizers contribute to creating systemic change.                    </Text>
+                        {subTitle ? subTitle :
+                            "From initiatives like the Green Deal that impact millions of citizens to the adoption of green public transportation at the city level, mobilizers contribute to creating systemic change."}
+                    </Text>
+
+                    {showSpotify &&
+                        <Pressable onPress={() => Linking.openURL(`https://open.spotify.com/show/3OLdPSPIYXHR4wHGNAQG30?si=46ccc7acfde643d3&nd=1&dlsi=749b9052b0f74932`)}>
+                            <Image
+                                source={require('@/assets/images/spotify.png')}
+                                style={{
+                                    width: 130,
+                                    height: 75,
+                                }}
+                                contentFit='contain'
+                                alt=""
+                            />
+                        </Pressable>}
                 </VStack>
 
                 <View
@@ -87,7 +106,7 @@ function CircleWinCard({ navigation, item }: props2) {
     return (
         <VStack
             width={isAndroid ? 250 : 330}
-            mr={isAndroid ? 20: 31}
+            mr={isAndroid ? 20 : 31}
             mt={15}
             gap="$5"
         >

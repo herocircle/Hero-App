@@ -17,8 +17,9 @@ import { getStatistics, getStories, getStudies } from '../static-generation-util
 import VideoComponent from './VideoComponent'
 import DynamicImageSlider from './DynamicImageSlider'
 import { useQuery } from '@tanstack/react-query'
-import { SlidersApi } from '@/Api'
+import { ClimateWinsApi, SlidersApi } from '@/Api'
 import { AXIOS_CONFIG } from '@/Api/wrapper'
+import ClimateWins from '../Circle/ClimateWins'
 interface Statistics {
   mobilizers: number;
   supporters: number;
@@ -28,7 +29,7 @@ interface Statistics {
   globalCommunity: number;
 }
 
-const Home = () => {
+const Home = ({ navigation }: any) => {
   const [statistics, setStatistics] = useState<Statistics | undefined>(undefined);
 
   const [loading, setLoading] = useState(true);
@@ -87,6 +88,13 @@ const Home = () => {
     staleTime: 3000
   });
 
+  const { data: climateWins, isLoading } = useQuery({
+    queryKey: ['get-all-ClimateWinss'],
+    queryFn: async () => {
+      const result: any = await new ClimateWinsApi(AXIOS_CONFIG).getAll();
+      return result?.data?.filter((item: any) => !item.showAsCurrentlyMobilizing)
+    },
+  })
 
   return (
     <View w="100%" pt="$4" bg="$white">
@@ -159,8 +167,8 @@ const Home = () => {
           <VStack>
             <SubscriptionBreakdown />
             <DynamicImageSlider
-            imagesArray={sliders?.[0]?.entries || []}
-          />
+              imagesArray={sliders?.[0]?.entries || []}
+            />
             <Box onLayout={(event) => {
               const { y } = event.nativeEvent.layout;
               setSubscribePartnerY(y);
@@ -168,6 +176,14 @@ const Home = () => {
               <HeroPartners />
             </Box>
 
+
+            <ClimateWins
+              navigation={navigation}
+              currentWork={climateWins}
+              title="Climate Humans | A podcast by HERO The Stories Behind Climate Mobilization "
+              subTitle="Climate Humans lifts the lid on the reality of climate mobilization. Candid chats with the next generation of climate leaders on the actions they’re taking to drive change, and the personal impact this has on them."
+              showSpotify={true}
+            />
 
           </VStack>
           <FAQ />
