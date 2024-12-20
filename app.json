@@ -15,6 +15,9 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.hero.app",
+      "config": {
+        "googleMapsApiKey": "AIzaSyCCHZgwz7CDrEqv3-sJBsYCoN-ioXlUVIs"
+      },
       "runtimeVersion": {
         "policy": "appVersion"
       }
@@ -25,7 +28,12 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.hero.app",
-      "runtimeVersion": "1.0.0"
+      "runtimeVersion": "1.0.0",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyCCHZgwz7CDrEqv3-sJBsYCoN-ioXlUVIs"
+        }
+      }
     },
     "web": {
       "bundler": "metro",
@@ -44,10 +52,16 @@
       }
     },
     "owner": "hero_app",
-    "plugins": ["expo-font"],
+    "plugins": [
+      "expo-font",
+      "expo-router"
+    ],
     "updates": {
       "url": "https://u.expo.dev/29a60c44-bb20-4366-8e76-475acf689173"
     },
-    "platforms": ["ios", "android"]
+    "platforms": [
+      "ios",
+      "android"
+    ]
   }
 }

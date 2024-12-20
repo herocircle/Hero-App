@@ -134,8 +134,7 @@ const CircleHomePage = ({ route, navigation }: props) => {
                         <ClimateWins navigation={navigation} currentWork={currentWork} />
                     </Box>
                 }
-                
-                <SubscribeBlock />
+
 
                 {!isGlobalCircle && !(currentWork?.length === 0) && (
                     <Box onLayout={(event) => {
@@ -147,6 +146,11 @@ const CircleHomePage = ({ route, navigation }: props) => {
                         />
                     </Box>
                 )}
+
+
+                <SubscribeBlock />
+
+
 
                 {isGlobalCircle &&
                     <EveryCliamteRoleKey />

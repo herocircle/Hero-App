@@ -278,6 +278,7 @@ export default function Navigation() {
             component={CircleHomePage}
             options={{
               drawerLabel: "Circle Home Page",
+              drawerItemStyle: { display: "none" },
             }}
           />
 
