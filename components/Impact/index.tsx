@@ -58,7 +58,7 @@ const OurImpact = () => {
                 ))}
             </VStack>
 
-
+{/* 
 
             <View style={styles.container}>
                 <MapView
@@ -66,11 +66,11 @@ const OurImpact = () => {
                     provider={PROVIDER_GOOGLE}
                     customMapStyle={mapStyle}
                     initialRegion={{
-                        latitude: 20, // Centralized latitude for zoomed-out view
-                        longitude: 30, // Centralized longitude for zoomed-out view
-                        latitudeDelta: 50, // Adjust for zoom-out
-                        longitudeDelta: 50,
-                    }}
+                        latitude: 20, // Example center
+                        longitude: 30,
+                        latitudeDelta: 1115, // Adjust for the right zoom level
+                        longitudeDelta: 1115,
+                      }}
                 >
                     {pins.map((pin) => (
                         <Marker
@@ -82,7 +82,7 @@ const OurImpact = () => {
                         />
                     ))}
                 </MapView>
-            </View>
+            </View> */}
         </VStack>
     )
 }
@@ -129,6 +129,7 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
         height: '100%',
+        zIndex: 100
     },
 });
 
