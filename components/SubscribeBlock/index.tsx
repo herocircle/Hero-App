@@ -14,6 +14,7 @@ import WebView from 'react-native-webview';
 import PlantLogo from "@/public/plantLogo.svg";
 import TreeLogo from "@/public/TreeLogo.svg";
 import EarthLogo from "@/public/earthLogo.svg";
+import Testimonials from "./Testmonials";
 
 type RegisterV2ScreenProp = NativeStackNavigationProp<RootStackParamList, 'RegisterV2'>;
 
@@ -97,7 +98,7 @@ const SubscribeBlock = ({ homepageStatistics }: any) => {
             <Text fontWeight={"$bold"} fontSize={22} color="$black">
                 Join <Text color="#0202CC" fontWeight={"$bold"} fontSize={22}>{homepageStatistics?.globalCommunity || '1000+'}</Text> Global Supporters and get exclusive access to:
             </Text>
-
+      
             <Actionsheet isOpen={isOpen} onClose={handleClose}>
                 <ActionsheetBackdrop />
                 <ActionsheetContent minHeight={"80%"} maxHeight="80%" w={'100%'} bg='white'  >
@@ -137,6 +138,7 @@ const SubscribeBlock = ({ homepageStatistics }: any) => {
                         Invitations to HERO <Text color="$black" fontWeight={"$bold"}>Events</Text> with mobilizers, experts, and innovators.
                     </Text>
                 </HStack>
+                <Testimonials />
             </VStack>
 
             <Text textAlign='center' fontWeight={"$extrabold"} color="$black" fontSize={22}>
