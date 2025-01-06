@@ -5,6 +5,7 @@ import { Pressable } from '@gluestack-ui/themed'
 import { Image } from 'expo-image'
 import { LinearGradient } from 'expo-linear-gradient';
 import { Box } from '@gluestack-ui/themed'
+import { SingleMobilizerModal } from './FeaturedMobilizers'
 
 type props = {
   mobilizers: any[]
@@ -14,8 +15,26 @@ const CircleMobilizers = ({ mobilizers }: props) => {
 
   const [selectedMobilizer, setSelectedMobilizer] = useState<any | null>(null);
 
+  const [isVisible, setIsVisible] = useState(false);
+
+  function toggleModal() {
+    setIsVisible(!isVisible);
+  }
+
+  function handleOpenModal(mobilizer: any) {
+    setSelectedMobilizer(mobilizer);
+    toggleModal();
+  }
+
+
+
   return (
     <VStack w='100%' gap={20} >
+      <SingleMobilizerModal
+        selectedMobilizer={selectedMobilizer}
+        isVisible={isVisible}
+        onClose={toggleModal}
+      />
       <VStack>
         <VStack gap={10} mt='$4' px="$4">
           <Text fontWeight={700} fontSize={22} color='$black'>
@@ -41,6 +60,7 @@ const CircleMobilizers = ({ mobilizers }: props) => {
             renderItem={({ item }) =>
               <CircleMobilizerCard
                 item={item}
+                openModal={() => handleOpenModal(item)}
               />
             }
           />
@@ -53,9 +73,10 @@ const CircleMobilizers = ({ mobilizers }: props) => {
 export default CircleMobilizers
 
 type props2 = {
-  item: any
+  item: any,
+  openModal: () => void
 }
-function CircleMobilizerCard({  item }: props2) {
+function CircleMobilizerCard({ item,openModal }: props2) {
   const blurhash =
     '|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[';
 
@@ -132,7 +153,7 @@ function CircleMobilizerCard({  item }: props2) {
         {item?.firstname} {item?.lastname}
       </Text>
 
-      <Pressable onPress={() => { }}>
+      <Pressable onPress={openModal}>
         <Text fontSize="$md" fontWeight="$bold" color="#0202CC" textDecorationLine="underline" marginTop="$2">
           Learn more
         </Text>

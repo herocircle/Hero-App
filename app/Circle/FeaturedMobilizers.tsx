@@ -36,7 +36,6 @@ const FeaturedMobilizers = ({ navigation, mobilizers }: props) => {
     const [selectedMobilizer, setSelectedMobilizer] = useState<any | null>(null);
 
     function handleOpenModal(mobilizer: any) {
-        console.log("CLICLKED")
         setSelectedMobilizer(mobilizer);
         toggleModal();
     }
@@ -227,8 +226,7 @@ function CircleMobilizerCard({ navigation, item, handleOpenModal }: props2) {
 
 
 
-const SingleMobilizerModal = ({ selectedMobilizer, onClose, isVisible }: any) => {
-    console.log(isVisible)
+export const SingleMobilizerModal = ({ selectedMobilizer, onClose, isVisible }: any) => {
     const soundRef = useRef<any | null>(null);
 
     const closeModal = () => {

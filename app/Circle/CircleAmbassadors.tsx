@@ -6,6 +6,7 @@ import { Image } from 'expo-image'
 import { LinearGradient } from 'expo-linear-gradient';
 import { Box } from '@gluestack-ui/themed'
 import { Ambassador, Circle } from '@/Api'
+import { SingleMobilizerModal } from './FeaturedMobilizers'
 
 type props = {
     navigation: any,
@@ -25,9 +26,27 @@ const CircleAmbassadors = ({ navigation, circles }: props) => {
 
 
 
+    const [selectedMobilizer, setSelectedMobilizer] = useState<any | null>(null);
+
+    const [isVisible, setIsVisible] = useState(false);
+
+    function toggleModal() {
+        setIsVisible(!isVisible);
+    }
+
+    function handleOpenModal(mobilizer: any) {
+        setSelectedMobilizer(mobilizer);
+        toggleModal();
+    }
+
 
     return (
-        <VStack w='100%' gap={20} >
+        <VStack w='100%' gap={20} mb="$6" >
+            <SingleMobilizerModal
+                selectedMobilizer={selectedMobilizer}
+                isVisible={isVisible}
+                onClose={toggleModal}
+            />
             <VStack>
                 <VStack gap={10} mt='$4' px="$4">
                     <Text fontWeight={700} fontSize={22} color='$black'>
@@ -56,6 +75,7 @@ const CircleAmbassadors = ({ navigation, circles }: props) => {
                             <CircleAmbassadorCard
                                 item={item}
                                 navigation={navigation}
+                                openModal={() => handleOpenModal(item)}
                             />
                         }
                     />
@@ -69,9 +89,10 @@ export default CircleAmbassadors
 
 type props2 = {
     navigation: any,
-    item: any
+    item: any,
+    openModal: () => void
 }
-function CircleAmbassadorCard({ navigation, item }: props2) {
+function CircleAmbassadorCard({ navigation, item ,openModal}: props2) {
     const blurhash =
         '|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[';
 
@@ -161,7 +182,7 @@ function CircleAmbassadorCard({ navigation, item }: props2) {
 
 
 
-            <Pressable onPress={() => { }}>
+            <Pressable onPress={openModal}>
                 <Text fontSize="$md" fontWeight="$bold" color="#0202CC" textDecorationLine="underline" marginTop="$2">
                     Learn more
                 </Text>

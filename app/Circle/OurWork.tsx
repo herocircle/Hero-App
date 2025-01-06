@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Button, ButtonText, Image, Text, VStack } from '@gluestack-ui/themed';
+import WorkModal from './WorkModal';
 
 
 function OurWork({ currentWork, circleHasNoMobilizers }: any) {
@@ -22,9 +23,14 @@ function OurWork({ currentWork, circleHasNoMobilizers }: any) {
       bg={circleHasNoMobilizers ? '#fff' : '#F9F9F9'}
       py={"$8"}
       px="$4"
-      >
+    >
 
-      {/* <WorkModal selectedItem={selectedItem} closeModal={closeModal} /> */}
+      <WorkModal
+        isOpen={isModalOpen}
+        selectedItem={selectedItem}
+        insideCircle={true}
+        closeModal={closeModal}
+      />
 
       <Text
         textAlign='left'
