@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { View, Text, Image, FlatList, Pressable, HStack, VStack } from '@gluestack-ui/themed';
 import { Dimensions, } from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
 
 type Props = {
     imagesArray: {
@@ -109,7 +110,7 @@ const DynamicImageSlider = ({ imagesArray }: Props) => {
                         justifyContent='center'
                     >
                         <Text fontSize="$xl" fontWeight="bold" color="$gray700">
-                            {'<'}
+                        <AntDesign name="left" size={22} color="black" />
                         </Text>
                     </Pressable>
                 )}
@@ -126,7 +127,7 @@ const DynamicImageSlider = ({ imagesArray }: Props) => {
                         justifyContent='center'
                     >
                         <Text fontSize="$2xl" fontWeight="bold" color="$black">
-                            {'>'}
+                            <AntDesign name="right" size={22} color="black" />
                         </Text>
                     </Pressable>
                 )}

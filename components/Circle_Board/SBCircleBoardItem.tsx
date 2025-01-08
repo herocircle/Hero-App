@@ -15,15 +15,15 @@ function SBCircleBoardItem({ item }: props) {
 
     const isAndroid = Platform.OS !== "ios";
     const screenHeight = Dimensions.get('window').height;
-    const imageHeight = screenHeight * 0.5;
+    const imageHeight = screenHeight * 0.3;
     
     return (
         <Pressable
             style={{ flex: 1 }}
             minWidth={isAndroid ? 340 : 12}
-            mr={isAndroid ? 2 : 0}
+            mr={isAndroid ? 2 : 6}
             minHeight={isAndroid ? 200 : 12}
-            position='relative'
+            position='relative'    bg="#f9f9f9"
             overflow='hidden'
             rounded={15}
         >
@@ -63,7 +63,7 @@ function SBCircleBoardItem({ item }: props) {
                 right={0}
                 bg="#f9f9f9"
                 zIndex={6}
-                height={190}
+                height={200}
             >
                 <Box
                     position="absolute"
@@ -127,6 +127,7 @@ function SBCircleBoardItem({ item }: props) {
                         justifyContent: 'center', 
                         bottom:0,
                         marginHorizontal: 10,
+                        marginBottom:10
                     }}
                 >
                     <Text

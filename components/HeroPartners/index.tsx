@@ -8,6 +8,7 @@ import { Box, HStack, VStack, Text, Select, SelectTrigger, SelectInput, Icon, Se
 import PartnersCarousel from './HeroCarousel';
 import { ChevronDownIcon } from '@gluestack-ui/themed';
 import { SelectDragIndicatorWrapper } from '@gluestack-ui/themed';
+import SkeletonComponent from '../Skeleton';
 
 const PartnerHeader = () => {
   const [partnersData, setPartnersData] = useState<any[]>([]);
@@ -63,9 +64,7 @@ const PartnerHeader = () => {
     }
   }, [selectedTag, partnersData]);
 
-  if (isLoading) {
-    return <Text>Loading...</Text>;
-  }
+  if (isLoading) return <SkeletonComponent height={340} />;
 
   if (error) {
     return <Text>{error}</Text>;
@@ -125,8 +124,8 @@ const PartnerHeader = () => {
         </HStack>
         <Box height="$1" backgroundColor="#000" marginVertical="$4" />
         <TouchableOpacity
-        style={{alignSelf:"flex-end"}}
-        onPress={toggleView}>
+          style={{ alignSelf: "flex-end" }}
+          onPress={toggleView}>
           <Text fontSize="$md" color="#0202CC" textAlign="center" marginVertical="$2" fontWeight="bold">
             {showAllPartners ? 'Show Less Partners' : 'See All Partners'}
           </Text>

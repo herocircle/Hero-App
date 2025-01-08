@@ -132,8 +132,8 @@ const Register = () => {
         <Pressable
             position='absolute'
             zIndex={100}
-            top={15}
-            left={15}
+            top={70}
+            left={20}
             onPress={() => {
                 navigation.navigate('Home');
             }}

@@ -5,6 +5,7 @@ import Accordion from "./ReusableAccordion"
 import { Faq } from '@/Api'
 import axios from 'axios'
 import { BaseUrl } from '@/Api/wrapper'
+import SkeletonComponent from '../Skeleton'
 
 type props = {
     aboutUsPage?: boolean
@@ -57,7 +58,9 @@ const FAQ = ({ aboutUsPage }: props) => {
                             "At HERO, we allow you to support climate mobilizers worldwide with a stable income, so that they can accelerate their grassroots campaigns and advocacy. Here’s what you need to know about us and how your support makes a difference. Do you have additional questions? Feel free to reach out to us at hi@herocircle.app"}
                 </Text>
             </VStack>
-            {loading && <Text>Loading...</Text>}
+            {loading &&
+                <SkeletonComponent height={340} />
+            }
             <Accordion questions={faqs} />
         </View>
     )
