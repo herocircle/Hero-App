@@ -8,7 +8,7 @@
     "scheme": "hero",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/splash2.png",
+      "image": "./assets/images/newLogo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -54,14 +54,18 @@
     "owner": "hero_app",
     "plugins": [
       "expo-font",
-      "expo-router"
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/newLogo.png",
+          "backgroundColor": "#fff"
+        }
+      ]
     ],
     "updates": {
       "url": "https://u.expo.dev/29a60c44-bb20-4366-8e76-475acf689173"
     },
-    "platforms": [
-      "ios",
-      "android"
-    ]
+    "platforms": ["ios", "android"]
   }
 }

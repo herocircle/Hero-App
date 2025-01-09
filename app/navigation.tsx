@@ -3,13 +3,11 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Ionicons } from "@expo/vector-icons";
 import { Button, HStack, Pressable, Text, VStack } from "@gluestack-ui/themed";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   createDrawerNavigator,
   DrawerItemList,
 } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useQueryClient } from "@tanstack/react-query";
 import { useFonts } from "expo-font";
 import * as Notifications from "expo-notifications";
@@ -25,41 +23,15 @@ import PrivacyPolicy from "./Privacy";
 import Profile from "./Profile";
 import Register from "./Register";
 import TermsAndConditions from "./Terms";
-
 import AboutUs from "./About_Us";
-
 import CircleHomePage from "./Circle";
+import Welcome from "./welcome/Welcome";
 
-const Stack = createNativeStackNavigator();
 SplashScreen.preventAutoHideAsync();
 
 const Drawer = createDrawerNavigator();
 
-function AuthStack() {
-  return (
-    <Stack.Navigator
-      initialRouteName="Login"
-      screenOptions={{ animation: "fade" }}
-    >
-      <Stack.Screen
-        options={{ headerShown: false, animation: "fade" }}
-        name="Login"
-        component={Login}
-      />
-      <Stack.Screen
-        options={{ headerShown: false, animation: "fade" }}
-        name="Home"
-        component={Home}
-      />
-      <Stack.Screen
-        options={{ headerShown: false, animation: "fade" }}
-        name="Register"
-        component={Register}
-      />
 
-    </Stack.Navigator>
-  );
-}
 
 export default function Navigation() {
   const queryClient = useQueryClient();
@@ -70,7 +42,7 @@ export default function Navigation() {
     'nova600': require("../assets/fonts/ProximaNovaBold.otf"),
     'nova800': require("../assets/fonts/ProximaNovaExtrabold.otf"),
   });
-  const { isLoggedIn,logout } = useAuth();
+  const { isLoggedIn, logout } = useAuth();
 
   useEffect(() => {
     const onLayoutRootView = async () => {
@@ -93,13 +65,14 @@ export default function Navigation() {
   }, [queryClient]);
 
   const isAndroid = Platform.OS === "android";
+  const { userData, isLoading } = useAuth()
 
 
   return (
-    fontsLoaded ? <NavigationContainer>
+    fontsLoaded && !isLoading ? <NavigationContainer>
       <BottomSheetModalProvider>
         <Drawer.Navigator
-          initialRouteName="Home"
+          initialRouteName={userData ? "Home" : "welcome"}
           drawerContent={(props) => {
             return (
               <VStack h="100%" py={isAndroid ? "$8" : "$16"} justifyContent="space-between">
@@ -272,6 +245,15 @@ export default function Navigation() {
               drawerItemStyle: { display: "none" },
             }}
           />
+          <Drawer.Screen
+            name="welcome"
+            component={Welcome}
+            options={{
+              drawerLabel: "Hero Team",
+              drawerItemStyle: { display: "none" },
+              headerShown: false,
+            }}
+          />
 
           <Drawer.Screen
             name="CircleHomePage"
@@ -325,13 +307,25 @@ export default function Navigation() {
         </Drawer.Navigator>
       </BottomSheetModalProvider>
     </NavigationContainer> :
-      <Text
-        fontSize={30}
-        textAlign="center"
-        mt="auto"
-        mb="auto"
-      >
-        Loading...
-      </Text>
+      <FakeSplashScreen />
+  );
+}
+
+
+
+const FakeSplashScreen = () => {
+  return (
+    <VStack
+      h="100%"
+      w="100%"
+      justifyContent="center"
+      alignItems="center"
+      bg="$white"
+    >
+      <Image
+        source={require("@/assets/images/newLogo.png")}
+        style={{ width: 350, height: 150, objectFit: "contain" }}
+      />
+    </VStack>
   );
 }

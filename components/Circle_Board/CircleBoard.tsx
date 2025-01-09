@@ -1,5 +1,5 @@
 import React, { useState, useEffect, FC } from 'react';
-import { View, Platform, FlatList, Image, TouchableOpacity } from "react-native";
+import { View, Platform, FlatList, Image, TouchableOpacity, Dimensions } from "react-native";
 import { useQuery } from '@tanstack/react-query';
 import { AXIOS_CONFIG } from '@/Api/wrapper';
 import { useNavigation } from "@react-navigation/native";
@@ -36,6 +36,7 @@ const CircleBoardAbout: FC<Props> = ({ showAllMembers }) => {
 
 
     const memberDataLength = memberData?.length || 0;
+    const screenWidth = Dimensions.get('window').width;
     return (
         <View style={{ alignItems: "center", width: "100%" }}>
             {showAllMembers && memberData && memberData.length > 0 ? (
@@ -100,18 +101,21 @@ const CircleBoardAbout: FC<Props> = ({ showAllMembers }) => {
                     showsHorizontalScrollIndicator={false}
                 />
             ) : (
-                <FlatList
-                    key={'list'}
-                    data={memberDataLength >= 10 ? members.slice(0, 10) : members}
-                    horizontal={true}
-                    showsHorizontalScrollIndicator={false}
-                    snapToAlignment={'center'}
-                    pagingEnabled={true}
-                    style={{ padding: 10 }}
-                    contentContainerStyle={{ paddingRight: 10 }}
-                    decelerationRate={0.5}
-                    renderItem={({ item }) => <SBCircleBoardItem item={item} navigation={navigation} />}
-                />
+                <Box w={screenWidth}>
+
+                    <FlatList
+                        key={'list'}
+                        data={memberDataLength >= 10 ? members.slice(0, 10) : members}
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}
+                        snapToAlignment={'center'}
+                        pagingEnabled={true}
+                        style={{ padding: 10 }}
+                        contentContainerStyle={{ paddingRight: 10 }}
+                        decelerationRate={0.5}
+                        renderItem={({ item }) => <SBCircleBoardItem item={item} navigation={navigation} />}
+                    />
+                </Box>
             )}
         </View>
     );

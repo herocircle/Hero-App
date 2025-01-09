@@ -69,8 +69,8 @@ function SBCircleBoardItem({ item }: props) {
                     position="absolute"
                     top={10}
                     left={10}
-                    px={3}
-                    py={2}
+                    px={8}
+                    py={4}
                     bg="transparent"
                     borderColor="#0202CC"
                     borderWidth={1}
@@ -78,7 +78,7 @@ function SBCircleBoardItem({ item }: props) {
                     zIndex={6}
                 > 
                     <Text
-                        fontWeight="$bold"
+                        fontWeight="$semibold"
                         color="#0202CC"
                         fontSize={16}
                     >
@@ -90,7 +90,6 @@ function SBCircleBoardItem({ item }: props) {
                         height: '100%',
                         justifyContent: 'center',
                         paddingHorizontal: 10,
-                        marginTop:"1%",
                     }}
                 >
                     <Text
@@ -131,7 +130,7 @@ function SBCircleBoardItem({ item }: props) {
                     }}
                 >
                     <Text
-                        fontWeight={900}
+                        fontWeight={600}
                         fontSize={18}
                         textDecorationLine='underline'
                         style={{

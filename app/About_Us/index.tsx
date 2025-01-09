@@ -4,7 +4,6 @@ import { Box, Divider, Text, VStack } from '@gluestack-ui/themed';
 import HeroTeamAbout from '@/components/Team_About/HeroTeamAbout';
 import { WebView } from 'react-native-webview';
 import CircleBoardAbout from '@/components/Circle_Board/CircleBoard';
-import FAQSection from '@/components/Circle_Board/FAQ';
 import SubscribeBlock from '@/components/SubscribeBlock';
 import Footer from "@/components/footer";
 import { Dimensions } from 'react-native';
@@ -290,7 +289,6 @@ function AboutUs() {
         <SubscribeBlock />
       </Box>
 
-      <FAQSection />
       <FAQ aboutUsPage={true} />
       <Footer />
     </ScrollView>
