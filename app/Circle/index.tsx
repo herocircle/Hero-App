@@ -84,7 +84,6 @@ const CircleHomePage = ({ route, navigation }: props) => {
         scrollViewRef.current?.scrollTo({ y: subscribeBlockY, animated: true });
     };
 
-
     return (
         <View w='100%' h='100%' pt="$4" bg="$white" >
             <ScrollView
@@ -105,7 +104,7 @@ const CircleHomePage = ({ route, navigation }: props) => {
 
 
                 {isGlobalCircle &&
-                    <FeaturedMobilizers navigation={navigation} mobilizers={singleCircle?.mobilizers || []} />
+                    <FeaturedMobilizers navigation={navigation} circles={data} />
                 }
 
 

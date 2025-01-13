@@ -4,13 +4,13 @@
     "slug": "hero",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/heroic.webp",
     "scheme": "hero",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/images/newLogo.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#fff"
     },
     "ios": {
       "supportsTablet": true,
@@ -24,8 +24,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/images/newLogo.png",
+        "backgroundColor": "#fff"
       },
       "package": "com.hero.app",
       "runtimeVersion": "1.0.0",
