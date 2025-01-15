@@ -17,7 +17,8 @@ const Welcome = ({ navigation }: props) => {
         queryKey: ['pin'],
         queryFn: async () => {
             const response = await new PinsApi(AXIOS_CONFIG).getAll();
-            return response.data;
+            const theFirstThree = response.data.slice(0, 3);
+            return theFirstThree
         }
     });
 

@@ -32,26 +32,8 @@ const WelcomeCarousel = ({ wins }: props) => {
         };
     }, []);
 
-    const items = [
-        {
-            title: "Images And Text,\nTo Be Changed",
-            image: require("@/assets/images/heroic.webp"),
-        },
-        {
-            title: "Images And Text,\nTo Be Changed",
-            image: require("@/assets/images/heroic.webp"),
-        },
-        {
-            title: "Images And Text,\nTo Be Changed",
-            image: require("@/assets/images/heroic.webp"),
-        },
-        {
-            title: "Images And Text,\nTo Be Changed",
-            image: require("@/assets/images/heroic.webp"),
-        },
-    ];
 
-    const [currentIndex, setCurrentIndex] = useState(0);
+
 
     return (
         <VStack
@@ -75,7 +57,6 @@ const WelcomeCarousel = ({ wins }: props) => {
                         item={item}
                         index={index}
                         carouselRef={carouselRef}
-                        setCurrentIndex={setCurrentIndex}
                     />
                 )}
                 loop={true}
@@ -94,7 +75,6 @@ type Props = {
     index?: number;
     item?: any;
     carouselRef?: any;
-    setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const SBItem: React.FC<Props> = (props) => {
@@ -102,7 +82,7 @@ export const SBItem: React.FC<Props> = (props) => {
     const scale = 0.7;
     const PAGE_WIDTH = screenDimensions.width * scale;
 
-    const { index, setCurrentIndex, item, carouselRef, ...animatedViewProps } = props;
+    const { index, item, carouselRef, ...animatedViewProps } = props;
     return (
         <Animated.View
             style={{
@@ -151,7 +131,6 @@ export const SBItem: React.FC<Props> = (props) => {
                             <TouchableOpacity
                                 onPress={() => {
                                     carouselRef.current?.next();
-                                    setCurrentIndex(carouselRef.current.getCurrentIndex());
                                 }}
                                 style={{
                                     backgroundColor: "#fff",
@@ -169,7 +148,6 @@ export const SBItem: React.FC<Props> = (props) => {
                             <TouchableOpacity
                                 onPress={() => {
                                     carouselRef.current?.prev();
-                                    setCurrentIndex(carouselRef.current.getCurrentIndex());
                                 }}
                                 style={{
                                     backgroundColor: "#fff",
