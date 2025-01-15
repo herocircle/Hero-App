@@ -23,7 +23,6 @@ function AboutUs() {
     teamMembers[0]
   );
   const [showAllTeam, setShowAllTeam] = useState(false);
-  const [showAllMembers, setXhowAllMembers] = useState(false);
   const videoRef = useRef<ScrollView>(null);
 
   const handleVideoPlay = () => {
@@ -34,9 +33,7 @@ function AboutUs() {
     setShowAllTeam(!showAllTeam);
   };
 
-  const toggleViewBoard = () => {
-    setXhowAllMembers(!showAllMembers);
-  };
+
   const handleButtonClick = () => {
     Linking.openURL("https://www.youtube.com/embed/X1IGUowJL2o?autoplay=1");
   };
@@ -270,19 +267,8 @@ function AboutUs() {
             sectoral assessments. Applicants need 80% Board approval to join
             the HERO platform.{" "}
           </Text>
-          <TouchableOpacity onPress={toggleViewBoard}>
-            <Text
-              fontSize="$md"
-              color="#0202CC"
-              textAlign="center"
-              marginVertical="$2"
-              fontWeight="bold"
-            >
-              {showAllMembers ? "Show Less Boards" : "See All Boards"}
-            </Text>
-          </TouchableOpacity>
         </TouchableOpacity>
-        <CircleBoardAbout showAllMembers={showAllMembers} />
+        <CircleBoardAbout />
       </VStack>
       <Box my="$8">
 

@@ -193,3 +193,4 @@ export * from './video-victory-id-body';
 export * from './create-testimonials-section-dto';
 export * from './testimonials-section';
 export * from './updat-testimonials-section-dto';
+export * from './pin';

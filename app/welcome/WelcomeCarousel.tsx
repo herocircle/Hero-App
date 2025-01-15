@@ -5,8 +5,14 @@ import { interpolate } from "react-native-reanimated";
 import Animated from "react-native-reanimated";
 import { AntDesign } from "@expo/vector-icons";
 import { Box, HStack, VStack, Text } from "@gluestack-ui/themed";
+import { Pin } from "@/Api";
 
-const WelcomeCarousel = () => {
+
+type props = {
+    wins: Pin[]
+}
+
+const WelcomeCarousel = ({ wins }: props) => {
     const screenDimensions = Dimensions.get("screen");
     const scale = 0.7;
     const PAGE_WIDTH = screenDimensions.width * scale;
@@ -62,7 +68,7 @@ const WelcomeCarousel = () => {
                 }}
                 width={PAGE_WIDTH}
                 height={screenDimensions.height * 0.57}
-                data={items}
+                data={wins}
                 renderItem={({ index, item }) => (
                     <SBItem
                         key={index}
@@ -96,9 +102,7 @@ export const SBItem: React.FC<Props> = (props) => {
     const scale = 0.7;
     const PAGE_WIDTH = screenDimensions.width * scale;
 
-    const { index, setCurrentIndex, item, carouselRef, ...animatedViewProps } =
-        props;
-
+    const { index, setCurrentIndex, item, carouselRef, ...animatedViewProps } = props;
     return (
         <Animated.View
             style={{
@@ -116,7 +120,7 @@ export const SBItem: React.FC<Props> = (props) => {
                         width: "100%",
                         height: "100%",
                     }}
-                    source={item?.image}
+                    source={{ uri: item?.image }}
                     resizeMode="cover"
                 />
                 <Box
@@ -141,7 +145,7 @@ export const SBItem: React.FC<Props> = (props) => {
                             color={"white"}
                             fontWeight={"extrabold"}
                         >
-                            {item.title}
+                            {item.name}
                         </Text>
                         <HStack gap="$1">
                             <TouchableOpacity

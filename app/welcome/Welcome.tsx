@@ -4,11 +4,25 @@ import WelcomeCarousel from './WelcomeCarousel'
 import { Box, Button, HStack, VStack } from '@gluestack-ui/themed'
 import { Image } from '@gluestack-ui/themed'
 import { AntDesign } from '@expo/vector-icons'
+import { useQuery } from '@tanstack/react-query'
+import { PinsApi } from '@/Api/apis/pins-api'
+import { AXIOS_CONFIG } from '@/Api/wrapper'
 
 type props = {
     navigation: any
 }
 const Welcome = ({ navigation }: props) => {
+
+    const { data: wins, error, isLoading } = useQuery({
+        queryKey: ['pin'],
+        queryFn: async () => {
+            const response = await new PinsApi(AXIOS_CONFIG).getAll();
+            return response.data;
+        }
+    });
+
+
+
     return (
         <Box
             style={{
@@ -52,7 +66,9 @@ const Welcome = ({ navigation }: props) => {
                     </Text>
                 </VStack>
 
-                <WelcomeCarousel />
+                <WelcomeCarousel
+                    wins={wins || []}
+                />
 
                 <VStack
                     style={{
