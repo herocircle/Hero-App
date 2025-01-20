@@ -6,10 +6,11 @@ import * as AppleAuthentication from 'expo-apple-authentication';
 import { ActivityIndicator, Platform } from 'react-native';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { FrontendLoginResponseDTO, UserAuthApi } from '@/Api';
-import { AXIOS_CONFIG } from '@/Api/wrapper';
+import { AXIOS_CONFIG, BaseUrl } from '@/Api/wrapper';
 import * as Google from "expo-auth-session/providers/google";
 import { googleAuthConfig } from './GoogleFunctions';
 import { Ionicons } from '@expo/vector-icons';
+import axios from 'axios';
 
 const Login = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
@@ -24,6 +25,27 @@ const Login = ({ navigation }: any) => {
     queryClient.invalidateQueries({ queryKey: ['UserSession'] })
     navigation.navigate('Home');
   }
+
+
+  const { mutate: appleLogin, isPending: isAppleLogingin, error: appleError, isError: isAppleError } = useMutation({
+    mutationKey: ['login'],
+    mutationFn: async () => {
+      const credential = await AppleAuthentication.signInAsync({
+        requestedScopes: [
+          AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+          AppleAuthentication.AppleAuthenticationScope.EMAIL,
+        ],
+      })
+      const result = await axios.post(`${BaseUrl}/auth/apple`, { idToken: credential?.user })
+      return result.data
+    },
+    onSuccess,
+    onError: (error: any) => {
+      console.log('error', error)
+    },
+  })
+
+
 
 
   const { mutate: formLogin, isPending, error, isError } = useMutation({
@@ -73,7 +95,7 @@ const Login = ({ navigation }: any) => {
             top={70}
             left={20}
             onPress={() => {
-                navigation.navigate('Home');
+              navigation.navigate('Home');
             }}
           >
             <Ionicons name="arrow-back-circle-outline" size={40} color="black" />
@@ -119,24 +141,9 @@ const Login = ({ navigation }: any) => {
               buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
               cornerRadius={7}
               style={{ width: '100%', height: 44, }}
-              onPress={async () => {
-                try {
-                  const credential = await AppleAuthentication.signInAsync({
-                    requestedScopes: [
-                      AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
-                      AppleAuthentication.AppleAuthenticationScope.EMAIL,
-                    ],
-                  })
-                  // await appleMutate({ user: credential?.user })
-                } catch (e: any) {
-                  if (e?.code === 'ERR_REQUEST_CANCELED') {
-                    // handle that the user canceled the sign-in flow
-                  } else {
-                    // handle other errors
-                  }
-                }
-              }}
-            />}
+              onPress={appleLogin}
+            />
+          }
 
 
           <VStack w="100%" gap={15} mb="$2">
@@ -197,6 +204,12 @@ const Login = ({ navigation }: any) => {
             </Text>
           ) : null}
 
+          {isAppleError ? (
+            <Text color="red" fontWeight={700} >
+              {appleError?.response?.data?.message || 'An error occurred during login'}
+            </Text>
+          ) : null}
+
           <Button
             width="100%" alignSelf="center" onPress={() => {
               if (!email || !password) {
@@ -204,7 +217,7 @@ const Login = ({ navigation }: any) => {
               }
               formLogin()
             }} h={45} rounded="$xl" backgroundColor="#0202CC">
-            {isPending || logingIngWithGoogle ?
+            {isPending || logingIngWithGoogle || isAppleLogingin ?
               <ActivityIndicator />
               :
               <Text fontWeight={600} color="white">

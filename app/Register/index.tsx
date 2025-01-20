@@ -9,7 +9,7 @@ import { AxiosError } from 'axios';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import { ActivityIndicator, Platform } from 'react-native';
 import { FrontendLoginResponseDTO, User, UserAuthApi } from '@/Api';
-import { AXIOS_CONFIG } from '@/Api/wrapper';
+import { AXIOS_CONFIG, BaseUrl } from '@/Api/wrapper';
 import * as Haptics from 'expo-haptics';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Google from "expo-auth-session/providers/google";
@@ -43,6 +43,27 @@ const Register = () => {
     queryClient.invalidateQueries({ queryKey: ["UserSession"] });
     navigation.navigate("Home");
   }
+
+
+
+  const { mutate: appleRegister, isPending: isAppleLogingin, error: appleError, isError: isAppleError } = useMutation({
+    mutationKey: ['login'],
+    mutationFn: async () => {
+      const credential = await AppleAuthentication.signInAsync({
+        requestedScopes: [
+          AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+          AppleAuthentication.AppleAuthenticationScope.EMAIL,
+        ],
+      })
+      const result = await axios.post(`${BaseUrl}/auth/apple`, { idToken: credential?.user })
+      return result.data
+    },
+    onSuccess,
+    onError: (error: any) => {
+      console.log('error', error)
+    },
+  })
+
 
   const {
     mutate: formLogin,
@@ -129,13 +150,13 @@ const Register = () => {
     <Box bg="$white" flex={1}>
       <ScrollView contentContainerStyle={{ flexGrow: 1, paddingBottom: 60 }} keyboardShouldPersistTaps="handled">
         <VStack w="100%" bg="#F2F2F2" mb="$8" maxHeight={400} overflow='hidden' flex={1}>
-        <Pressable
+          <Pressable
             position='absolute'
             zIndex={100}
             top={70}
             left={20}
             onPress={() => {
-                navigation.navigate('Home');
+              navigation.navigate('Home');
             }}
           >
             <Ionicons name="arrow-back-circle-outline" size={40} color="black" />
@@ -204,23 +225,7 @@ const Register = () => {
               }
               cornerRadius={9}
               style={{ width: "100%", height: 44 }}
-              onPress={async () => {
-                try {
-                  const credential = await AppleAuthentication.signInAsync({
-                    requestedScopes: [
-                      AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
-                      AppleAuthentication.AppleAuthenticationScope.EMAIL,
-                    ],
-                  });
-                  // await appleMutate({ user: credential?.user })
-                } catch (e: any) {
-                  if (e?.code === "ERR_REQUEST_CANCELED") {
-                    // handle that the user canceled the sign-in flow
-                  } else {
-                    // handle other errors
-                  }
-                }
-              }}
+              onPress={appleRegister}
             />
           }
 
@@ -352,6 +357,19 @@ const Register = () => {
             </Text>
           )}
 
+          {gmailError && (
+            <Text fontFamily="nova" fontSize={12} color="$red500">
+              {gmailError?.response?.data?.message}
+            </Text>
+          )}
+
+          {isAppleError && (
+            <Text fontFamily="nova" fontSize={12} color="$red500">
+              {appleError?.response?.data?.message}
+            </Text>
+          )}
+
+
           <Button
             width="100%"
             onPress={() => {
@@ -364,7 +382,7 @@ const Register = () => {
             rounded="$xl"
             backgroundColor="#0202CC"
           >
-            {isPending || isRegsitereing || registeringWithGamail ? (
+            {isPending || isRegsitereing || registeringWithGamail || isAppleLogingin ? (
               <ActivityIndicator />
             ) : (
               <Text fontWeight={600} color="white">
