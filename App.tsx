@@ -1,5 +1,3 @@
-import "react-native-gesture-handler";
-import "react-native-url-polyfill/auto";
 import { config } from "@gluestack-ui/config";
 import { GluestackUIProvider } from "@gluestack-ui/themed";
 import {
@@ -8,18 +6,20 @@ import {
   focusManager,
 } from "@tanstack/react-query";
 import * as Notifications from "expo-notifications";
-import { I18nManager, LogBox, Platform, Text, TextInput } from "react-native";
+import { I18nManager, Platform, Text, TextInput } from "react-native";
+import "react-native-gesture-handler";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Toast from "react-native-toast-message";
-import { useAppState } from "./hooks/useAppState";
+import "react-native-url-polyfill/auto";
 import Navigation from "./app/navigation";
-import { useOnlineManager } from "./hooks/useOnlineManager";
 import AuthContextProvider from "./contexts/AuthContext";
+import { useAppState } from "./hooks/useAppState";
+import { useOnlineManager } from "./hooks/useOnlineManager";
 
-LogBox.ignoreLogs([
-  "Non-serializable values were found in the navigation state",
-]);
+// LogBox.ignoreLogs([
+//   "Non-serializable values were found in the navigation state",
+// ]);
 interface TextWithDefaultProps extends Text {
   defaultProps?: { allowFontScaling?: boolean };
 }
@@ -57,6 +57,8 @@ export default function App() {
 
   useAppState(onAppStateChange);
 
+  console.log("App is running");
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <QueryClientProvider client={queryClient}>
@@ -64,7 +66,7 @@ export default function App() {
           <GluestackUIProvider config={config}>
             <GestureHandlerRootView style={{ flex: 1 }}>
               <Navigation />
-              <Toast  />
+              <Toast />
             </GestureHandlerRootView>
           </GluestackUIProvider>
         </AuthContextProvider>
