@@ -1,25 +1,21 @@
-import CirclesCarousel from '../../components/CirclesCarousel/CirclesCarousel'
-import { AntDesign } from '@expo/vector-icons'
-import { InputField, styled } from '@gluestack-ui/themed'
-import { Box, Button, HStack, Text, View, VStack, Image, ButtonGroup, ButtonText, RadioGroup, Radio, RadioIcon, RadioIndicator, CircleIcon, RadioLabel, Input } from '@gluestack-ui/themed'
-import React, { useEffect, useRef, useState } from 'react'
-import { Animated, ScrollView } from 'react-native'
-import SubscribeBlock from '../../components/SubscribeBlock'
-import SupportComponent from '@/components/Support_metter'
-import SubscriptionBreakdown from '@/components/SubscriptionBreakdown'
-import Footer from '@/components/footer'
-import FAQ from '@/components/FAQ'
-import OurImpact from '@/components/Impact'
-import HeroPartners from '@/components/HeroPartners'
-import { useAuth } from '@/contexts/AuthContext'
-import CirclesView from '../CriclesHome'
-import { getStatistics, getStories, getStudies } from '../static-generation-utils/HomeService'
-import VideoComponent from './VideoComponent'
-import DynamicImageSlider from './DynamicImageSlider'
-import { useQuery } from '@tanstack/react-query'
 import { ClimateWinsApi, SlidersApi } from '@/Api'
 import { AXIOS_CONFIG } from '@/Api/wrapper'
+import FAQ from '@/components/FAQ'
+import HeroPartners from '@/components/HeroPartners'
+import OurImpact from '@/components/Impact'
+import SubscriptionBreakdown from '@/components/SubscriptionBreakdown'
+import SupportComponent from '@/components/Support_metter'
+import Footer from '@/components/footer'
+import { Box, Button, HStack, Image, Text, View, VStack } from '@gluestack-ui/themed'
+import { useQuery } from '@tanstack/react-query'
+import React, { useEffect, useRef, useState } from 'react'
+import { ScrollView } from 'react-native'
+import SubscribeBlock from '../../components/SubscribeBlock'
 import ClimateWins from '../Circle/ClimateWins'
+import CirclesView from '../CriclesHome'
+import { getStatistics } from '../static-generation-utils/HomeService'
+import DynamicImageSlider from './DynamicImageSlider'
+import VideoComponent from './VideoComponent'
 interface Statistics {
   mobilizers: number;
   supporters: number;
@@ -54,6 +50,9 @@ const Home = ({ navigation }: any) => {
 
     fetchData();
   }, []);
+
+  console.log("Home is running");
+
   const scrollViewRef = useRef<ScrollView>(null);
   const [subscribeBlockY, setSubscribeBlockY] = useState(0);
   const [partnerY, setSubscribePartnerY] = useState(0);
